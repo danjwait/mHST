@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_A9fbAGHNEeuifID3b0Z55Q" type="PapyrusUMLClassDiagram" name="L1_projectDiagram" measurementUnit="Pixel">
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_A9fbAWHNEeuifID3b0Z55Q" name="diagram_compatibility_version" stringValue="1.4.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_A9fbAmHNEeuifID3b0Z55Q"/>
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_A9gCEGHNEeuifID3b0Z55Q" diagramKindId="org.eclipse.papyrus.sysml14.diagram.package">
+    <owner xmi:type="uml:Model" href="miniHubbleSysML.uml#_my7LkGHMEeuifID3b0Z55Q"/>
+  </styles>
+  <styles xmi:type="notation:BooleanValueStyle" xmi:id="_q55ykGHNEeuifID3b0Z55Q" name="rulergrid.viewgrid"/>
+  <element xmi:type="uml:Model" href="miniHubbleSysML.uml#_my7LkGHMEeuifID3b0Z55Q"/>
+</notation:Diagram>
