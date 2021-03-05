@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Blocks="http://www.eclipse.org/papyrus/sysml/1.4/SysML/Blocks" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/sysml/1.4/SysML/Blocks http://www.eclipse.org/papyrus/sysml/1.4/SysML#//blocks">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Blocks="http://www.eclipse.org/papyrus/sysml/1.4/SysML/Blocks" xmlns:ModelElements="http://www.eclipse.org/papyrus/sysml/1.4/SysML/ModelElements" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/sysml/1.4/SysML/Blocks http://www.eclipse.org/papyrus/sysml/1.4/SysML#//blocks http://www.eclipse.org/papyrus/sysml/1.4/SysML/ModelElements http://www.eclipse.org/papyrus/sysml/1.4/SysML#//modelelements">
   <uml:Model xmi:id="_my7LkGHMEeuifID3b0Z55Q" name="miniHubbleSysML">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_m-Y0sGHMEeuifID3b0Z55Q">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -10,7 +10,19 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_C9byIGHQEeuifID3b0Z55Q" name="L1">
       <packagedElement xmi:type="uml:Package" xmi:id="_HBxKQGHQEeuifID3b0Z55Q" name="Behaviors"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_JhCpEGHQEeuifID3b0Z55Q" name="Structure">
-        <packagedElement xmi:type="uml:Class" xmi:id="_BZQNIGHREeuifID3b0Z55Q" name="miniHubble">
+        <packagedElement xmi:type="uml:Class" xmi:id="_BZQNIGHREeuifID3b0Z55Q" name="miniHubble" useCase="_D9XyoH1PEeufBq7vHxccAA _HHiBgH1PEeufBq7vHxccAA _OV_zUH1PEeufBq7vHxccAA _RL4bUH1PEeufBq7vHxccAA _TE_SAH1PEeufBq7vHxccAA _XWTWMH1PEeufBq7vHxccAA">
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_D9XyoH1PEeufBq7vHxccAA" name="acquireImage" subject="_BZQNIGHREeuifID3b0Z55Q">
+            <include xmi:type="uml:Include" xmi:id="_KqLo4H1PEeufBq7vHxccAA" addition="_HHiBgH1PEeufBq7vHxccAA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_HHiBgH1PEeufBq7vHxccAA" name="pointAtTarget" subject="_BZQNIGHREeuifID3b0Z55Q"/>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_OV_zUH1PEeufBq7vHxccAA" name="testNewIdea" subject="_BZQNIGHREeuifID3b0Z55Q"/>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_RL4bUH1PEeufBq7vHxccAA" name="testNewHardware" subject="_BZQNIGHREeuifID3b0Z55Q">
+            <generalization xmi:type="uml:Generalization" xmi:id="_byAsgH1PEeufBq7vHxccAA" general="_OV_zUH1PEeufBq7vHxccAA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_TE_SAH1PEeufBq7vHxccAA" name="testNewSoftware" subject="_BZQNIGHREeuifID3b0Z55Q">
+            <generalization xmi:type="uml:Generalization" xmi:id="_bICicH1PEeufBq7vHxccAA" general="_OV_zUH1PEeufBq7vHxccAA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_XWTWMH1PEeufBq7vHxccAA" name="supportClassDiscussion" subject="_BZQNIGHREeuifID3b0Z55Q"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_5l03oGHREeuifID3b0Z55Q" name="telescope" type="_UJL3AGHREeuifID3b0Z55Q" aggregation="composite" association="_5lzpgGHREeuifID3b0Z55Q">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5l03oWHREeuifID3b0Z55Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5l1esGHREeuifID3b0Z55Q" value="1"/>
@@ -43,7 +55,13 @@
         <packagedElement xmi:type="uml:Class" xmi:id="_X_O7gGHREeuifID3b0Z55Q" name="computer"/>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_QHnUcGHQEeuifID3b0Z55Q" name="External"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_QHnUcGHQEeuifID3b0Z55Q" name="External">
+      <packagedElement xmi:type="uml:Actor" xmi:id="_CbYQ4H1OEeufBq7vHxccAA" name="Student"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_KmIEwH1OEeufBq7vHxccAA" name="Instructor"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_P3YjAH1OEeufBq7vHxccAA" name="Observer"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WjmjYH1OEeufBq7vHxccAA" name="Space Awareness Network"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eQAOYH1OEeufBq7vHxccAA"/>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_m4N7QGHMEeuifID3b0Z55Q">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_m4UB4GHMEeuifID3b0Z55Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.4/SysML#/"/>
@@ -108,4 +126,9 @@
   <Blocks:Block xmi:id="_BZhS4GHREeuifID3b0Z55Q" base_Class="_BZQNIGHREeuifID3b0Z55Q"/>
   <Blocks:Block xmi:id="_UJR9oGHREeuifID3b0Z55Q" base_Class="_UJL3AGHREeuifID3b0Z55Q"/>
   <Blocks:Block xmi:id="_X_VCIGHREeuifID3b0Z55Q" base_Class="_X_O7gGHREeuifID3b0Z55Q"/>
+  <ModelElements:Stakeholder xmi:id="_Cbx5gH1OEeufBq7vHxccAA" base_Classifier="_CbYQ4H1OEeufBq7vHxccAA"/>
+  <ModelElements:Stakeholder xmi:id="_KmOLYH1OEeufBq7vHxccAA" base_Classifier="_KmIEwH1OEeufBq7vHxccAA"/>
+  <ModelElements:Stakeholder xmi:id="_P3f3wH1OEeufBq7vHxccAA" base_Classifier="_P3YjAH1OEeufBq7vHxccAA"/>
+  <ModelElements:Stakeholder xmi:id="_WjxigH1OEeufBq7vHxccAA" base_Classifier="_WjmjYH1OEeufBq7vHxccAA"/>
+  <Blocks:Block xmi:id="_eQFG4H1OEeufBq7vHxccAA" base_Class="_eQAOYH1OEeufBq7vHxccAA"/>
 </xmi:XMI>
