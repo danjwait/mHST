@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Blocks="http://www.eclipse.org/papyrus/sysml/1.6/SysML/Blocks" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/sysml/1.6/SysML/Blocks http://www.eclipse.org/papyrus/sysml/1.6/SysML#//blocks">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Blocks="http://www.eclipse.org/papyrus/sysml/1.6/SysML/Blocks" xmlns:ModelElements="http://www.eclipse.org/papyrus/sysml/1.6/SysML/ModelElements" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/papyrus/sysml/1.6/SysML/Blocks http://www.eclipse.org/papyrus/sysml/1.6/SysML#//blocks http://www.eclipse.org/papyrus/sysml/1.6/SysML/ModelElements http://www.eclipse.org/papyrus/sysml/1.6/SysML#//modelelements">
   <uml:Model xmi:id="_ZYe2wCS7EeyUo9sI7RyG2Q" name="miniHubble">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_Zcnv4CS7EeyUo9sI7RyG2Q">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -11,7 +11,12 @@
       <packagedElement xmi:type="uml:Package" xmi:id="_EGtFwCS8EeyUo9sI7RyG2Q" name="L1_Behaviors"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_GzKsACS8EeyUo9sI7RyG2Q" name="L1_Requirements"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_I89DACS8EeyUo9sI7RyG2Q" name="L1_Structure">
-        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble">
+        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble" useCase="_FYQncCVwEeyATbkKDVZeCA _iv-oACVzEeyATbkKDVZeCA _vn4HgCVzEeyATbkKDVZeCA">
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_FYQncCVwEeyATbkKDVZeCA" name="test new idea" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_qI0d0CVzEeyATbkKDVZeCA" name="ExtensionPoint1"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_iv-oACVzEeyATbkKDVZeCA" name="test new software" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_vn4HgCVzEeyATbkKDVZeCA" name="teach about spacecraft" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_AcNfEyS-EeyUo9sI7RyG2Q" name="telescope" type="_H9yPkCS9EeyUo9sI7RyG2Q" aggregation="composite" association="_AcNfECS-EeyUo9sI7RyG2Q">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AcOGICS-EeyUo9sI7RyG2Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AcOGISS-EeyUo9sI7RyG2Q" value="1"/>
@@ -34,8 +39,15 @@
       <packagedElement xmi:type="uml:Package" xmi:id="_iK1dMCS7EeyUo9sI7RyG2Q" name="L2_FS">
         <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="telescope"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_udXT4CS9EeyUo9sI7RyG2Q" name="groundSystem"/>
-      <packagedElement xmi:type="uml:Package" xmi:id="_ktgOQCS7EeyUo9sI7RyG2Q" name="L2_GS"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_ktgOQCS7EeyUo9sI7RyG2Q" name="L2_GS">
+        <packagedElement xmi:type="uml:Class" xmi:id="_udXT4CS9EeyUo9sI7RyG2Q" name="groundSystem"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_axX6ECVwEeyATbkKDVZeCA" name="External">
+      <packagedElement xmi:type="uml:Actor" xmi:id="_uwTtsCVwEeyATbkKDVZeCA" name="Instructor"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_rJIWMCVxEeyATbkKDVZeCA" name="Student"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_uRNhcCVxEeyATbkKDVZeCA" name="Observer"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_4McbgCVxEeyATbkKDVZeCA" name="Space Awareness"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_ZaRmgCS7EeyUo9sI7RyG2Q">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZaVQ4CS7EeyUo9sI7RyG2Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -101,4 +113,8 @@
   <Blocks:Block xmi:id="_hfjPECS8EeyUo9sI7RyG2Q" base_Class="_hfbTQCS8EeyUo9sI7RyG2Q"/>
   <Blocks:Block xmi:id="_H93IECS9EeyUo9sI7RyG2Q" base_Class="_H9yPkCS9EeyUo9sI7RyG2Q"/>
   <Blocks:Block xmi:id="_udZwICS9EeyUo9sI7RyG2Q" base_Class="_udXT4CS9EeyUo9sI7RyG2Q"/>
+  <ModelElements:Stakeholder xmi:id="_uwhwICVwEeyATbkKDVZeCA" base_Classifier="_uwTtsCVwEeyATbkKDVZeCA"/>
+  <ModelElements:Stakeholder xmi:id="_rJQSACVxEeyATbkKDVZeCA" base_Classifier="_rJIWMCVxEeyATbkKDVZeCA"/>
+  <ModelElements:Stakeholder xmi:id="_uRTBACVxEeyATbkKDVZeCA" base_Classifier="_uRNhcCVxEeyATbkKDVZeCA"/>
+  <ModelElements:Stakeholder xmi:id="_4MkXUCVxEeyATbkKDVZeCA" base_Classifier="_4McbgCVxEeyATbkKDVZeCA"/>
 </xmi:XMI>
