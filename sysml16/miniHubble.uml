@@ -8,15 +8,33 @@
       <importedPackage xmi:type="uml:Package" href="pathmap://SysML16_LIBRARIES/SysML-Standard-Library.uml#SysML.package_packagedElement_Libraries"/>
     </packageImport>
     <packagedElement xmi:type="uml:Package" xmi:id="_f9rpICS7EeyUo9sI7RyG2Q" name="L1">
-      <packagedElement xmi:type="uml:Package" xmi:id="_EGtFwCS8EeyUo9sI7RyG2Q" name="L1_Behaviors"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_EGtFwCS8EeyUo9sI7RyG2Q" name="L1_Behaviors">
+        <packagedElement xmi:type="uml:Association" xmi:id="_pRyE4FIlEey5Wbjd6xZ57Q" visibility="protected" memberEnd="_pSAHUFIlEey5Wbjd6xZ57Q _pSBVcFIlEey5Wbjd6xZ57Q">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pR9rEFIlEey5Wbjd6xZ57Q" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pR-5MFIlEey5Wbjd6xZ57Q" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_pSAHUFIlEey5Wbjd6xZ57Q" name="teach about spacecraft" type="_vn4HgCVzEeyATbkKDVZeCA" association="_pRyE4FIlEey5Wbjd6xZ57Q"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_pSBVcFIlEey5Wbjd6xZ57Q" name="instructor" type="_uwTtsCVwEeyATbkKDVZeCA" association="_pRyE4FIlEey5Wbjd6xZ57Q"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_xi0uAFIlEey5Wbjd6xZ57Q" memberEnd="_xi18IFIlEey5Wbjd6xZ57Q _xi18IVIlEey5Wbjd6xZ57Q">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_xi1VEFIlEey5Wbjd6xZ57Q" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_xi1VEVIlEey5Wbjd6xZ57Q" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_xi18IFIlEey5Wbjd6xZ57Q" name="test new idea" type="_FYQncCVwEeyATbkKDVZeCA" association="_xi0uAFIlEey5Wbjd6xZ57Q"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_xi18IVIlEey5Wbjd6xZ57Q" name="student" type="_rJIWMCVxEeyATbkKDVZeCA" association="_xi0uAFIlEey5Wbjd6xZ57Q"/>
+        </packagedElement>
+      </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_GzKsACS8EeyUo9sI7RyG2Q" name="L1_Requirements"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_I89DACS8EeyUo9sI7RyG2Q" name="L1_Structure">
-        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble" useCase="_FYQncCVwEeyATbkKDVZeCA _iv-oACVzEeyATbkKDVZeCA _vn4HgCVzEeyATbkKDVZeCA">
+        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble" useCase="_FYQncCVwEeyATbkKDVZeCA _iv-oACVzEeyATbkKDVZeCA _vn4HgCVzEeyATbkKDVZeCA __WxmEFIlEey5Wbjd6xZ57Q">
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="_FYQncCVwEeyATbkKDVZeCA" name="test new idea" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
             <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_qI0d0CVzEeyATbkKDVZeCA" name="ExtensionPoint1"/>
           </ownedUseCase>
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="_iv-oACVzEeyATbkKDVZeCA" name="test new software" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="_vn4HgCVzEeyATbkKDVZeCA" name="teach about spacecraft" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="__WxmEFIlEey5Wbjd6xZ57Q" name="test new hardware" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <generalization xmi:type="uml:Generalization" xmi:id="_Vnl8wFImEey5Wbjd6xZ57Q" general="_FYQncCVwEeyATbkKDVZeCA"/>
+          </ownedUseCase>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_AcNfEyS-EeyUo9sI7RyG2Q" name="telescope" type="_H9yPkCS9EeyUo9sI7RyG2Q" aggregation="composite" association="_AcNfECS-EeyUo9sI7RyG2Q">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AcOGICS-EeyUo9sI7RyG2Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AcOGISS-EeyUo9sI7RyG2Q" value="1"/>
@@ -35,6 +53,7 @@
           </eAnnotations>
           <ownedEnd xmi:type="uml:Property" xmi:id="_A7BiBSS-EeyUo9sI7RyG2Q" name="minihubble" type="_hfbTQCS8EeyUo9sI7RyG2Q" association="_A7A68CS-EeyUo9sI7RyG2Q"/>
         </packagedElement>
+        <packagedElement xmi:type="uml:Realization" xmi:id="_Q3jVMFImEey5Wbjd6xZ57Q" client="_iv-oACVzEeyATbkKDVZeCA" supplier="_FYQncCVwEeyATbkKDVZeCA"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_iK1dMCS7EeyUo9sI7RyG2Q" name="L2_FS">
         <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="telescope"/>
