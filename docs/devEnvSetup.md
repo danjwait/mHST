@@ -10,6 +10,9 @@ Per the [Microsoft WSL How-To](https://docs.microsoft.com/en-us/windows/wsl/conn
 
 ### KCONFIG USB to Serial
 
+## Eclipse
+
+### Papyrus UML & SysML
 
 ## Zephyr
 
