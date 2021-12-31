@@ -27,8 +27,8 @@ Maybe like [this?](https://devzone.nordicsemi.com/f/nordic-q-a/36986/windows-sub
   - I installed in /opt/ not in ~/opt/ ; note too that the cp command is .rules, not .rule
   - not sure is this is an issue [too](https://github.com/dorssel/usbipd-win/issues/96)
     - seems like it, add this: 
-    `sudo service udev restart
-    sudo udevadm control --reload`   
+    ```sudo service udev restart
+    sudo udevadm control --reload```   
 - Add JLinkExe to $PATH
 
 ## NASA F''
