@@ -1,6 +1,10 @@
 # Updated mHST Development Setup
 Intent is to keep using open-source, supported, edu-friendly, professional-grade and portable software tools and standards for mHST project. 
 
+## Visual Studio Code 
+ - [x] Install MS [VS Code on Windows](https://code.visualstudio.com/) 
+  - Tyring this with its plugins for GitHub and WSL2
+
 ## WSL2 on Windows 11
  - [x] Install WSL2 on Windows 11 per the [Microsoft WSL Docs](https://docs.microsoft.com/en-us/windows/wsl/)
   - There's not really a reason for this vs a Virtual Box & Ubuntu setup, I just tried this this way.
