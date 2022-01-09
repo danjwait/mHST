@@ -63,11 +63,13 @@ Hardware version: V1.00
 - [ ] TODO Something with console out?
 
 ## Eclipse IDE
- - This is primarily for UML and SysML diagramming. There is a PlantUML plugin for VS Code, but I wasn't sure if that was a single-source of truth modeling tool with diagramming built in or just a diagramming tool. I've used Eclipse for other work before, including the Papyrus UML/SysML graphical editors, with a single model. I may also want to use the CDT tools, but I will try the VS Code ones first.
+ - The [Eclipse Integrated Development Environment](https://www.eclipse.org/ide/) (IDE) is primarily for UML and SysML modeling. There is a PlantUML plugin for VS Code, but I wasn't sure if that was a single-source of truth modeling tool with diagramming built in or just a diagramming tool. I've used Eclipse for other work before, including the Papyrus UML/SysML graphical editors, with a single model. I may also want to use the CDT tools, but I will try the VS Code ones first.
  - [ ] TODO Install [Eclipse 2021-21](https://www.eclipse.org/eclipseide/) 
+  - Used the installer approach (per Eclipse recommendation) ; started with the Eclipse IDE for C/C++ Developers package (will add other tools to that) 
+  - Installed in C:\Users\dwait\eclipse
 
 ### Papyrus UML & SysML
- - These are the UML and SysML digramming tools. I have these installed on the Windows OS, not the WSL
+ - These are the UML and SysML modeling & diagramming tools. I have these installed on the Windows OS, not the WSL
  - [ ] TODO Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion)
  - [ ] TODO Install [SysML1.6 plugin](https://marketplace.eclipse.org/content/papyrus-sysml-16) (2.2?)
 
