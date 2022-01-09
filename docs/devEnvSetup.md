@@ -1,20 +1,23 @@
 # Updated mHST Development Setup
-Intent is to keep using open-source, supported, edu-friendly, professional-grade and portable software tools and standards for mHST project. 
+Intent is to keep using open-source (ideally), free (at least), well-supported, edu-friendly, professional-grade and portable software tools and standards for mHST project. This documentation should be for the entire development environment setup.
 
 ## Visual Studio Code 
+ - For editing code & non-SysML/graphical files that is common to Linux and Windows environments.
  - [x] Install MS [VS Code on Windows](https://code.visualstudio.com/) 
-  - Tyring this with its plugins for GitHub and WSL2
+  - Tyring this with its plugins for Python, C/C++, GitHub, and WSL
 
 ## WSL2 on Windows 11
+  - Using Windows Subsystem for Linux (WSL) on a Windows 11 machine. There's not really a reason for this vs a Virtual Box & Ubuntu setup, I just tried this this way. I suppose the VS Code thing works better with this.
  - [x] Install WSL2 on Windows 11 per the [Microsoft WSL Docs](https://docs.microsoft.com/en-us/windows/wsl/)
-  - There's not really a reason for this vs a Virtual Box & Ubuntu setup, I just tried this this way.
 
 ### USBIPD for WSL
+ - This is to enable USB connections with WSL.
  - [x] Install and configure USBIPD for WSL per the [Microsoft WSL How-To](https://docs.microsoft.com/en-us/windows/wsl/connect-usb)
   - As of Dec 20 2021 WSL2 does not natively support USB devices, so use the WSL support in USBIPD
  - [ ] TODO Recently after power cycles of the host the USBIPD server is not restarting ("USBIP Device Host" in Windows Services app) though it looks like it's configured to do so.
 
 ### KCONFIG USB to Serial
+- This was trying to debug why USB through USBIPD wasn't working in WSL. Not sure if this is/will always be needed, but kept here just in case.
 - [x] Edit KCONFIG and rebuild WSL kernel for USB to Serial support
 - Trying to debug my Segger J-Link connection, I tried gettting an Arduino Uno connected to [Arduino IDE 2.0](https://www.arduino.cc/en/software#experimental-software) on WSL to see if I could get that to work (it didn't). Even with USBIPD setup correctly, the Arduino IDE would not detect the Uno plugged in
 - I tried enabling USB to Serial in KCONFIG, and maybe that was part of the solution. I don't remember that alone fixing the issue.
@@ -28,8 +31,8 @@ sudo chmod 766
  - Maybe like [this?](https://devzone.nordicsemi.com/f/nordic-q-a/36986/windows-subsystem-for-linux-wsl---error-there-is-no-debugger-connected-to-the-pc) about the "Microsoft's blog post" part?
 
 ### SEGGER J-Link Seteup
+ - This is because the microcontroller development board I stared working with ([Adafruit Feather nRF52840 Express](https://docs.zephyrproject.org/2.6.0/boards/arm/adafruit_feather_nrf52840/doc/index.html)) for Zephyr uses a Serial Wire Debug (SWD) interface for programming (not USB), so setup Segger J-Link Mini. I may move to a nominal J-Link, but per above trying to demonstate an edu-friendly setup.
 - [x] Install JLink tools per Eclipse CDT [directions](https://eclipse-embed-cdt.github.io/debug/jlink/install/)
-- Turns out the board I wanted to use ([Adafruit Feather nRF52840 Express](https://docs.zephyrproject.org/2.6.0/boards/arm/adafruit_feather_nrf52840/doc/index.html)) needs to be flashed over SWD (?) not USB, so setup Segger J-Link Mini
 - I installed in /opt/ not in ~/opt/ ; note too that the cp command is .rules, not .rule
 - Not sure if this is an issue [too](https://github.com/dorssel/usbipd-win/issues/96)
   - seems like it, add this: 
@@ -38,7 +41,7 @@ sudo chmod 766
   sudo udevadm control --reload
   ```
 - [x] Add /opt/SEGGER/JLink_Linux_V760b_x86_64 to PATH
-- I struggled getting the J-Link Mini to work to start; when JLinkExe would detect the J-Link, it would jump to a firmware flash screen, which kept timinig out. Then JLink Exe wouldn't see the J-Link over USB. Eventually this just worked; I'm not sure why. Now JLinkExe starts up fine and finds the J-Link:
+- I struggled getting the J-Link Mini to work to start; when JLinkExe would detect the J-Link, it would jump to a firmware flash screen, which kept timinig out and failing. Then JLinkExe wouldn't see the J-Link over USB. Eventually this just worked; it looks like the firmware update worked, but I'm not sure why. Now JLinkExe starts up fine and finds the J-Link:
 ```
 $ JLinkExe
 SEGGER J-Link Commander V7.60b (Compiled Dec 22 2021 14:45:57)
@@ -50,6 +53,7 @@ Hardware version: V1.00
 ```
 
 ## Zephyr
+ - This is because the professional end goal will likely want some opertating system (OS) on the embedded system, and potentially some version of real-time (hard or soft). Rather than working through how to create a Linux distribution with the real-time patch, start with the Linux Foundation work on their real-time OS (RTOS), Zephyr. 
  - [x] Install [Zephyr](https://docs.zephyrproject.org/2.6.0/getting_started/index.html) (2.6)
  - The docs "don’t recommend using WSL when getting started" but I didn't really understand why so I tried WSL anyway
 - [ ] [Blinky](https://docs.zephyrproject.org/2.6.0/getting_started/index.html#build-the-blinky-sample)
@@ -59,14 +63,17 @@ Hardware version: V1.00
 - [ ] TODO Something with console out?
 
 ## Eclipse IDE
+ - This is primarily for UML and SysML diagramming. There is a PlantUML plugin for VS Code, but I wasn't sure if that was a single-source of truth modeling tool with diagramming built in or just a diagramming tool. I've used Eclipse for other work before, including the Papyrus UML/SysML graphical editors, with a single model. I may also want to use the CDT tools, but I will try the VS Code ones first.
  - [ ] TODO Install [Eclipse 2021-21](https://www.eclipse.org/eclipseide/) 
- - I want to use Eclipse for its CDT tools, but I may end up using VS Code for that. 
 
 ### Papyrus UML & SysML
+ - These are the UML and SysML digramming tools. I have these installed on the Windows OS, not the WSL
  - [ ] TODO Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion)
  - [ ] TODO Install [SysML1.6 plugin](https://marketplace.eclipse.org/content/papyrus-sysml-16) (2.2?)
 
-## NASA F''
+## NASA [F'](https://nasa.github.io/fprime/) and [F''](https://fprime-community.github.io/fpp/fpp-users-guide.html)
+ - This is the flight software (FSW) application layer component architecture framework tool suite (F') I want to use, with its own editor (F'')
  - [ ] TODO Install [F''](https://github.com/nasa/fprime/releases/tag/v3.0.0) 
- - [ ] TODO Re-run on host demos on WSL with F''
- - [ ] TODO figure out port to 
+ - [ ] TODO Re-run on-host demos on WSL with F''
+ - [ ] TODO Run [cross-compile demo](https://github.com/nasa/fprime/blob/master/RPI/README.md) on Raspberry Pi (RPi) 4 single board computer (SBC). Note the existing demo is for the Raspberry Pi 2 model B
+ - [ ] TODO Try porting F' to Zephyr and the Adafruit nRF52840 Feather. Probably use the [fprime-sphinx](https://github.com/fprime-community/fprime-sphinx) write up as a guide
