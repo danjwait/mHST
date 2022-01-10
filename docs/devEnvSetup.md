@@ -77,7 +77,58 @@ Hardware version: V1.00
 
 ## NASA [F'](https://nasa.github.io/fprime/) and [F''](https://fprime-community.github.io/fpp/fpp-users-guide.html)
  - This is the flight software (FSW) application layer component architecture framework tool suite (F') I want to use, with its own editor (F'')
- - [ ] TODO Install [F''](https://github.com/nasa/fprime/releases/tag/v3.0.0) 
+ - [x] Install F' dependencies; I did this by hand, but in the F' Installation [Troubleshooting](https://nasa.github.io/fprime/INSTALL.html#Troubleshooting) section there is a single commandline version of this
+  - F' requires a JDK; my WSL installation did not have one, checked with `java -version`
+  - [x] Install JDK; I used OpenJDK 17 `sudo apt install openjdk-17-jre-headless`
+  - Now: 
+  ``` 
+  java -version
+  openjdk version "17.0.1" 2021-10-19
+  OpenJDK Runtime Environment (build 17.0.1+12-Ubuntu-120.04)
+  OpenJDK 64-Bit Server VM (build 17.0.1+12-Ubuntu-120.04, mixed mode, sharing)
+  ```
+  - F' requires Cmake 3.5 or newer; downloaded 3.22.1 .sh file from [cmake.org](https://cmake.org/download/)
+  - Installed in /opt/cmake by running the .sh file
+  - added to Path `export PATH=$PATH:/opt/cmake/bin`
+  - checked install:
+  ```
+  /opt/cmake/bin$ cmake --version
+  cmake version 3.22.1
+
+  CMake suite maintained and supported by Kitware (kitware.com/cmake).
+  ```
+   - Note cmake calls out export control; should confirm use is permitted per [Policy Information](https://www.kitware.com/policy/#exportcomplianceinformation) 
+   - F' requires CLang or GCC; GCC was already on my WSL instance, not sure if I installed it or WSL comes with GCC (or via Zephyr install above):
+  ```
+  :~$ which gcc
+  /usr/bin/gcc
+  :~$ gcc --version
+  gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+  Copyright (C) 2019 Free Software Foundation, Inc.
+  This is free software; see the source for copying conditions.  There is NO
+  warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  ```
+   - F' requires Python 3.6 or newer; python was already on my WSL instance, not sure if I installed it or WSL comes with python (or via Zephyr install above):
+  ```
+  :~$ python3 --version
+  Python 3.8.10
+  ```
+  - [x] Install F' per [Installation Guide](https://nasa.github.io/fprime/INSTALL.html) cloning the F´ core repository 
+  - [x] Install F' python-support package
+  - [x] Check installation: 
+  ```
+  cd Ref
+  :~/fprime/Ref$ fprime-util generate
+  ...
+  -- Build files have been written to: /home/.../fprime/Ref/build-fprime-automatic-native
+  
+  :~/fprime/Ref$ fprime-util build --jobs "$(nproc || printf '%s\n' 1)"
+  ...
+  [100%] Built target Ref
+  ```
+  - [x] Test installation:
+  `:~/fprime/Ref$ fprime-gds -g html -r ~/fprime/Ref/build-artifacts/`
+  - Seems to work fine
  - [ ] TODO Re-run on-host demos on WSL with F''
  - [ ] TODO Run [cross-compile demo](https://github.com/nasa/fprime/blob/master/RPI/README.md) on Raspberry Pi (RPi) 4 single board computer (SBC). Note the existing demo is for the Raspberry Pi 2 model B
  - [ ] TODO Try porting F' to Zephyr and the Adafruit nRF52840 Feather. Probably use the [fprime-sphinx](https://github.com/fprime-community/fprime-sphinx) write up as a guide
