@@ -17,6 +17,27 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
 ## WSL2 on Windows 11
   - Using Windows Subsystem for Linux (WSL) on a Windows 11 machine. There's not really a reason for this vs a Virtual Box & Ubuntu setup, I just tried this this way. I suppose the VS Code thing works better with this.
  - [x] Install WSL2 on Windows 11 per the [Microsoft WSL Docs](https://docs.microsoft.com/en-us/windows/wsl/) ; need to reboot here. 
+  - [x] Install a distribution; I tried installing via Windows Terminal (running as Administrator) with `wsl --install` per above. After reboot though I get:
+  ```
+  C:\Users\djwait> wsl
+  Windows Subsystem for Linux has no installed distributions.
+  Distributions can be installed by visiting the Microsoft Store:
+  https://aka.ms/wslstore
+  ```
+  So I installed a distribution from the [Microsoft Store](https://aka.ms/wslstore). Once installed, should see this in Windows terminal:
+   ```
+   C:\Users\djwait> wsl -l -v
+   NAME      STATE           VERSION
+   * Ubuntu    Running         2
+   ```
+   - [x] Setup user in Ubuntu WSL. 
+   - [x] Update and upgrade within WSL:
+   ```
+   sudo apt update
+   sudo apt upgrade
+   ```
+   - [x] Install Firefox (or other browser) within WSL Ubuntu. This is to get the F' gds tool to work. I also configure my browser preferences here. 
+   `sudo apt install firefox`
 
 ### USBIPD for WSL
  - This is to enable USB connections with WSL.
