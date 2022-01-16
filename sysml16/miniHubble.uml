@@ -74,12 +74,22 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Realization" xmi:id="_Q3jVMFImEey5Wbjd6xZ57Q" client="_iv-oACVzEeyATbkKDVZeCA" supplier="_FYQncCVwEeyATbkKDVZeCA"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_iK1dMCS7EeyUo9sI7RyG2Q" name="L2_FS">
-        <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="telescope"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_iK1dMCS7EeyUo9sI7RyG2Q" name="L2_FS">
+      <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="telescope"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_gi9AEHZiEeyOPKrZaIbo8Q" name="FS_Behaviors">
+        <packagedElement xmi:type="uml:StateMachine" xmi:id="_1cjFIHZiEeyOPKrZaIbo8Q" name="telescopeStateMachine">
+          <region xmi:type="uml:Region" xmi:id="_26V40HZiEeyOPKrZaIbo8Q" name="Region1">
+            <subvertex xmi:type="uml:Pseudostate" xmi:id="_8GueIHZiEeyOPKrZaIbo8Q" name="off"/>
+            <subvertex xmi:type="uml:State" xmi:id="_-_WREHZiEeyOPKrZaIbo8Q" name="configure"/>
+          </region>
+        </packagedElement>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_ktgOQCS7EeyUo9sI7RyG2Q" name="L2_GS">
-        <packagedElement xmi:type="uml:Class" xmi:id="_udXT4CS9EeyUo9sI7RyG2Q" name="groundSystem"/>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_i98b0HZiEeyOPKrZaIbo8Q" name="FS_Structure"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_lUjt4HZiEeyOPKrZaIbo8Q" name="FS_Requirements"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_ktgOQCS7EeyUo9sI7RyG2Q" name="L2_GS">
+      <packagedElement xmi:type="uml:Class" xmi:id="_udXT4CS9EeyUo9sI7RyG2Q" name="groundSystem"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_axX6ECVwEeyATbkKDVZeCA" name="External">
       <packagedElement xmi:type="uml:Actor" xmi:id="_uwTtsCVwEeyATbkKDVZeCA" name="Instructor"/>

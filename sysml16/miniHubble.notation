@@ -853,4 +853,56 @@
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_1m7UMWjwEeyCz4nASgF2iw" id="(0.014705882352941176,0.8636363636363636)"/>
     </edges>
   </notation:Diagram>
+  <notation:Diagram xmi:id="_26Wf4HZiEeyOPKrZaIbo8Q" type="PapyrusUMLStateMachineDiagram" name="telescopeStateMachine" measurementUnit="Pixel">
+    <children xmi:type="notation:Shape" xmi:id="_26Wf4XZiEeyOPKrZaIbo8Q" type="StateMachine_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_26Wf4nZiEeyOPKrZaIbo8Q" type="StateMachine_NameLabel">
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf43ZiEeyOPKrZaIbo8Q" width="1031" height="25"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_26Wf5HZiEeyOPKrZaIbo8Q" type="StateMachine_RegionCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_26Wf5XZiEeyOPKrZaIbo8Q" type="Region_Shape">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_26Wf5nZiEeyOPKrZaIbo8Q" source="RegionAnnotationKey">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_26Wf53ZiEeyOPKrZaIbo8Q" key="RegionZoneKey" value=""/>
+          </eAnnotations>
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5e3rEHZiEeyOPKrZaIbo8Q" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5e3rEXZiEeyOPKrZaIbo8Q" key="fillColor" value="true"/>
+          </eAnnotations>
+          <children xmi:type="notation:BasicCompartment" xmi:id="_26Wf6HZiEeyOPKrZaIbo8Q" type="Region_SubvertexCompartment">
+            <children xmi:type="notation:Shape" xmi:id="_8GwTUHZiEeyOPKrZaIbo8Q" type="Pseudostate_InitialShape">
+              <children xmi:type="notation:DecorationNode" xmi:id="_8Gw6YHZiEeyOPKrZaIbo8Q" type="Pseudostate_InitialFloatingNameLabel">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_8Gw6YXZiEeyOPKrZaIbo8Q" x="-3" y="-24"/>
+              </children>
+              <children xmi:type="notation:DecorationNode" xmi:id="_8Gw6YnZiEeyOPKrZaIbo8Q" type="Pseudostate_InitialStereotypeLabel">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_8Gw6Y3ZiEeyOPKrZaIbo8Q" x="25" y="-10"/>
+              </children>
+              <element xmi:type="uml:Pseudostate" href="miniHubble.uml#_8GueIHZiEeyOPKrZaIbo8Q"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8GwTUXZiEeyOPKrZaIbo8Q" x="29" y="65"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_-_YGQHZiEeyOPKrZaIbo8Q" type="State_Shape">
+              <children xmi:type="notation:DecorationNode" xmi:id="_-_YGQnZiEeyOPKrZaIbo8Q" type="State_NameLabel"/>
+              <children xmi:type="notation:DecorationNode" xmi:id="_-_YGQ3ZiEeyOPKrZaIbo8Q" type="State_FloatingNameLabel">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-_YGRHZiEeyOPKrZaIbo8Q" x="40"/>
+              </children>
+              <children xmi:type="notation:BasicCompartment" xmi:id="_-_YtUHZiEeyOPKrZaIbo8Q" type="State_RegionCompartment">
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-_YtUXZiEeyOPKrZaIbo8Q"/>
+              </children>
+              <element xmi:type="uml:State" href="miniHubble.uml#_-_WREHZiEeyOPKrZaIbo8Q"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-_YGQXZiEeyOPKrZaIbo8Q" x="89" y="163"/>
+            </children>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf6XZiEeyOPKrZaIbo8Q"/>
+          </children>
+          <element xmi:type="uml:Region" href="miniHubble.uml#_26V40HZiEeyOPKrZaIbo8Q"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf6nZiEeyOPKrZaIbo8Q" width="1031" height="366"/>
+        </children>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf63ZiEeyOPKrZaIbo8Q" y="25" width="1031" height="366"/>
+      </children>
+      <element xmi:type="uml:StateMachine" href="miniHubble.uml#_1cjFIHZiEeyOPKrZaIbo8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf7HZiEeyOPKrZaIbo8Q" x="30" y="30" width="1031" height="391"/>
+    </children>
+    <styles xmi:type="notation:StringValueStyle" xmi:id="_26Wf7XZiEeyOPKrZaIbo8Q" name="diagram_compatibility_version" stringValue="1.4.0"/>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_26Wf7nZiEeyOPKrZaIbo8Q"/>
+    <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_26Wf73ZiEeyOPKrZaIbo8Q" diagramKindId="org.eclipse.papyrus.sysml16.diagram.stateMachine">
+      <owner xmi:type="uml:Package" href="miniHubble.uml#_gi9AEHZiEeyOPKrZaIbo8Q"/>
+    </styles>
+    <element xmi:type="uml:StateMachine" href="miniHubble.uml#_1cjFIHZiEeyOPKrZaIbo8Q"/>
+  </notation:Diagram>
 </xmi:XMI>
