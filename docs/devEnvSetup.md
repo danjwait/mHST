@@ -5,6 +5,12 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
  - For editing code & non-SysML/graphical files that is common to Linux and Windows environments.
  - [x] Install MS [VS Code on Windows](https://code.visualstudio.com/) 
   - Tyring this with its plugins for Python, C/C++, GitHub, and WSL
+  - [x] Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) (if not already installed); I used all the defaults save credential manager
+  - [x] Install Microsoft Visual Studio Code extension for python; includes pylance and jupyter notebook support
+  - [x] Install [python](https://www.python.org/) ; I also disabled path length check
+  - [x] Install Microsoft C/C++ extension for Visual Studio Code 
+  - [x] Install Microsoft Remote - WSL extension for Visual Studio Code 
+  - [x] Install GitHub Pull Requests and Issues extension for Visual Studio Code 
 
 ## WSL2 on Windows 11
   - Using Windows Subsystem for Linux (WSL) on a Windows 11 machine. There's not really a reason for this vs a Virtual Box & Ubuntu setup, I just tried this this way. I suppose the VS Code thing works better with this.
