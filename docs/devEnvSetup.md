@@ -9,7 +9,7 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
   - [x] Install Microsoft Visual Studio Code extension for python; includes pylance and jupyter notebook support
   - [x] Install [python 3](https://www.python.org/) ; I also disabled path length check. This should also install [pip](https://pip.pypa.io/en/stable/), though usually I get a warning about a pip update, so I run that as well. I had to restart to refresh env variables.
    - [x] (not required) I find [numpy](https://numpy.org/install/) a very helpful python package, so I install numpy at this point either through the Windows Terminal or the terminal in VS Code 
-   `C:\Users\djwait> pip install numpy`
+   `C:\Users\userid> pip install numpy`
   - [x] Install Microsoft C/C++ extension for Visual Studio Code 
   - [x] Install Microsoft Remote - WSL extension for Visual Studio Code 
   - [x] Install GitHub Pull Requests and Issues extension for Visual Studio Code 
@@ -19,14 +19,14 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
  - [x] Install WSL2 on Windows 11 per the [Microsoft WSL Docs](https://docs.microsoft.com/en-us/windows/wsl/) ; need to reboot here. 
   - [x] Install a distribution; I tried installing via Windows Terminal (running as Administrator) with `wsl --install` per above. After reboot though I get:
   ```
-  C:\Users\djwait> wsl
+  C:\Users\userid> wsl
   Windows Subsystem for Linux has no installed distributions.
   Distributions can be installed by visiting the Microsoft Store:
   https://aka.ms/wslstore
   ```
   So I installed a distribution from the [Microsoft Store](https://aka.ms/wslstore). Once installed, should see this in Windows terminal:
    ```
-   C:\Users\djwait> wsl -l -v
+   C:\Users\userid> wsl -l -v
    NAME      STATE           VERSION
    * Ubuntu    Running         2
    ```
@@ -38,6 +38,18 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
    ```
    - [x] Install Firefox (or other browser) within WSL Ubuntu. This is to get the F' gds tool to work. I also configure my browser preferences here. 
    `sudo apt install firefox`
+   - [x] Update WSL: 
+  ```
+  C:\Users\userid> wsl --update
+  Checking for updates...
+  Downloading updates...
+  Installing updates...
+  This change will take effect on the next full restart of WSL. To force a restart, please run 'wsl --shutdown'.
+  Kernel version: 5.10.60.1
+  C:\Users\userid> wsl --shutdown
+  ```
+  - [x] Test VS Code WSL plugin; in VS Code, open a terminal and in the right down arrow, select the WSL Ubuntu. Then Ctrl-o to open a file, click the Linux drive, then navigate to \\wsl.localhost\Ubuntu\home\userid and open the .bashrc file. Scroll down to the aliases in the file and add one, then save the file. Exit any WLS instances open, then reopen and try the alias. 
+  
 
 ### USBIPD for WSL
  - This is to enable USB connections with WSL.
@@ -53,8 +65,8 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
 - I also ended up going through the Arduino IDE 1.8.X install script and make sure to add $USER to dialout and tty and I think that solved it. 
 - Along the way I also did this (Not needed?) to get Arduino to work:
 ```
-sudo usermod -a -G tty djwait
-sudo usermod -a -G dialout djwait
+sudo usermod -a -G tty userid
+sudo usermod -a -G dialout userid
 sudo chmod 766
 ```
  - Maybe like [this?](https://devzone.nordicsemi.com/f/nordic-q-a/36986/windows-subsystem-for-linux-wsl---error-there-is-no-debugger-connected-to-the-pc) about the "Microsoft's blog post" part?
@@ -95,14 +107,20 @@ Hardware version: V1.00
  - The [Eclipse Integrated Development Environment](https://www.eclipse.org/ide/) (IDE) is primarily for UML and SysML modeling. There is a PlantUML plugin for VS Code, but I wasn't sure if that was a single-source of truth modeling tool with diagramming built in or just a diagramming tool. I've used Eclipse for other work before, including the Papyrus UML/SysML graphical editors, with a single model. I may also want to use the CDT tools, but I will try the VS Code ones first.
  - [x] Install [Eclipse 2021-21](https://www.eclipse.org/eclipseide/) 
   - Used the installer approach (per Eclipse recommendation) ; started with the Eclipse IDE for C/C++ Developers package (will add other tools to that) 
-  - Installed in C:\Users\dwait\eclipse
+  - Installed on Windows in C:\Users\userid\eclipse
   - Under "Help" tab ran "check for updates" before proceeding
 
 ### Papyrus UML & SysML
- - These are the UML and SysML modeling & diagramming tools. I have these installed on the Windows OS, not the WSL
- - [x] Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion) ; installed via Eclipse IDE, "Help" tab -> "Install New Software..." and then "Work with" the 2021-12 Eclipse site; search for "modeling" -> installed the entire modeling kit (which includes Papyrus UML 6.0.0)
+ - These are the UML and SysML modeling & diagramming tools. I have these installed in the Eclipse instance on Windows , not the WSL
+ - [x] Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion) ; installed via Eclipse IDE, "Help" tab -> "Install New Software..." and then "Work with" the 2021-12 Eclipse site; search for "modeling" -> installed the entire modeling kit (which includes Papyrus UML 6.0.0). 
+  - Restart Eclipse
   - Under "Help" tab ran "check for updates" before proceeding
  - [x] Install [SysML1.6 plugin](https://marketplace.eclipse.org/content/papyrus-sysml-16) (2.2?). Used the drag & drop into Eclipse IDE window installer.
+ - Restart Eclipse
+
+### GitHub Token (not required)
+ - I use GitHub for most of this work, so setup Eclipse to use my github
+ - [x] Create Personal Access token per [EGit directions](https://wiki.eclipse.org/EGit/GitHub/User_Guide)
 
 ## NASA [F'](https://nasa.github.io/fprime/) and [F''](https://fprime-community.github.io/fpp/fpp-users-guide.html)
  - This is the flight software (FSW) application layer component architecture framework tool suite (F') I want to use, with its own editor (F'')
@@ -137,10 +155,12 @@ Hardware version: V1.00
   This is free software; see the source for copying conditions.  There is NO
   warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   ```
-   - F' requires Python 3.6 or newer; python was already on my WSL instance, not sure if I installed it or WSL comes with python (or via Zephyr install above):
+   - F' requires Python 3.6 or newer; python was already on my WSL instance:
   ```
-  :~$ python3 --version
+  ~$ python3 --version
   Python 3.8.10
+  :~$ which python3
+  /usr/bin/python3
   ```
   - [x] Install F' per [Installation Guide](https://nasa.github.io/fprime/INSTALL.html) cloning the F´ core repository 
   - [x] Install F' python-support package
