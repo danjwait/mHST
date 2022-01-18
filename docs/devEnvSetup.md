@@ -6,7 +6,8 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
  - [x] Install MS [VS Code on Windows](https://code.visualstudio.com/) 
   - Tyring this with its plugins for Python, C/C++, GitHub, and WSL
   - [x] Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) (if not already installed); I used all the defaults save credential manager
-  - [x] Install [python 3](https://www.python.org/) ; I also disabled path length check. This should also install [pip](https://pip.pypa.io/en/stable/), though usually I get a warning about a pip update, so I run that as well. I had to restart the machine to refresh env variables.
+  - [x] Install [python 3](https://www.python.org/) ; add to PATH, and I also disabled path length check. This should also install [pip](https://pip.pypa.io/en/stable/), though usually I get a warning about a pip update, so I run that as well. I had to restart the machine to refresh env variables.
+   - This didn't setup PATH for for me on one install. Per the [Python installion](https://docs.python.org/3/using/windows.html#excursus-setting-environment-variables), open System properties, Advanced system settings and click the Environment Variables button
   - [x] Install Microsoft Visual Studio Code extension for python; includes pylance and jupyter notebook support
    - [x] (not required) I find [numpy](https://numpy.org/install/) a very helpful python package, so I install numpy at this point either through the Windows Terminal or the terminal in VS Code 
    `C:\Users\userid> pip install numpy`
