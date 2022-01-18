@@ -18,6 +18,7 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
 ## WSL2 on Windows 11
   - Using Windows Subsystem for Linux (WSL) on a Windows 11 machine. There's not really a reason for this vs a Virtual Box & Ubuntu setup, I just tried this this way. I suppose the VS Code thing works better with this.
  - [x] Install WSL2 on Windows 11 per the [Microsoft WSL Docs](https://docs.microsoft.com/en-us/windows/wsl/) ; need to reboot here. 
+  - One time I rebooted and WSL came up with a distribtion and asked me to setup my userid, so I did that. The time before WSL did not come up with a distribtion, in which case: 
   - [x] Install a distribution; I tried installing via Windows Terminal (running as Administrator) with `wsl --install` per above. After reboot though I get:
   ```
   C:\Users\userid> wsl
@@ -32,14 +33,7 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
    * Ubuntu    Running         2
    ```
    - [x] Setup user in Ubuntu WSL. 
-   - [x] Update and upgrade within WSL:
-   ```
-   sudo apt update
-   sudo apt upgrade
-   ```
-   - [x] Install Firefox (or other browser) within WSL Ubuntu. This is to get the F' gds tool to work. I also configure my browser preferences here. 
-   `sudo apt install firefox`
-   - [x] Update WSL: 
+   - [x] Update WSL (need to exit WSL first, needs to be an administrator level terminal): 
   ```
   C:\Users\userid> wsl --update
   Checking for updates...
@@ -49,6 +43,15 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
   Kernel version: 5.10.60.1
   C:\Users\userid> wsl --shutdown
   ```
+   - [x] Restart WSL (from Windows terminal just `wsl` assuming just one distribution) and then update and upgrade distribution from within WSL:
+   ```
+   sudo apt update
+   ...
+   sudo apt upgrade
+   ...
+   ```
+   - [x] Install Firefox (or other browser) within WSL Ubuntu. This is to get the F' gds tool to work. I also configure my browser preferences here. 
+   `sudo apt install firefox`
   - [x] Test VS Code WSL plugin; in VS Code, open a terminal and in the right down arrow, select the WSL Ubuntu. Then Ctrl-o to open a file, click the Linux drive, then navigate to \\wsl.localhost\Ubuntu\home\userid and open the .bashrc file. Scroll down to the aliases in the file and add one, then save the file. Exit any WLS instances open, then reopen and try the alias. 
   
 
