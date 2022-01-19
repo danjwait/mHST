@@ -14,6 +14,11 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
   - [x] Install Microsoft C/C++ extension for Visual Studio Code 
   - [x] Install Microsoft Remote - WSL extension for Visual Studio Code 
   - [x] Install GitHub Pull Requests and Issues extension for Visual Studio Code 
+   - Note that with a full clean install of git and VS code, will need to conigure git within VS Code in order to push:
+   ```
+   git config --global user.email "you@example.com"
+   git config --global user.name "Your Name"
+   ```
 
 ## WSL2 on Windows 11
   - Using Windows Subsystem for Linux (WSL) on a Windows 11 machine. There's not really a reason for this vs a Virtual Box & Ubuntu setup, I just tried this this way. I suppose the VS Code thing works better with this.
@@ -165,7 +170,7 @@ Hardware version: V1.00
 
 ### Papyrus UML & SysML
  - These are the UML and SysML modeling & diagramming tools. I have these installed in the Eclipse instance on Windows , not the WSL
- - [x] Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion) ; installed via Eclipse IDE, "Help" tab -> "Install New Software..." and then "Work with" the 2021-12 Eclipse site; search for "modeling" -> installed the entire modeling kit (which includes Papyrus UML 6.0.0). 
+ - [x] Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion) ; installed via Eclipse IDE, "Help" tab -> "Install New Software..." and then "Work with" the 2021-12 Eclipse site (or whatever version you've installed); search for "modeling" -> installed the entire modeling kit (which includes Papyrus UML 6.0.0). 
   - Restart Eclipse
   - Under "Help" tab ran "check for updates" before proceeding
  - [x] Install [SysML1.6 plugin](https://marketplace.eclipse.org/content/papyrus-sysml-16) (2.2?). Used the drag & drop into Eclipse IDE window installer.
