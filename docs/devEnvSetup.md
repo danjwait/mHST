@@ -53,7 +53,6 @@ Intent is to keep using open-source (ideally), free (at least), well-supported, 
    - [x] Install Firefox (or other browser) within WSL Ubuntu. This is to get the F' gds tool to work. I also configure my browser preferences here. 
    `sudo apt install firefox`
   - [x] Test VS Code WSL plugin; in VS Code, open a terminal and in the right down arrow, select the WSL Ubuntu. Then Ctrl-o to open a file, click the Linux drive, then navigate to \\wsl.localhost\Ubuntu\home\userid and open the .bashrc file. Scroll down to the aliases in the file and add one, then save the file. Exit any WLS instances open, then reopen and try the alias. 
-  
 
 ### USBIPD for WSL
  - This is to enable USB connections with WSL.
@@ -96,35 +95,6 @@ Connecting to J-Link via USB...O.K.
 Firmware: J-Link EDU Mini V1 compiled Dec  7 2021 08:38:51
 Hardware version: V1.00
 ```
-
-## Zephyr
- - This is because the professional end goal will likely want some opertating system (OS) on the embedded system, and potentially some version of real-time (hard or soft). Rather than working through how to create a Linux distribution with the real-time patch, start with the Linux Foundation work on their real-time OS (RTOS), Zephyr. 
- - [x] Install [Zephyr](https://docs.zephyrproject.org/2.6.0/getting_started/index.html) (2.6)
- - The docs "don’t recommend using WSL when getting started" but I didn't really understand why so I tried WSL anyway
-- [ ] [Blinky](https://docs.zephyrproject.org/2.6.0/getting_started/index.html#build-the-blinky-sample)
-- I have done this, but want to try again
-- [ ] TODO [PWM Blinky](https://docs.zephyrproject.org/2.6.0/samples/basic/blinky_pwm/README.html)
-- Tried this and got the device tree error, so want to work that
-- [ ] TODO Something with console out?
-
-## Eclipse IDE
- - The [Eclipse Integrated Development Environment](https://www.eclipse.org/ide/) (IDE) is primarily for UML and SysML modeling. There is a PlantUML plugin for VS Code, but I wasn't sure if that was a single-source of truth modeling tool with diagramming built in or just a diagramming tool. I've used Eclipse for other work before, including the Papyrus UML/SysML graphical editors, with a single model. I may also want to use the CDT tools, but I will try the VS Code ones first.
- - [x] Install [Eclipse 2021-21](https://www.eclipse.org/eclipseide/) 
-  - Used the installer approach (per Eclipse recommendation) ; started with the Eclipse IDE for C/C++ Developers package (will add other tools to that) 
-  - Installed on Windows in C:\Users\userid\eclipse
-  - Under "Help" tab ran "check for updates" before proceeding
-
-### Papyrus UML & SysML
- - These are the UML and SysML modeling & diagramming tools. I have these installed in the Eclipse instance on Windows , not the WSL
- - [x] Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion) ; installed via Eclipse IDE, "Help" tab -> "Install New Software..." and then "Work with" the 2021-12 Eclipse site; search for "modeling" -> installed the entire modeling kit (which includes Papyrus UML 6.0.0). 
-  - Restart Eclipse
-  - Under "Help" tab ran "check for updates" before proceeding
- - [x] Install [SysML1.6 plugin](https://marketplace.eclipse.org/content/papyrus-sysml-16) (2.2?). Used the drag & drop into Eclipse IDE window installer.
- - Restart Eclipse
-
-### GitHub Token (not required)
- - I use GitHub for most of this work, so setup Eclipse to use my github
- - [x] Create Personal Access token per [EGit directions](https://wiki.eclipse.org/EGit/GitHub/User_Guide)
 
 ## NASA [F'](https://nasa.github.io/fprime/) and [F''](https://fprime-community.github.io/fpp/fpp-users-guide.html)
  - This is the flight software (FSW) application layer component architecture framework tool suite (F') I want to use, with its own editor (F'')
@@ -185,3 +155,36 @@ Hardware version: V1.00
  - [ ] TODO Re-run on-host demos on WSL with F''
  - [ ] TODO Run [cross-compile demo](https://github.com/nasa/fprime/blob/master/RPI/README.md) on Raspberry Pi (RPi) 4 single board computer (SBC). Note the existing demo is for the Raspberry Pi 2 model B
  - [ ] TODO Try porting F' to Zephyr and the Adafruit nRF52840 Feather. Probably use the [fprime-sphinx](https://github.com/fprime-community/fprime-sphinx) write up as a guide
+
+## Eclipse IDE
+ - The [Eclipse Integrated Development Environment](https://www.eclipse.org/ide/) (IDE) is primarily for UML and SysML modeling. There is a PlantUML plugin for VS Code, but I wasn't sure if that was a single-source of truth modeling tool with diagramming built in or just a diagramming tool. I've used Eclipse for other work before, including the Papyrus UML/SysML graphical editors, with a single model. I may also want to use the CDT tools, but I will try the VS Code ones first.
+ - [x] Install [Eclipse 2021-21](https://www.eclipse.org/eclipseide/) 
+  - Used the installer approach (per Eclipse recommendation) ; started with the Eclipse IDE for C/C++ Developers package (will add other tools to that) 
+  - Installed on Windows in C:\Users\userid\eclipse
+  - Under "Help" tab ran "check for updates" before proceeding
+
+### Papyrus UML & SysML
+ - These are the UML and SysML modeling & diagramming tools. I have these installed in the Eclipse instance on Windows , not the WSL
+ - [x] Install [Papyrus 6.0.0](https://www.eclipse.org/papyrus/download.html#accordion) ; installed via Eclipse IDE, "Help" tab -> "Install New Software..." and then "Work with" the 2021-12 Eclipse site; search for "modeling" -> installed the entire modeling kit (which includes Papyrus UML 6.0.0). 
+  - Restart Eclipse
+  - Under "Help" tab ran "check for updates" before proceeding
+ - [x] Install [SysML1.6 plugin](https://marketplace.eclipse.org/content/papyrus-sysml-16) (2.2?). Used the drag & drop into Eclipse IDE window installer.
+ - Restart Eclipse
+
+### GitHub Token (not required)
+ - I use GitHub for most of this work, so setup Eclipse to use my github
+ - [x] Create Personal Access token per [EGit directions](https://wiki.eclipse.org/EGit/GitHub/User_Guide)
+
+## Zephyr
+ - This is because the professional end goal will likely want some opertating system (OS) on the embedded system, and potentially some version of real-time (hard or soft). Rather than working through how to create a Linux distribution with the real-time patch, start with the Linux Foundation work on their real-time OS (RTOS), Zephyr. 
+ - [x] Install [Zephyr](https://docs.zephyrproject.org/2.6.0/getting_started/index.html) (2.6)
+ - The docs "don’t recommend using WSL when getting started" but I didn't really understand why so I tried WSL anyway
+- [ ] [Blinky](https://docs.zephyrproject.org/2.6.0/getting_started/index.html#build-the-blinky-sample)
+- I have done this, but want to try again
+- [ ] TODO [PWM Blinky](https://docs.zephyrproject.org/2.6.0/samples/basic/blinky_pwm/README.html)
+- Tried this and got the device tree error, so want to work that
+- [ ] TODO Something with console out?
+
+
+
+
