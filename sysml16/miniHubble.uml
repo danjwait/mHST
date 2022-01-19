@@ -82,7 +82,6 @@
           <region xmi:type="uml:Region" xmi:id="_26V40HZiEeyOPKrZaIbo8Q" name="Region1">
             <subvertex xmi:type="uml:Pseudostate" xmi:id="_8GueIHZiEeyOPKrZaIbo8Q" name="off"/>
             <subvertex xmi:type="uml:State" xmi:id="_-_WREHZiEeyOPKrZaIbo8Q" name="configure"/>
-            <subvertex xmi:type="uml:State" xmi:id="_NsxcAHdZEeytO-_gFxiOdA" name="testState"/>
           </region>
         </packagedElement>
       </packagedElement>

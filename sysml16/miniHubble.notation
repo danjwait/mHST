@@ -856,7 +856,7 @@
   <notation:Diagram xmi:id="_26Wf4HZiEeyOPKrZaIbo8Q" type="PapyrusUMLStateMachineDiagram" name="telescopeStateMachine" measurementUnit="Pixel">
     <children xmi:type="notation:Shape" xmi:id="_26Wf4XZiEeyOPKrZaIbo8Q" type="StateMachine_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_26Wf4nZiEeyOPKrZaIbo8Q" type="StateMachine_NameLabel">
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf43ZiEeyOPKrZaIbo8Q" width="1031" height="30"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf43ZiEeyOPKrZaIbo8Q" width="1031" height="25"/>
       </children>
       <children xmi:type="notation:BasicCompartment" xmi:id="_26Wf5HZiEeyOPKrZaIbo8Q" type="StateMachine_RegionCompartment">
         <children xmi:type="notation:Shape" xmi:id="_26Wf5XZiEeyOPKrZaIbo8Q" type="Region_Shape">
@@ -888,23 +888,12 @@
               <element xmi:type="uml:State" href="miniHubble.uml#_-_WREHZiEeyOPKrZaIbo8Q"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-_YGQXZiEeyOPKrZaIbo8Q" x="89" y="163"/>
             </children>
-            <children xmi:type="notation:Shape" xmi:id="_NtIoYHdZEeytO-_gFxiOdA" type="State_Shape">
-              <children xmi:type="notation:DecorationNode" xmi:id="_NtJPcHdZEeytO-_gFxiOdA" type="State_NameLabel"/>
-              <children xmi:type="notation:DecorationNode" xmi:id="_NtJ2gHdZEeytO-_gFxiOdA" type="State_FloatingNameLabel">
-                <layoutConstraint xmi:type="notation:Location" xmi:id="_NtJ2gXdZEeytO-_gFxiOdA" x="40"/>
-              </children>
-              <children xmi:type="notation:BasicCompartment" xmi:id="_NtJ2gndZEeytO-_gFxiOdA" type="State_RegionCompartment">
-                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NtJ2g3dZEeytO-_gFxiOdA"/>
-              </children>
-              <element xmi:type="uml:State" href="miniHubble.uml#_NsxcAHdZEeytO-_gFxiOdA"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NtIoYXdZEeytO-_gFxiOdA" x="405" y="131"/>
-            </children>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf6XZiEeyOPKrZaIbo8Q"/>
           </children>
           <element xmi:type="uml:Region" href="miniHubble.uml#_26V40HZiEeyOPKrZaIbo8Q"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf6nZiEeyOPKrZaIbo8Q" width="1031" height="366"/>
         </children>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf63ZiEeyOPKrZaIbo8Q" y="30" width="1031" height="361"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf63ZiEeyOPKrZaIbo8Q" y="25" width="1031" height="366"/>
       </children>
       <element xmi:type="uml:StateMachine" href="miniHubble.uml#_1cjFIHZiEeyOPKrZaIbo8Q"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_26Wf7HZiEeyOPKrZaIbo8Q" x="30" y="30" width="1031" height="391"/>
