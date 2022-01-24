@@ -80,8 +80,25 @@
       <packagedElement xmi:type="uml:Package" xmi:id="_gi9AEHZiEeyOPKrZaIbo8Q" name="FS_Behaviors">
         <packagedElement xmi:type="uml:StateMachine" xmi:id="_1cjFIHZiEeyOPKrZaIbo8Q" name="telescopeStateMachine">
           <region xmi:type="uml:Region" xmi:id="_26V40HZiEeyOPKrZaIbo8Q" name="Region1">
+            <transition xmi:type="uml:Transition" xmi:id="_RtIPcHyxEeyAaIhGXKsqdQ" source="_-_WREHZiEeyOPKrZaIbo8Q" target="_8GueIHZiEeyOPKrZaIbo8Q"/>
+            <transition xmi:type="uml:Transition" xmi:id="_XISQkHyxEeyAaIhGXKsqdQ" source="_-_WREHZiEeyOPKrZaIbo8Q" target="_o1RsMHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_YOm_cHyxEeyAaIhGXKsqdQ" source="_o1RsMHywEeyAaIhGXKsqdQ" target="_q8yLQHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_ZXy1EHyxEeyAaIhGXKsqdQ" source="_q8yLQHywEeyAaIhGXKsqdQ" target="_o1RsMHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_hXCjkHyxEeyAaIhGXKsqdQ" source="_q8yLQHywEeyAaIhGXKsqdQ" target="_s2AWsHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_iytQUHyxEeyAaIhGXKsqdQ" source="_s2AWsHywEeyAaIhGXKsqdQ" target="_q8yLQHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_jszhEHyxEeyAaIhGXKsqdQ" source="_q8yLQHywEeyAaIhGXKsqdQ" target="_w1hgQHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_kZRlgHyxEeyAaIhGXKsqdQ" source="_w1hgQHywEeyAaIhGXKsqdQ" target="_q8yLQHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_oArxEHyxEeyAaIhGXKsqdQ" source="_q8yLQHywEeyAaIhGXKsqdQ" target="_vTHSUHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_pHb9wHyxEeyAaIhGXKsqdQ" source="_vTHSUHywEeyAaIhGXKsqdQ" target="_q8yLQHywEeyAaIhGXKsqdQ"/>
+            <transition xmi:type="uml:Transition" xmi:id="_mZO1oHyyEeyAaIhGXKsqdQ" source="_8GueIHZiEeyOPKrZaIbo8Q" target="_-_WREHZiEeyOPKrZaIbo8Q"/>
+            <transition xmi:type="uml:Transition" xmi:id="_n6LrAHyyEeyAaIhGXKsqdQ" source="_q8yLQHywEeyAaIhGXKsqdQ" target="_8GueIHZiEeyOPKrZaIbo8Q"/>
             <subvertex xmi:type="uml:Pseudostate" xmi:id="_8GueIHZiEeyOPKrZaIbo8Q" name="off"/>
             <subvertex xmi:type="uml:State" xmi:id="_-_WREHZiEeyOPKrZaIbo8Q" name="configure"/>
+            <subvertex xmi:type="uml:State" xmi:id="_o1RsMHywEeyAaIhGXKsqdQ" name="sleep"/>
+            <subvertex xmi:type="uml:State" xmi:id="_q8yLQHywEeyAaIhGXKsqdQ" name="wake"/>
+            <subvertex xmi:type="uml:State" xmi:id="_s2AWsHywEeyAaIhGXKsqdQ" name="sunTracking"/>
+            <subvertex xmi:type="uml:State" xmi:id="_vTHSUHywEeyAaIhGXKsqdQ" name="imageOperations"/>
+            <subvertex xmi:type="uml:State" xmi:id="_w1hgQHywEeyAaIhGXKsqdQ" name="telecomOperations"/>
           </region>
         </packagedElement>
       </packagedElement>
@@ -156,6 +173,12 @@
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_GLuo0HyxEeyAaIhGXKsqdQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GLweAHyxEeyAaIhGXKsqdQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
     </profileApplication>
   </uml:Model>
   <Blocks:Block xmi:id="_hfjPECS8EeyUo9sI7RyG2Q" base_Class="_hfbTQCS8EeyUo9sI7RyG2Q"/>
