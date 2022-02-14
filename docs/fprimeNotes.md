@@ -15,3 +15,7 @@ Finally ran into [Fatal error with fprime-util build --ut](https://github.com/na
 
 
 I find myself wanting a checklist / process flow diagram / overview. I am worried that after running the tutorials, I'll have to go back to the tutorials to remember the steps in order. Maybe the current checklist / flow diagram / overview can be expanded in the tutorials, with thinks like "fill in stubs" demoed?
+
+
+Error at [5.2. Add the Model to the Project](https://nasa.github.io/fprime/Tutorials/MathComponent/Tutorial.html#The-MathReceiver-Component_Add-the-Model-to-the-Project). When trying to re-run [4.3. Build the Stub Implementation](https://nasa.github.io/fprime/Tutorials/MathComponent/Tutorial.html#The-MathSender-Component_Build-the-Stub-Implementation) got an error with `fprime-util impl` had to go up to /Ref/ and run `fprime-util generate` and then `fprime-util build` in /Ref, then cd back into MathReceiver to get `fprime-util impl` to work.
+
