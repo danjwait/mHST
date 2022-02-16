@@ -19,3 +19,28 @@ I find myself wanting a checklist / process flow diagram / overview. I am worrie
 
 Error at [5.2. Add the Model to the Project](https://nasa.github.io/fprime/Tutorials/MathComponent/Tutorial.html#The-MathReceiver-Component_Add-the-Model-to-the-Project). When trying to re-run [4.3. Build the Stub Implementation](https://nasa.github.io/fprime/Tutorials/MathComponent/Tutorial.html#The-MathSender-Component_Build-the-Stub-Implementation) got an error with `fprime-util impl` had to go up to /Ref/ and run `fprime-util generate` and then `fprime-util build` in /Ref, then cd back into MathReceiver to get `fprime-util impl` to work.
 
+Error at [6.2. Updating the Topology](https://nasa.github.io/fprime/Tutorials/MathComponent/Tutorial.html#Updating-the-Ref-Deployment_Updating-the-Topology); first ran into this error:
+```
+~/02_Projects/fprime/Ref/Top$ fprime-util fpp-check -u unconnected.txt
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/Ref/settings.ini
+[INFO] Updating fpp locations file and build cache. This may take some time.
+Traceback (most recent call last):
+  File "/home/djwait/.local/bin/fprime-util", line 8, in <module>
+    sys.exit(main())
+  File "/home/djwait/.local/lib/python3.8/site-packages/fprime/util/__main__.py", line 14, in main
+    return fprime.util.build_helper.utility_entry(args=sys.argv[1:])
+  File "/home/djwait/.local/lib/python3.8/site-packages/fprime/util/build_helper.py", line 164, in utility_entry
+    runners[parsed.command](build, parsed, cmake_args, make_args)
+  File "/home/djwait/.local/lib/python3.8/site-packages/fprime/fpp/cli.py", line 71, in run_fpp_check
+    run_fpp_util(
+  File "/home/djwait/.local/lib/python3.8/site-packages/fprime/fpp/common.py", line 109, in run_fpp_util
+    return subprocess.run(app_args, capture_output=False)
+  File "/usr/lib/python3.8/subprocess.py", line 493, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/usr/lib/python3.8/subprocess.py", line 858, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1704, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'fpp-check'
+```
+Which looked like part of [fpp-check Resulting in Error Message #1255](https://github.com/nasa/fprime/issues/1255) ; per LeStarch suggestion, added `Ref/build-fprime-automatic-native/fpp-tools-install/` to $PATH. 
