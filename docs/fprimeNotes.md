@@ -1,3 +1,5 @@
+# [F’ Math Component Tutorial](https://nasa.github.io/fprime/Tutorials/MathComponent/Tutorial.html)
+
 Get an error at [4.5.1. Set Up the Unit Test Environment](https://nasa.github.io/fprime/Tutorials/MathComponent/Tutorial.html#The-MathSender-Component_Write-and-Run-Unit-Tests_Set-Up-the-Unit-Test-Environment):
 ```
 djwait@TRON:~/02_Projects/fprime/Ref$ fprime-util generate --ut
@@ -44,3 +46,11 @@ Traceback (most recent call last):
 FileNotFoundError: [Errno 2] No such file or directory: 'fpp-check'
 ```
 Which looked like part of [fpp-check Resulting in Error Message #1255](https://github.com/nasa/fprime/issues/1255) ; per LeStarch suggestion, added `Ref/build-fprime-automatic-native/fpp-tools-install/` to $PATH. 
+
+# Porting Math Demo to RPi
+Started with [RPi demo instructions](https://nasa.github.io/fprime/Tutorials/GpsTutorial/Tutorial.html) but intent is to just cross compile the Math Component to the RPi first.
+
+Using toolchains per [raspberrypi / tools](https://github.com/raspberrypi/tools):
+`sudo apt-get install gcc-arm-linux-gnueabihf` 
+`sudo apt-get install gcc-aarch64-linux-gnu`
+Using the latter since RPi4 is 64
