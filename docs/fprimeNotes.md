@@ -47,10 +47,169 @@ FileNotFoundError: [Errno 2] No such file or directory: 'fpp-check'
 ```
 Which looked like part of [fpp-check Resulting in Error Message #1255](https://github.com/nasa/fprime/issues/1255) ; per LeStarch suggestion, added `Ref/build-fprime-automatic-native/fpp-tools-install/` to $PATH. 
 
-# Porting Math Demo to RPi
-Started with [RPi demo instructions](https://nasa.github.io/fprime/Tutorials/GpsTutorial/Tutorial.html) but intent is to just cross compile the Math Component to the RPi first.
+# Cross Compile Testing; Porting Math Demo to RPi
+Started with the "Cross Compiling for the Raspberry PI" section of [F Fprime GPS demo instructions](https://nasa.github.io/fprime/Tutorials/GpsTutorial/Tutorial.html) but intent is to just cross compile the Math Component to the RPi first.
+
+Tested the Math Component (per above) on WSL2 linux "native" first, then edited to cross compile.
 
 Using toolchains per [raspberrypi / tools](https://github.com/raspberrypi/tools):
-`sudo apt-get install gcc-arm-linux-gnueabihf` 
-`sudo apt-get install gcc-aarch64-linux-gnu`
-Using the latter since RPi4 is 64
+```
+sudo apt-get install gcc-arm-linux-gnueabihf
+sudo apt-get install g++-arm-linux-gnueabihf
+sudo apt-get install gcc-aarch64-linux-gnu
+sudo apt-get install g++-aarch64-linux-gnu
+```
+Installed the former pair in case using a 32-bit Pi; installed the latter pair since RPi4 is 64
+
+My installations ended up at:
+- /bin/aarch64-linux-gnu-gcc
+- /bin/arm-linux-gnueabihf-gcc
+
+## Setup RPi4
+Usual sudo apt-get update & upgrade
+Followed RPi directions [here](https://www.raspberrypi.com/documentation/computers/remote-access.html) to setup SSH from host to RPi
+Confirmed SSH ability from host to RPi4
+
+## Cross-compile testing:
+Tried this command: `fprime-util generate raspberrypi` in Ref/ and got error:
+```
+~/02_Projects/fprime/Ref$ fprime-util generate raspberrypi
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/Ref/settings.ini
+[INFO] Generating build directory at: /home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi
+[INFO] Using toolchain file /home/djwait/02_Projects/fprime/cmake/toolchain/raspberrypi.cmake for platform raspberrypi
+CMake Error at /home/djwait/02_Projects/fprime/cmake/toolchain/raspberrypi.cmake:26 (message):
+  RPI toolchain not found at
+  /opt/rpi/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf.  Install it, set
+  RPI_TOOLCHAIN_DIR environment variable, or choose another toolchain
+Call Stack (most recent call first):
+  /usr/share/cmake-3.16/Modules/CMakeDetermineSystem.cmake:93 (include)
+  CMakeLists.txt:23 (project)
+
+
+CMake Error: CMake was unable to find a build program corresponding to "Unix Makefiles".  CMAKE_MAKE_PROGRAM is not set.  You probably need to select a different build tool.
+-- Configuring incomplete, errors occurred!
+CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
+CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
+[ERROR] CMake erred with return code 1. Partial build cache remains. Run purge to clean-up.
+```
+
+Tried setting up the complier by editing `/home/djwait/02_Projects/fprime/cmake/toolchain/raspberrypi.cmake` with line: `set(RPI_TOOLCHAIN "/bin/aarch64-linux-gnu-gcc")` and re-ran but ran into error with exisiting directory, so deleted the existing directory:
+```
+~/02_Projects/fprime/Ref$ fprime-util generate raspberrypi
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/Ref/settings.ini
+[ERROR] /home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi already exists.
+djwait@TRON:~/02_Projects/fprime/Ref$ rm -r -f ./build-fprime-automatic-raspberrypi/
+```
+
+Re-ran and different error:
+```
+~/02_Projects/fprime/Ref$ fprime-util generate raspberrypi
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/Ref/settings.ini
+[INFO] Generating build directory at: /home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi
+[INFO] Using toolchain file /home/djwait/02_Projects/fprime/cmake/toolchain/raspberrypi.cmake for platform raspberrypi
+-- Using RPI toolchain at: /bin/aarch64-linux-gnu-gcc
+-- Using RPI toolchain at: /bin/aarch64-linux-gnu-gcc
+-- The C compiler identification is unknown
+-- The CXX compiler identification is unknown
+CMake Error at CMakeLists.txt:23 (project):
+  The CMAKE_C_COMPILER:
+
+    /bin/aarch64-linux-gnu-gcc/bin/arm-linux-gnueabihf-gcc
+
+  is not a full path to an existing compiler tool.
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CC" or the CMake cache entry CMAKE_C_COMPILER to the full path to
+  the compiler, or to the compiler name if it is in the PATH.
+
+
+CMake Error at CMakeLists.txt:23 (project):
+-- Configuring incomplete, errors occurred!
+  The CMAKE_CXX_COMPILER:
+See also "/home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi/CMakeFiles/CMakeOutput.log".
+
+See also "/home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi/CMakeFiles/CMakeError.log".
+    /bin/aarch64-linux-gnu-gcc/bin/arm-linux-gnueabihf-g++
+
+  is not a full path to an existing compiler tool.
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CXX" or the CMake cache entry CMAKE_CXX_COMPILER to the full path
+  to the compiler, or to the compiler name if it is in the PATH.
+
+
+[ERROR] CMake erred with return code 1. Partial build cache remains. Run purge to clean-up.
+```
+Deleted directory and edited cmake/toolchain/raspberrypi.cmake to:
+```
+# Location of pi toolchain
+set(RPI_TOOLCHAIN "$ENV{RPI_TOOLCHAIN_DIR}")
+# set(RPI_TOOLCHAIN "/bin/aarch64-linux-gnu-gcc")
+if ("${RPI_TOOLCHAIN}" STREQUAL "")
+    #set(RPI_TOOLCHAIN "/opt/rpi/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf")
+    set(RPI_TOOLCHAIN "/bin")
+endif()
+# Check toolchain directory exists
+IF(NOT EXISTS "${RPI_TOOLCHAIN}")
+    message(FATAL_ERROR "RPI toolchain not found at ${RPI_TOOLCHAIN}. Install it, set RPI_TOOLCHAIN_DIR environment variable, or choose another toolchain")
+endif()
+message(STATUS "Using RPI toolchain at: ${RPI_TOOLCHAIN}")
+# specify the cross compiler
+#set(CMAKE_C_COMPILER "${RPI_TOOLCHAIN}/bin/arm-linux-gnueabihf-gcc")
+#set(CMAKE_CXX_COMPILER "${RPI_TOOLCHAIN}/bin/arm-linux-gnueabihf-g++")
+set(CMAKE_C_COMPILER "${RPI_TOOLCHAIN}/aarch64-linux-gnu-gcc")
+set(CMAKE_CXX_COMPILER "${RPI_TOOLCHAIN}/aarch64-linux-gnu-g++")
+```
+Then ran `/02_Projects/fprime/Ref$ fprime-util generate raspberrypi` and see:
+```
+...
+-- Adding Library: Ref_SignalGen
+-- Adding Library: Ref_MathTypes
+-- Adding Library: Ref_MathPorts
+-- Adding Library: Ref_MathSender
+-- Adding Library: Ref_MathReceiver
+-- Adding Library: Ref_Top
+-- Adding Deployment: Ref
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi
+```
+Then build:
+```
+/02_Projects/fprime/Ref$ fprime-util build raspberrypi
+...
+-- Installing: /home/djwait/02_Projects/fprime/Ref/build-artifacts/raspberrypi/lib/static/libRef_Top.a
+-- Installing: /home/djwait/02_Projects/fprime/Ref/build-artifacts/raspberrypi/dict/RefTopologyAppDictionary.xml
+[100%] Built target Ref
+```
+
+Find bin file:
+```
+/02_Projects/fprime/Ref/build-artifacts/raspberrypi/bin$ ls -lrt
+total 1388
+-rwxr-xr-x 1 djwait djwait 1420648 Feb 19 17:55 Ref
+```
+scp over to RPi
+```
+~/02_Projects/fprime/Ref/build-artifacts/raspberrypi/bin$ scp -r Ref pi@<pi IP>:/home/pi
+```
+see Ref on RPi
+```
+pi@raspberrypi:~ $ pwd
+/home/pi
+pi@raspberrypi:~ $ ls -lrt
+total 1424
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Bookshelf
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Desktop
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Videos
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Templates
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Public
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Pictures
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Music
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Downloads
+drwxr-xr-x 2 pi pi    4096 May  7  2021 Documents
+-rwxr-xr-x 1 pi pi 1420648 Feb 19 18:01 Ref
+```
+
+
+
