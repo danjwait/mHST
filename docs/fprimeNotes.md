@@ -90,14 +90,14 @@ sudo apt-get install g++-arm-linux-gnueabihf
 sudo apt-get install gcc-aarch64-linux-gnu
 sudo apt-get install g++-aarch64-linux-gnu
 ```
-Installed the former pair in case using a 32-bit Pi; installed the latter pair since RPi4 is 64 bit SoC, though need to check OS version
+Installed the former pair in case using a 32-bit OS (as in this case); installed the latter pair since RPi4 is 64 bit SoC and may change OS at somepoint. Per above, presently running the 32 bit OS (armv7l). 
 
 My installations ended up at:
 - /bin/aarch64-linux-gnu-gcc
 - /bin/arm-linux-gnueabihf-gcc
 
 ## Cross-compile testing:
-Tried this command: `fprime-util generate raspberrypi` in Ref/ and got error:
+Tried the present default command: `fprime-util generate raspberrypi` in Ref/ and got error:
 ```
 ~/02_Projects/fprime/Ref$ fprime-util generate raspberrypi
 [WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/Ref/settings.ini
@@ -118,55 +118,7 @@ CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
 CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
 [ERROR] CMake erred with return code 1. Partial build cache remains. Run purge to clean-up.
 ```
-
-Tried setting up the complier by editing `/home/djwait/02_Projects/fprime/cmake/toolchain/raspberrypi.cmake` with line: `set(RPI_TOOLCHAIN "/bin/aarch64-linux-gnu-gcc")` and re-ran but ran into error with exisiting directory, so deleted the existing directory:
-```
-~/02_Projects/fprime/Ref$ fprime-util generate raspberrypi
-[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/Ref/settings.ini
-[ERROR] /home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi already exists.
-djwait@TRON:~/02_Projects/fprime/Ref$ rm -r -f ./build-fprime-automatic-raspberrypi/
-```
-
-Re-ran and different error:
-```
-~/02_Projects/fprime/Ref$ fprime-util generate raspberrypi
-[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/Ref/settings.ini
-[INFO] Generating build directory at: /home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi
-[INFO] Using toolchain file /home/djwait/02_Projects/fprime/cmake/toolchain/raspberrypi.cmake for platform raspberrypi
--- Using RPI toolchain at: /bin/aarch64-linux-gnu-gcc
--- Using RPI toolchain at: /bin/aarch64-linux-gnu-gcc
--- The C compiler identification is unknown
--- The CXX compiler identification is unknown
-CMake Error at CMakeLists.txt:23 (project):
-  The CMAKE_C_COMPILER:
-
-    /bin/aarch64-linux-gnu-gcc/bin/arm-linux-gnueabihf-gcc
-
-  is not a full path to an existing compiler tool.
-
-  Tell CMake where to find the compiler by setting either the environment
-  variable "CC" or the CMake cache entry CMAKE_C_COMPILER to the full path to
-  the compiler, or to the compiler name if it is in the PATH.
-
-
-CMake Error at CMakeLists.txt:23 (project):
--- Configuring incomplete, errors occurred!
-  The CMAKE_CXX_COMPILER:
-See also "/home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi/CMakeFiles/CMakeOutput.log".
-
-See also "/home/djwait/02_Projects/fprime/Ref/build-fprime-automatic-raspberrypi/CMakeFiles/CMakeError.log".
-    /bin/aarch64-linux-gnu-gcc/bin/arm-linux-gnueabihf-g++
-
-  is not a full path to an existing compiler tool.
-
-  Tell CMake where to find the compiler by setting either the environment
-  variable "CXX" or the CMake cache entry CMAKE_CXX_COMPILER to the full path
-  to the compiler, or to the compiler name if it is in the PATH.
-
-
-[ERROR] CMake erred with return code 1. Partial build cache remains. Run purge to clean-up.
-```
-Deleted directory and edited cmake/toolchain/raspberrypi.cmake to:
+Edited cmake/toolchain/raspberrypi.cmake for the RPI_TOOLCHAIN, CMAKE_C_COMPILER, and CMAKE_CXX_COMPILER to:
 ```
 ####
 # Raspberry PI Toolchain
@@ -188,7 +140,6 @@ set(CMAKE_SYSTEM_PROCESSOR "arm")
 
 # Location of pi toolchain
 set(RPI_TOOLCHAIN "$ENV{RPI_TOOLCHAIN_DIR}")
-# set(RPI_TOOLCHAIN "/bin/aarch64-linux-gnu-gcc")
 if ("${RPI_TOOLCHAIN}" STREQUAL "")
     #set(RPI_TOOLCHAIN "/opt/rpi/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf")
     set(RPI_TOOLCHAIN "/bin")
@@ -250,11 +201,11 @@ total 2476
 drwxr-xr-x 3 djwait djwait    4096 Feb 19 18:03 logs
 -rwxr-xr-x 1 djwait djwait 1107976 Feb 21 09:23 Ref
 ```
-scp over to RPi
+scp the Ref bin over to RPi:
 ```
 ~/02_Projects/fprime/Ref/build-artifacts/raspberrypi/bin$ scp -r Ref pi@<pi IP>:/home/pi
 ```
-see Ref on RPi
+see Ref bin file on RPi:
 ```
 pi@raspberrypi:~ $ pwd
 /home/pi
@@ -271,7 +222,7 @@ drwxr-xr-x 2 pi pi    4096 May  7  2021 Downloads
 drwxr-xr-x 2 pi pi    4096 May  7  2021 Documents
 -rwxr-xr-x 1 pi pi 1107976 Feb 21 09:25 Ref
 ```
-Start on RPi (have to use sudo for the setup I am using)
+Start Ref bin on RPi (have to use sudo for the setup I am using):
 ```
 pi@raspberrypi:~ $ sudo ./Ref -a <host IP> -p 50000
 Hit Ctrl-C to quit
