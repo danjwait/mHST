@@ -118,7 +118,7 @@ CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
 CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
 [ERROR] CMake erred with return code 1. Partial build cache remains. Run purge to clean-up.
 ```
-Edited cmake/toolchain/raspberrypi.cmake for the RPI_TOOLCHAIN, CMAKE_C_COMPILER, and CMAKE_CXX_COMPILER to:
+Edited cmake/toolchain/raspberrypi.cmake for the RPI_TOOLCHAIN, CMAKE_C_COMPILER, and CMAKE_CXX_COMPILER setting for the toolchain installed above:
 ```
 ####
 # Raspberry PI Toolchain
@@ -192,7 +192,6 @@ Then build:
 -- Installing: /home/djwait/02_Projects/fprime/Ref/build-artifacts/raspberrypi/dict/RefTopologyAppDictionary.xml
 [100%] Built target Ref
 ```
-
 Find bin file:
 ```
 /02_Projects/fprime/Ref/build-artifacts/raspberrypi/bin$ ls -lrt
@@ -222,7 +221,8 @@ drwxr-xr-x 2 pi pi    4096 May  7  2021 Downloads
 drwxr-xr-x 2 pi pi    4096 May  7  2021 Documents
 -rwxr-xr-x 1 pi pi 1107976 Feb 21 09:25 Ref
 ```
-Start Ref bin on RPi (have to use sudo for the setup I am using):
+## Running the applicaiton on the target and interacting with it through the Fprime GDS on host
+Start Ref bin on RPi (have to use sudo for the setup I am using) with the <host IP> set to my first guess at the host IP:
 ```
 pi@raspberrypi:~ $ sudo ./Ref -a <host IP> -p 50000
 Hit Ctrl-C to quit
@@ -318,7 +318,7 @@ EVENT: (1024) (2:1645473299,702338) DIAGNOSTIC: (rateGroup3Comp) RateGroupStarte
 [ERROR] Failed to send framed data: 1
 ...
 ```
-Started fprime-gds on host:
+I wondered if the [ERROR} was because I had not started fprime-gds on host yet, so started that next:
 ```
 ~/02_Projects/fprime/Ref$ fprime-gds -g html -n --dictionary build-artifacts/raspberrypi/dict/RefTopologyAppDictionary.xml
 [INFO] Ensuring TCP Server is stable for at least 5 seconds
@@ -335,7 +335,7 @@ Started fprime-gds on host:
  * Debug mode: off
 [INFO] F prime is now running. CTRL-C to shutdown all components.
 ```
-GDS comes up but with red X for no data flow. Checking the log:
+GDS comes up but with red X for no data flow. Stopped both the app on the RPi and the GDD on the hose, and checking the GDS log see no connection:
 ```
 ~/02_Projects/fprime/Ref/logs$ more 2022_02_21-12_14_47/ThreadedTCP.log
 TCP Socket Server listening on host addr 0.0.0.0, port 50050
@@ -351,27 +351,26 @@ read data from socket is empty!
 Header information is empty, client GUI_ exiting.
 Closed GUI_ connection.
 ```
-Not sure about the ports; checking [this write up](https://docs.microsoft.com/en-us/windows/wsl/networking) from WSL, tried setting up ports to WSL
+Not sure about the ports; checking [this write up](https://docs.microsoft.com/en-us/windows/wsl/networking) for WSL2, tried setting up ports to WSL:
 
-## Working version of this
 ### Allow the port on the host
-Need to open port on the host; in admin terminal on Windows OS machine:
+Need to open port on the host; in admin terminal on Windows OS machine, enable the port:
 ```
 netsh advfirewall firewall add rule name= "open port 50000" dir=in action=allow protocol=TCP localport=50000
 ok.
 ```
 ### Connect the host OS to the WSL2 instance
-Need to connect the WSL2 IP to the host Windows IP:
+Need to connect the ports between WSL2 IP to the host Windows IP, per the WSL2 networking notes linked above:
 ```
 netsh interface portproxy add v4tov4 listenport=50000 listenaddress=0.0.0.0 connectport=50000 connectaddress=<WSL2 IP Address>
 ```
-Where the `<WSL2 IP Address>` is found on the WSL2 OS with `~$ ip addr | grep eth0`
+Where the `<WSL2 IP Address>` is found on the WSL2 OS via the command `~$ ip addr | grep eth0` per the WSL2 networking notes linked above.
 ### Start the GDS
 I started the GDS w/o specifying the IP address:
 ``` /02_Projects/fprime/Ref$ fprime-gds -g html -n --dictionary build-artifacts/raspberrypi/dict/RefTopologyAppDictionary.xml```
 
 ### Start the application on the target
-Start the app on the target with the Windows host IP address and the port
+Start the app on the target with the Windows host IP address and the port (not the WSL2 IP address)
 ```
 pi@raspberrypi:~ $ sudo ./Ref -a <host IP Address> -p 50000
 Hit Ctrl-C to quit
@@ -466,3 +465,4 @@ EVENT: (1282) (2:1645592972,264992) COMMAND: (cmdDisp) OpCodeCompleted : Opcode 
 EVENT: (9985) (2:1645592972,923961) ACTIVITY_HI: (mathReceiver) OPERATION_PERFORMED : SUB operation performed
 EVENT: (3585) (2:1645592972,924164) ACTIVITY_HI: (mathSender) RESULT : Math result is 42.000000
 ```
+That all seems to work
