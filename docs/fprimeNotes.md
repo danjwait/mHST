@@ -353,3 +353,116 @@ Closed GUI_ connection.
 ```
 Not sure about the ports; checking [this write up](https://docs.microsoft.com/en-us/windows/wsl/networking) from WSL, tried setting up ports to WSL
 
+## Working version of this
+### Allow the port on the host
+Need to open port on the host; in admin terminal on Windows OS machine:
+```
+netsh advfirewall firewall add rule name= "open port 50000" dir=in action=allow protocol=TCP localport=50000
+ok.
+```
+### Connect the host OS to the WSL2 instance
+Need to connect the WSL2 IP to the host Windows IP:
+```
+netsh interface portproxy add v4tov4 listenport=50000 listenaddress=0.0.0.0 connectport=50000 connectaddress=<WSL2 IP Address>
+```
+Where the `<WSL2 IP Address>` is found on the WSL2 OS with `~$ ip addr | grep eth0`
+### Start the GDS
+I started the GDS w/o specifying the IP address:
+``` /02_Projects/fprime/Ref$ fprime-gds -g html -n --dictionary build-artifacts/raspberrypi/dict/RefTopologyAppDictionary.xml```
+
+### Start the application on the target
+Start the app on the target with the Windows host IP address and the port
+```
+pi@raspberrypi:~ $ sudo ./Ref -a <host IP Address> -p 50000
+Hit Ctrl-C to quit
+EVENT: (1280) (2:1645592921,897418) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2100 registered to port 0 slot 0
+EVENT: (1280) (2:1645592921,897491) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2101 registered to port 0 slot 1
+EVENT: (1280) (2:1645592921,897535) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2102 registered to port 0 slot 2
+EVENT: (1280) (2:1645592921,897577) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2200 registered to port 1 slot 3
+EVENT: (1280) (2:1645592921,897618) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2201 registered to port 1 slot 4
+EVENT: (1280) (2:1645592921,897658) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2202 registered to port 1 slot 5
+EVENT: (1280) (2:1645592921,897697) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2300 registered to port 2 slot 6
+EVENT: (1280) (2:1645592921,897735) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2301 registered to port 2 slot 7
+EVENT: (1280) (2:1645592921,897774) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2302 registered to port 2 slot 8
+EVENT: (1280) (2:1645592921,897813) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2400 registered to port 3 slot 9
+EVENT: (1280) (2:1645592921,897852) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2401 registered to port 3 slot 10
+EVENT: (1280) (2:1645592921,897891) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2402 registered to port 3 slot 11
+EVENT: (1280) (2:1645592921,897930) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2500 registered to port 4 slot 12
+EVENT: (1280) (2:1645592921,897970) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2501 registered to port 4 slot 13
+EVENT: (1280) (2:1645592921,898009) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2502 registered to port 4 slot 14
+EVENT: (1280) (2:1645592921,898049) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x500 registered to port 5 slot 15
+EVENT: (1280) (2:1645592921,898088) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x501 registered to port 5 slot 16
+EVENT: (1280) (2:1645592921,898127) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x502 registered to port 5 slot 17
+EVENT: (1280) (2:1645592921,898166) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x503 registered to port 5 slot 18
+EVENT: (1280) (2:1645592921,898204) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x600 registered to port 6 slot 19
+EVENT: (1280) (2:1645592921,898243) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x601 registered to port 6 slot 20
+EVENT: (1280) (2:1645592921,898282) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x602 registered to port 6 slot 21
+EVENT: (1280) (2:1645592921,898321) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x603 registered to port 6 slot 22
+EVENT: (1280) (2:1645592921,898359) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x604 registered to port 6 slot 23
+EVENT: (1280) (2:1645592921,898398) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x605 registered to port 6 slot 24
+EVENT: (1280) (2:1645592921,898437) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x606 registered to port 6 slot 25
+EVENT: (1280) (2:1645592921,898476) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x607 registered to port 6 slot 26
+EVENT: (1280) (2:1645592921,898516) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0xb00 registered to port 7 slot 27
+EVENT: (1280) (2:1645592921,898555) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0xb02 registered to port 7 slot 28
+EVENT: (1280) (2:1645592921,898594) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0xb03 registered to port 7 slot 29
+EVENT: (1280) (2:1645592921,898633) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x700 registered to port 8 slot 30
+EVENT: (1280) (2:1645592921,898672) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x701 registered to port 8 slot 31
+EVENT: (1280) (2:1645592921,898711) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x702 registered to port 8 slot 32
+EVENT: (1280) (2:1645592921,898751) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x800 registered to port 9 slot 33
+EVENT: (1280) (2:1645592921,898790) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x801 registered to port 9 slot 34
+EVENT: (1280) (2:1645592921,898829) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x802 registered to port 9 slot 35
+EVENT: (1280) (2:1645592921,898868) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x803 registered to port 9 slot 36
+EVENT: (1280) (2:1645592921,898905) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x804 registered to port 9 slot 37
+EVENT: (1280) (2:1645592921,898948) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x805 registered to port 9 slot 38
+EVENT: (1280) (2:1645592921,898988) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2000 registered to port 10 slot 39
+EVENT: (1280) (2:1645592921,899029) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2001 registered to port 10 slot 40
+EVENT: (1280) (2:1645592921,899069) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2002 registered to port 10 slot 41
+EVENT: (1280) (2:1645592921,899109) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2700 registered to port 11 slot 42
+EVENT: (1280) (2:1645592921,899149) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x270a registered to port 11 slot 43
+EVENT: (1280) (2:1645592921,899189) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x270b registered to port 11 slot 44
+EVENT: (1280) (2:1645592921,899230) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0xe00 registered to port 12 slot 45
+EVENT: (1280) (2:1645592921,899270) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0xa00 registered to port 13 slot 46
+EVENT: (1280) (2:1645592921,899311) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0xd00 registered to port 14 slot 47
+EVENT: (1280) (2:1645592921,899351) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4700 registered to port 15 slot 48
+EVENT: (1280) (2:1645592921,899391) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4701 registered to port 15 slot 49
+EVENT: (1280) (2:1645592921,899431) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4702 registered to port 15 slot 50
+EVENT: (1280) (2:1645592921,899471) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4703 registered to port 15 slot 51
+EVENT: (1280) (2:1645592921,899511) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2600 registered to port 16 slot 52
+EVENT: (1280) (2:1645592921,899551) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2601 registered to port 16 slot 53
+EVENT: (1280) (2:1645592921,899591) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2602 registered to port 16 slot 54
+EVENT: (1280) (2:1645592921,899631) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2603 registered to port 16 slot 55
+EVENT: (1280) (2:1645592921,899671) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x260a registered to port 16 slot 56
+EVENT: (1280) (2:1645592921,899711) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x260b registered to port 16 slot 57
+EVENT: (1280) (2:1645592921,899750) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x260c registered to port 16 slot 58
+EVENT: (1280) (2:1645592921,899790) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x260d registered to port 16 slot 59
+EVENT: (1280) (2:1645592921,899831) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4b00 registered to port 17 slot 60
+EVENT: (1280) (2:1645592921,899872) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4b01 registered to port 17 slot 61
+EVENT: (3334) (2:1645592921,899934) WARNING_HI: (prmDb) PrmFileReadError : Parameter file read failed in stage OPEN with record 0 and error 1
+EVENT: (3328) (2:1645592921,899992) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x2700 not found
+EVENT: (3328) (2:1645592921,900039) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x4700 not found
+EVENT: (3328) (2:1645592921,900083) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x4701 not found
+EVENT: (3328) (2:1645592921,900127) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x2600 not found
+EVENT: (3328) (2:1645592921,900169) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x2601 not found
+[WARNING] High task priority of 140 being clamped to 99
+[WARNING] High task priority of 101 being clamped to 99
+[WARNING] High task priority of 100 being clamped to 99
+[WARNING] High task priority of 100 being clamped to 99
+[WARNING] High task priority of 100 being clamped to 99
+[WARNING] High task priority of 100 being clamped to 99
+Connected to 192.168.86.153:50000 as a tcp client
+[ERROR] Failed to send framed data: 1
+[WARNING] High task priority of 100 being clamped to 99
+[WARNING] High task priority of 100 being clamped to 99
+[WARNING] High task priority of 100 being clamped to 99
+[WARNING] High task priority of 120 being clamped to 99
+[WARNING] High task priority of 119 being clamped to 99
+EVENT: (512) (2:1645592921,902737) DIAGNOSTIC: (rateGroup1Comp) RateGroupStarted : Rate group started.
+[WARNING] High task priority of 118 being clamped to 99
+EVENT: (768) (2:1645592921,902926) DIAGNOSTIC: (rateGroup2Comp) RateGroupStarted : Rate group started.
+EVENT: (1024) (2:1645592921,903113) DIAGNOSTIC: (rateGroup3Comp) RateGroupStarted : Rate group started.
+EVENT: (1281) (2:1645592972,264771) COMMAND: (cmdDisp) OpCodeDispatched : Opcode 0xe00 dispatched to port 12
+EVENT: (3584) (2:1645592972,264834) ACTIVITY_LO: (mathSender) COMMAND_RECV : Math command received: 42.419998 SUB 0.420000
+EVENT: (1282) (2:1645592972,264992) COMMAND: (cmdDisp) OpCodeCompleted : Opcode 0xe00 completed
+EVENT: (9985) (2:1645592972,923961) ACTIVITY_HI: (mathReceiver) OPERATION_PERFORMED : SUB operation performed
+EVENT: (3585) (2:1645592972,924164) ACTIVITY_HI: (mathSender) RESULT : Math result is 42.000000
+```
