@@ -370,7 +370,7 @@ I started the GDS w/o specifying the IP address:
 ``` /02_Projects/fprime/Ref$ fprime-gds -g html -n --dictionary build-artifacts/raspberrypi/dict/RefTopologyAppDictionary.xml```
 
 ### Start the application on the target
-Start the app on the target with the Windows host IP address and the port (not the WSL2 IP address)
+Start the app on the target with the Windows host IP address (found with `ipconfig` in a Windows terminal) and the port (not the WSL2 IP address)
 ```
 pi@raspberrypi:~ $ sudo ./Ref -a <host IP Address> -p 50000
 Hit Ctrl-C to quit
