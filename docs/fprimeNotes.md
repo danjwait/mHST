@@ -466,3 +466,16 @@ EVENT: (9985) (2:1645592972,923961) ACTIVITY_HI: (mathReceiver) OPERATION_PERFOR
 EVENT: (3585) (2:1645592972,924164) ACTIVITY_HI: (mathSender) RESULT : Math result is 42.000000
 ```
 That all seems to work
+
+### Wireless testing
+Enable wireless on RPi and connect RPi to wifi network. Still same IP on the RPi as before. Note I needed to connect the RPi to a monitor, keyboard, and mouse to get all the wifi setup complete.
+
+With RPi connected to wireless (and configured for SSH in previous steps), SSH into the RPi from the host (I used a terminal in VS Code IDE).
+
+Collect IP port info ss. Within an admin terminal on host Windows machine first run `ipconfig` to get the Windows host IP address, and within the WSL terminal run `ip addr | grep eth0` to get the WSL2 IP address. 
+  
+Setup ports; for host machine, need to open port per above and connect that port to the WSL2 IP address. Within the Windows admin terminal run the two netsh commands above to open the port and connect that port to the WSL2 instance IP address.
+  
+Within a WSL terminal, start the GDS 
+  
+From the PRi SSH, start the applicaiton and connect to the Windows IP. Data should flow from RPi to GDS. Within the SSH terminal, should see the FSW response to commands from the GDS, as well as the results in the GDS.
