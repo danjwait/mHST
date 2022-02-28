@@ -143,6 +143,14 @@ Hardware version: V1.00
   ```
   - [x] Install F' per [Installation Guide](https://nasa.github.io/fprime/INSTALL.html) cloning the F´ core repository 
   - [x] Install F' python-support package
+   - I get a warning:
+   ```
+   WARNING: The script markdown_py is installed in '/home/userID/.local/bin' which is not on PATH.
+   Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+   WARNING: The scripts py.test and pytest are installed in '/home/djwait/.local/bin' which is not on PATH.
+   ...
+   ```
+   so I added /.local/bin to path `export PATH="/home/userID/.local/bin:$PATH"`
   - [x] Check installation: 
   ```
   cd Ref
