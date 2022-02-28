@@ -479,3 +479,13 @@ Setup ports; for host machine, need to open port per above and connect that port
 Within a WSL terminal, start the GDS 
   
 From the RPi SSH terminal, start the applicaiton and connect to the Windows host IP address `pi@raspberrypi:~ $ sudo ./Ref -a <host IP Address> -p 50000`. Data should flow from RPi to GDS. Within the SSH terminal, should see the FSW responses (Events) to commands from the GDS, as well as the results in the GDS.
+
+  # GPS demo
+  
+  Runing with documentation [here](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/GpsTutorial/Tutorial.md). 
+  
+  Created the di GpsApp/Gps
+  
+  Rather than GpsComponentAi.xml per tutorial, went back to Math demo and followed that process; starting at [The MathSender Component](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/MathComponent/Tutorial.md#The-MathSender-Component).
+  
+  
