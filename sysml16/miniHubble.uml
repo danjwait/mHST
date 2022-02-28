@@ -42,18 +42,25 @@
             <subvertex xmi:type="uml:State" xmi:id="_lLyXcGjwEeyCz4nASgF2iw" name="Detumble"/>
           </region>
         </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_9ye3IJhVEeyzMO8_rrWD3g"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_GzKsACS8EeyUo9sI7RyG2Q" name="L1_Requirements"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_I89DACS8EeyUo9sI7RyG2Q" name="L1_Structure">
-        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble" useCase="_FYQncCVwEeyATbkKDVZeCA _iv-oACVzEeyATbkKDVZeCA _vn4HgCVzEeyATbkKDVZeCA __WxmEFIlEey5Wbjd6xZ57Q">
+        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble" useCase="_FYQncCVwEeyATbkKDVZeCA _iv-oACVzEeyATbkKDVZeCA _vn4HgCVzEeyATbkKDVZeCA __WxmEFIlEey5Wbjd6xZ57Q __OwSwJhTEeyzMO8_rrWD3g _HNGCUJhUEeyzMO8_rrWD3g">
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="_FYQncCVwEeyATbkKDVZeCA" name="test new idea" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
             <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_qI0d0CVzEeyATbkKDVZeCA" name="ExtensionPoint1"/>
           </ownedUseCase>
-          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_iv-oACVzEeyATbkKDVZeCA" name="test new software" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_iv-oACVzEeyATbkKDVZeCA" name="test new software" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <generalization xmi:type="uml:Generalization" xmi:id="_7HF50JhTEeyzMO8_rrWD3g" general="_FYQncCVwEeyATbkKDVZeCA"/>
+          </ownedUseCase>
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="_vn4HgCVzEeyATbkKDVZeCA" name="teach about spacecraft" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="__WxmEFIlEey5Wbjd6xZ57Q" name="test new hardware" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
             <generalization xmi:type="uml:Generalization" xmi:id="_Vnl8wFImEey5Wbjd6xZ57Q" general="_FYQncCVwEeyATbkKDVZeCA"/>
           </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="__OwSwJhTEeyzMO8_rrWD3g" name="acquire image" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <include xmi:type="uml:Include" xmi:id="_L0YWgJhUEeyzMO8_rrWD3g" addition="_HNGCUJhUEeyzMO8_rrWD3g"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_HNGCUJhUEeyzMO8_rrWD3g" name="point at target" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_AcNfEyS-EeyUo9sI7RyG2Q" name="telescope" type="_H9yPkCS9EeyUo9sI7RyG2Q" aggregation="composite" association="_AcNfECS-EeyUo9sI7RyG2Q">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AcOGICS-EeyUo9sI7RyG2Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AcOGISS-EeyUo9sI7RyG2Q" value="1"/>
@@ -72,13 +79,41 @@
           </eAnnotations>
           <ownedEnd xmi:type="uml:Property" xmi:id="_A7BiBSS-EeyUo9sI7RyG2Q" name="minihubble" type="_hfbTQCS8EeyUo9sI7RyG2Q" association="_A7A68CS-EeyUo9sI7RyG2Q"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Realization" xmi:id="_Q3jVMFImEey5Wbjd6xZ57Q" client="_iv-oACVzEeyATbkKDVZeCA" supplier="_FYQncCVwEeyATbkKDVZeCA"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_iK1dMCS7EeyUo9sI7RyG2Q" name="L2_FS">
-      <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="telescope"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="observatory">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_LN_W0phSEeyzMO8_rrWD3g" name="structure_mechanisms" type="_8WhBsJhQEeyzMO8_rrWD3g" aggregation="composite" association="_LN9hoJhSEeyzMO8_rrWD3g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LN_94JhSEeyzMO8_rrWD3g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LN_94ZhSEeyzMO8_rrWD3g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_MHtNEphSEeyzMO8_rrWD3g" name="adcs" type="_A5Yv8JhREeyzMO8_rrWD3g" aggregation="composite" association="_MHsmAJhSEeyzMO8_rrWD3g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MHtNE5hSEeyzMO8_rrWD3g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MHtNFJhSEeyzMO8_rrWD3g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_MpMJg5hSEeyzMO8_rrWD3g" name="eps" type="_CcZa0JhREeyzMO8_rrWD3g" aggregation="composite" association="_MpMJgJhSEeyzMO8_rrWD3g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MpMJhJhSEeyzMO8_rrWD3g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MpMwkJhSEeyzMO8_rrWD3g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_NGzSkJhSEeyzMO8_rrWD3g" name="gnc" type="_DyAi4JhREeyzMO8_rrWD3g" aggregation="composite" association="_NGyrgJhSEeyzMO8_rrWD3g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NGzSkZhSEeyzMO8_rrWD3g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NGzSkphSEeyzMO8_rrWD3g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_NgLb45hSEeyzMO8_rrWD3g" name="com" type="_FCZMsJhREeyzMO8_rrWD3g" aggregation="composite" association="_NgLb4JhSEeyzMO8_rrWD3g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NgMC8JhSEeyzMO8_rrWD3g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NgMC8ZhSEeyzMO8_rrWD3g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_N4P9o5hSEeyzMO8_rrWD3g" name="tcs" type="_GIAJ4JhREeyzMO8_rrWD3g" aggregation="composite" association="_N4P9oJhSEeyzMO8_rrWD3g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_N4P9pJhSEeyzMO8_rrWD3g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_N4P9pZhSEeyzMO8_rrWD3g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OVn2I5hSEeyzMO8_rrWD3g" name="imager" type="_ML9QYJhREeyzMO8_rrWD3g" aggregation="composite" association="_OVn2IJhSEeyzMO8_rrWD3g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OVn2JJhSEeyzMO8_rrWD3g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OVodMJhSEeyzMO8_rrWD3g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_gi9AEHZiEeyOPKrZaIbo8Q" name="FS_Behaviors">
-        <packagedElement xmi:type="uml:StateMachine" xmi:id="_1cjFIHZiEeyOPKrZaIbo8Q" name="telescopeStateMachine">
+        <packagedElement xmi:type="uml:StateMachine" xmi:id="_1cjFIHZiEeyOPKrZaIbo8Q" name="observatoryStateMachine">
           <region xmi:type="uml:Region" xmi:id="_26V40HZiEeyOPKrZaIbo8Q" name="Region1">
             <transition xmi:type="uml:Transition" xmi:id="_RtIPcHyxEeyAaIhGXKsqdQ" source="_-_WREHZiEeyOPKrZaIbo8Q" target="_8GueIHZiEeyOPKrZaIbo8Q"/>
             <transition xmi:type="uml:Transition" xmi:id="_XISQkHyxEeyAaIhGXKsqdQ" source="_-_WREHZiEeyOPKrZaIbo8Q" target="_o1RsMHywEeyAaIhGXKsqdQ"/>
@@ -102,11 +137,67 @@
           </region>
         </packagedElement>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_i98b0HZiEeyOPKrZaIbo8Q" name="FS_Structure"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_i98b0HZiEeyOPKrZaIbo8Q" name="FS_Structure">
+        <packagedElement xmi:type="uml:Class" xmi:id="_8WhBsJhQEeyzMO8_rrWD3g" name="structure_mechanisms"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_A5Yv8JhREeyzMO8_rrWD3g" name="ADCS"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_CcZa0JhREeyzMO8_rrWD3g" name="EPS"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_DyAi4JhREeyzMO8_rrWD3g" name="GNC"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_FCZMsJhREeyzMO8_rrWD3g" name="COM"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_GIAJ4JhREeyzMO8_rrWD3g" name="TCS"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_Kn0kIJhREeyzMO8_rrWD3g" name="CDH"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_ML9QYJhREeyzMO8_rrWD3g" name="Imager"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_LN9hoJhSEeyzMO8_rrWD3g" memberEnd="_LN_W0phSEeyzMO8_rrWD3g _LN_94phSEeyzMO8_rrWD3g">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LN_W0JhSEeyzMO8_rrWD3g" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LN_W0ZhSEeyzMO8_rrWD3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_LN_94phSEeyzMO8_rrWD3g" name="observatory" type="_H9yPkCS9EeyUo9sI7RyG2Q" association="_LN9hoJhSEeyzMO8_rrWD3g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_MHsmAJhSEeyzMO8_rrWD3g" memberEnd="_MHtNEphSEeyzMO8_rrWD3g _MHtNFZhSEeyzMO8_rrWD3g">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MHtNEJhSEeyzMO8_rrWD3g" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MHtNEZhSEeyzMO8_rrWD3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_MHtNFZhSEeyzMO8_rrWD3g" name="observatory" type="_H9yPkCS9EeyUo9sI7RyG2Q" association="_MHsmAJhSEeyzMO8_rrWD3g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_MpMJgJhSEeyzMO8_rrWD3g" memberEnd="_MpMJg5hSEeyzMO8_rrWD3g _MpMwkZhSEeyzMO8_rrWD3g">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MpMJgZhSEeyzMO8_rrWD3g" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MpMJgphSEeyzMO8_rrWD3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_MpMwkZhSEeyzMO8_rrWD3g" name="observatory" type="_H9yPkCS9EeyUo9sI7RyG2Q" association="_MpMJgJhSEeyzMO8_rrWD3g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_NGyrgJhSEeyzMO8_rrWD3g" memberEnd="_NGzSkJhSEeyzMO8_rrWD3g _NGzSk5hSEeyzMO8_rrWD3g">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NGyrgZhSEeyzMO8_rrWD3g" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NGyrgphSEeyzMO8_rrWD3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_NGzSk5hSEeyzMO8_rrWD3g" name="observatory" type="_H9yPkCS9EeyUo9sI7RyG2Q" association="_NGyrgJhSEeyzMO8_rrWD3g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_NgLb4JhSEeyzMO8_rrWD3g" memberEnd="_NgLb45hSEeyzMO8_rrWD3g _NgMC8phSEeyzMO8_rrWD3g">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NgLb4ZhSEeyzMO8_rrWD3g" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NgLb4phSEeyzMO8_rrWD3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_NgMC8phSEeyzMO8_rrWD3g" name="observatory" type="_H9yPkCS9EeyUo9sI7RyG2Q" association="_NgLb4JhSEeyzMO8_rrWD3g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_N4P9oJhSEeyzMO8_rrWD3g" memberEnd="_N4P9o5hSEeyzMO8_rrWD3g _N4QksJhSEeyzMO8_rrWD3g">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N4P9oZhSEeyzMO8_rrWD3g" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N4P9ophSEeyzMO8_rrWD3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_N4QksJhSEeyzMO8_rrWD3g" name="observatory" type="_H9yPkCS9EeyUo9sI7RyG2Q" association="_N4P9oJhSEeyzMO8_rrWD3g"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_OVn2IJhSEeyzMO8_rrWD3g" memberEnd="_OVn2I5hSEeyzMO8_rrWD3g _OVodMZhSEeyzMO8_rrWD3g">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OVn2IZhSEeyzMO8_rrWD3g" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_OVn2IphSEeyzMO8_rrWD3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_OVodMZhSEeyzMO8_rrWD3g" name="observatory" type="_H9yPkCS9EeyUo9sI7RyG2Q" association="_OVn2IJhSEeyzMO8_rrWD3g"/>
+        </packagedElement>
+      </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_lUjt4HZiEeyOPKrZaIbo8Q" name="FS_Requirements"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_ktgOQCS7EeyUo9sI7RyG2Q" name="L2_GS">
       <packagedElement xmi:type="uml:Class" xmi:id="_udXT4CS9EeyUo9sI7RyG2Q" name="groundSystem"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_bCNdgJhSEeyzMO8_rrWD3g" name="GS_Behaviors"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_dpDj8JhSEeyzMO8_rrWD3g" name="GS_Requirements"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_gWKqcJhSEeyzMO8_rrWD3g" name="GS_Structure">
+        <packagedElement xmi:type="uml:Class" xmi:id="_j67xsJhSEeyzMO8_rrWD3g" name="COM"/>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_axX6ECVwEeyATbkKDVZeCA" name="External">
       <packagedElement xmi:type="uml:Actor" xmi:id="_uwTtsCVwEeyATbkKDVZeCA" name="Instructor"/>
@@ -188,4 +279,13 @@
   <ModelElements:Stakeholder xmi:id="_rJQSACVxEeyATbkKDVZeCA" base_Classifier="_rJIWMCVxEeyATbkKDVZeCA"/>
   <ModelElements:Stakeholder xmi:id="_uRTBACVxEeyATbkKDVZeCA" base_Classifier="_uRNhcCVxEeyATbkKDVZeCA"/>
   <ModelElements:Stakeholder xmi:id="_4MkXUCVxEeyATbkKDVZeCA" base_Classifier="_4McbgCVxEeyATbkKDVZeCA"/>
+  <Blocks:Block xmi:id="_8WqLoJhQEeyzMO8_rrWD3g" base_Class="_8WhBsJhQEeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_A5bzQJhREeyzMO8_rrWD3g" base_Class="_A5Yv8JhREeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_CcceIJhREeyzMO8_rrWD3g" base_Class="_CcZa0JhREeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_DyDmMJhREeyzMO8_rrWD3g" base_Class="_DyAi4JhREeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_FCbB4JhREeyzMO8_rrWD3g" base_Class="_FCZMsJhREeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_GIB_EJhREeyzMO8_rrWD3g" base_Class="_GIAJ4JhREeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_Kn2ZUJhREeyzMO8_rrWD3g" base_Class="_Kn0kIJhREeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_ML_FkJhREeyzMO8_rrWD3g" base_Class="_ML9QYJhREeyzMO8_rrWD3g"/>
+  <Blocks:Block xmi:id="_j69m4JhSEeyzMO8_rrWD3g" base_Class="_j67xsJhSEeyzMO8_rrWD3g"/>
 </xmi:XMI>
