@@ -23,25 +23,6 @@
           <ownedEnd xmi:type="uml:Property" xmi:id="_xi18IFIlEey5Wbjd6xZ57Q" name="test new idea" type="_FYQncCVwEeyATbkKDVZeCA" association="_xi0uAFIlEey5Wbjd6xZ57Q"/>
           <ownedEnd xmi:type="uml:Property" xmi:id="_xi18IVIlEey5Wbjd6xZ57Q" name="student" type="_rJIWMCVxEeyATbkKDVZeCA" association="_xi0uAFIlEey5Wbjd6xZ57Q"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:StateMachine" xmi:id="_ReMygGjwEeyCz4nASgF2iw" name="flightSystemStates">
-          <region xmi:type="uml:Region" xmi:id="_S_N5UGjwEeyCz4nASgF2iw" name="Region1">
-            <transition xmi:type="uml:Transition" xmi:id="_pkOXUGjwEeyCz4nASgF2iw" source="_UV70oGjwEeyCz4nASgF2iw" target="_WF3hMGjwEeyCz4nASgF2iw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_rnLGgGjwEeyCz4nASgF2iw" source="_WF3hMGjwEeyCz4nASgF2iw" target="_Y6F8UGjwEeyCz4nASgF2iw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_se_fUGjwEeyCz4nASgF2iw" source="_WF3hMGjwEeyCz4nASgF2iw" target="_bfuh0GjwEeyCz4nASgF2iw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_tRbo4GjwEeyCz4nASgF2iw" source="_bfuh0GjwEeyCz4nASgF2iw" target="_WF3hMGjwEeyCz4nASgF2iw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_vXBcYGjwEeyCz4nASgF2iw" source="_bfuh0GjwEeyCz4nASgF2iw" target="_lLyXcGjwEeyCz4nASgF2iw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_xV-cYGjwEeyCz4nASgF2iw" source="_lLyXcGjwEeyCz4nASgF2iw" target="_dE0QUGjwEeyCz4nASgF2iw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_0GSA0GjwEeyCz4nASgF2iw" source="_lLyXcGjwEeyCz4nASgF2iw" target="_fHsHAGjwEeyCz4nASgF2iw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_1l6AgGjwEeyCz4nASgF2iw" source="_dE0QUGjwEeyCz4nASgF2iw" target="_fHsHAGjwEeyCz4nASgF2iw"/>
-            <subvertex xmi:type="uml:Pseudostate" xmi:id="_UV70oGjwEeyCz4nASgF2iw" name="powerOn"/>
-            <subvertex xmi:type="uml:State" xmi:id="_WF3hMGjwEeyCz4nASgF2iw" name="Test"/>
-            <subvertex xmi:type="uml:FinalState" xmi:id="_Y6F8UGjwEeyCz4nASgF2iw" name="Off"/>
-            <subvertex xmi:type="uml:State" xmi:id="_bfuh0GjwEeyCz4nASgF2iw" name="Launch"/>
-            <subvertex xmi:type="uml:State" xmi:id="_dE0QUGjwEeyCz4nASgF2iw" name="Separation"/>
-            <subvertex xmi:type="uml:State" xmi:id="_fHsHAGjwEeyCz4nASgF2iw" name="SunFind"/>
-            <subvertex xmi:type="uml:State" xmi:id="_lLyXcGjwEeyCz4nASgF2iw" name="Detumble"/>
-          </region>
-        </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_9ye3IJhVEeyzMO8_rrWD3g"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_GzKsACS8EeyUo9sI7RyG2Q" name="L1_Requirements"/>
