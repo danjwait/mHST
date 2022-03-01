@@ -23,7 +23,13 @@
           <ownedEnd xmi:type="uml:Property" xmi:id="_xi18IFIlEey5Wbjd6xZ57Q" name="test new idea" type="_FYQncCVwEeyATbkKDVZeCA" association="_xi0uAFIlEey5Wbjd6xZ57Q"/>
           <ownedEnd xmi:type="uml:Property" xmi:id="_xi18IVIlEey5Wbjd6xZ57Q" name="student" type="_rJIWMCVxEeyATbkKDVZeCA" association="_xi0uAFIlEey5Wbjd6xZ57Q"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_9ye3IJhVEeyzMO8_rrWD3g"/>
+        <packagedElement xmi:type="uml:Association" xmi:id="_rH3-oJkEEeyaQogxFVgJ4A" memberEnd="_rH7pAJkEEeyaQogxFVgJ4A _rH8QEJkEEeyaQogxFVgJ4A">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_rH6a4JkEEeyaQogxFVgJ4A" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_rH6a4ZkEEeyaQogxFVgJ4A" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_rH7pAJkEEeyaQogxFVgJ4A" name="acquire image" type="__OwSwJhTEeyzMO8_rrWD3g" association="_rH3-oJkEEeyaQogxFVgJ4A"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_rH8QEJkEEeyaQogxFVgJ4A" name="observer" type="_uRNhcCVxEeyATbkKDVZeCA" association="_rH3-oJkEEeyaQogxFVgJ4A"/>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_GzKsACS8EeyUo9sI7RyG2Q" name="L1_Requirements"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_I89DACS8EeyUo9sI7RyG2Q" name="L1_Structure">
@@ -63,7 +69,7 @@
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_iK1dMCS7EeyUo9sI7RyG2Q" name="L2_FS">
-      <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="observatory">
+      <packagedElement xmi:type="uml:Class" xmi:id="_H9yPkCS9EeyUo9sI7RyG2Q" name="observatory" visibility="public">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_LN_W0phSEeyzMO8_rrWD3g" name="structure_mechanisms" type="_8WhBsJhQEeyzMO8_rrWD3g" aggregation="composite" association="_LN9hoJhSEeyzMO8_rrWD3g">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LN_94JhSEeyzMO8_rrWD3g"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LN_94ZhSEeyzMO8_rrWD3g" value="1"/>
@@ -120,7 +126,7 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_i98b0HZiEeyOPKrZaIbo8Q" name="FS_Structure">
         <packagedElement xmi:type="uml:Class" xmi:id="_8WhBsJhQEeyzMO8_rrWD3g" name="structure_mechanisms"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_A5Yv8JhREeyzMO8_rrWD3g" name="ADCS"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_A5Yv8JhREeyzMO8_rrWD3g" name="attitudeDetermineAndControl"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_CcZa0JhREeyzMO8_rrWD3g" name="EPS"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_DyAi4JhREeyzMO8_rrWD3g" name="GNC"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_FCZMsJhREeyzMO8_rrWD3g" name="COM"/>
