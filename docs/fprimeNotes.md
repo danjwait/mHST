@@ -480,12 +480,165 @@ Within a WSL terminal, start the GDS
   
 From the RPi SSH terminal, start the applicaiton and connect to the Windows host IP address `pi@raspberrypi:~ $ sudo ./Ref -a <host IP Address> -p 50000`. Data should flow from RPi to GDS. Within the SSH terminal, should see the FSW responses (Events) to commands from the GDS, as well as the results in the GDS.
 
-  # GPS demo
+# GPS demo
+
+Runing with documentation [here](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/GpsTutorial/Tutorial.md). 
+
+Created the dir GpsApp/Gps
+
+Rather than GpsComponentAi.xml per tutorial, went back to Math demo and followed that process; starting at [The MathSender Component](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/MathComponent/Tutorial.md#The-MathSender-Component).
+
+Build the fprime/GpsApp/Gps/Gps.fpp file:
+```
+module GpsApp {
+
+    @ Component for reading GPS strings from GPS hardware
+    active component Gps {
+
+        #-----
+        # general ports
+        #-----
+
+        #-----
+        # special ports
+        #-----
+
+        @ command receive port
+        command recv port cmdIn
+
+        @ command registration port
+        command reg port cmdRegOut
+
+        @ command reponse port
+        command resp port cmdResponseOut
+
+        @ event port
+        event port eventOut
+
+        @ text event port
+        text event port textEventOut
+
+        @ telemetry port
+        telemetry port tlmOut
+
+        @ receive serial data port
+        async input port serialRecv: Drv.SerialRead
+
+        @ serial buffer port
+        output port serialBufferOut: Fw.BufferSend
+
+        #-----
+        # parameters
+        #-----
+
+        #-----
+        # events
+        #-----
+
+        @ notification on GPS lock acquired
+        event GPS_LOCK_ACQUIRED \
+        severity activity high \
+        id 0 \
+        format "GPS lock acquired"
+
+        @ warning on GPS lock lost
+        event GPS_LOCK_LOST \
+        severity warning high \
+        id 1 \
+        format "GPS lock lost"
+
+        #-----
+        # commands
+        #-----
+
+        @ command to force an EVR reporting lock status
+        async command REPORT_STATUS \
+        opcode 0
+
+        #-----
+        # telemetry
+        #-----
+
+        @ current latitude
+        telemetry GPS_LATITUDE: F32 id 0
+
+        @ current longitude
+        telemetry GPS_LONGITUDE: F32 id 1
+
+        @ current altitude
+        telemetry GPS_ALTITUDE: F32 id 2
+
+        @ current number of satellites
+        telemetry GPS_SV_COUNT: F32 id 3
+    }
+}
+```
+
+Ran `/fprime/GpsApp$ fprime-util generate` which looked like it worked; get an error with build:
+```
+/fprime/GpsApp$ fprime-util build
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/settings.ini
+make: *** No rule to make target 'GpsApp'.  Stop.
+[CMAKE] CMake failed to detect target, attempting CMake cache refresh and retry
+make: *** No rule to make target 'GpsApp'.  Stop.
+[ERROR] CMake erred with return code 2
+```
+
+Copied the Top file over per [Clone the Ref Application](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/GpsTutorial/Tutorial.md#clone-the-ref-application) in GPS tutorial. Didn't have the files to remove.
   
-  Runing with documentation [here](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/GpsTutorial/Tutorial.md). 
+Copied the CMakeLists.txt file over from Ref `fprime/GpsApp$ cp ../Ref/CMakeLists.txt .` which included other components in Ref & Math demo; copied those over as well:
+```
+~/02_Projects/fprime/GpsApp$ cp ../Ref/CMakeLists.txt .
+~/02_Projects/fprime/GpsApp$ cp -r ../Ref/MathPorts/ .
+~/02_Projects/fprime/GpsApp$ cp -r ../Ref/MathReceiver/ .
+~/02_Projects/fprime/GpsApp$ cp -r ../Ref/MathSender/ .
+~/02_Projects/fprime/GpsApp$ cp -r ../Ref/MathTypes/ .
+...
+```
+Added Gps component to /GpsApp/CMakeLists.txt: `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Gps")`
   
-  Created the di GpsApp/Gps
+Removed the previous build dir `rm -r ./build-fprime-automatic-native/` and re-ran `fprime-util generate` but get error:
+```
+-- Configuring done
+CMake Error at /home/djwait/02_Projects/fprime/cmake/target/build.cmake:75 (add_dependencies):
+-- Generating done
+The dependency target "Ref_Top" of target "Ref" does not exist.
+Call Stack (most recent call first):
+/home/djwait/02_Projects/fprime/cmake/target/build.cmake:107 (setup_build_module)
+/home/djwait/02_Projects/fprime/cmake/target/build.cmake:90 (add_module_target)
+/home/djwait/02_Projects/fprime/cmake/target/target.cmake:85 (add_deployment_target)
+/home/djwait/02_Projects/fprime/cmake/target/target.cmake:103 (setup_deployment_target)
+/home/djwait/02_Projects/fprime/cmake/module.cmake:25 (setup_all_deployment_targets)
+/home/djwait/02_Projects/fprime/cmake/API.cmake:341 (generate_deployment)
+CMakeLists.txt:57 (register_fprime_deployment)
+```
   
-  Rather than GpsComponentAi.xml per tutorial, went back to Math demo and followed that process; starting at [The MathSender Component](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/MathComponent/Tutorial.md#The-MathSender-Component).
+Noticed that the copied Ref CMakeLists.txt had a line `project(Ref VERSION 1.0.0 LANGUAGES C CXX)` so changed Ref to GpsApp. Removed the previous build dir again, then re-ran:
+  ```
+  ~/02_Projects/fprime/GpsApp$ fprime-util generate
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+[INFO] Generating build directory at: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
+[INFO] Using toolchain file None for platform default
+  ...
+  -- Adding Library: GpsApp_Top
+-- Adding Deployment: GpsApp
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
+  ```
+  Scanning dependencies of target GpsApp_MathReceiver
+[ 35%] Building CXX object GpsApp/MathReceiver/CMakeFiles/GpsApp_MathReceiver.dir/MathReceiver.cpp.o
+In file included from /home/djwait/02_Projects/fprime/GpsApp/MathReceiver/MathReceiver.cpp:14:
+/home/djwait/02_Projects/fprime/Ref/MathReceiver/MathReceiver.hpp:16:10: fatal error: Ref/MathReceiver/MathReceiverComponentAc.hpp: No such file or directory
+   16 | #include "Ref/MathReceiver/MathReceiverComponentAc.hpp"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[3]: *** [GpsApp/MathReceiver/CMakeFiles/GpsApp_MathReceiver.dir/build.make:87: GpsApp/MathReceiver/CMakeFiles/GpsApp_MathReceiver.dir/MathReceiver.cpp.o] Error 1
+make[2]: *** [CMakeFiles/Makefile2:8637: GpsApp/MathReceiver/CMakeFiles/GpsApp_MathReceiver.dir/all] Error 2
+make[1]: *** [CMakeFiles/Makefile2:2289: CMakeFiles/GpsApp.dir/rule] Error 2
+make: *** [Makefile:177: GpsApp] Error 2
+[ERROR] CMake erred with return code 2
+  ```
+  Looks like the copied files include references back to Ref; will need to clean that up
   
-  
+Tried `fprime-util build` and get error:
