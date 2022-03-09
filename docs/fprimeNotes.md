@@ -641,4 +641,43 @@ make: *** [Makefile:177: GpsApp] Error 2
   ```
   Looks like the copied files include references back to Ref; will need to clean that up
   
-Tried `fprime-util build` and get error:
+Removed Math Ref folders, commented out the components in CMakeLists.txt and retried:
+```
+~/02_Projects/fprime/GpsApp$ fprime-util generate
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+[INFO] Generating build directory at: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
+[INFO] Using toolchain file None for platform default
+...
+-- Adding Library: Utils_Types
+-- Adding Library: GpsApp_Gps
+-- Adding Library: GpsApp_Top
+-- Adding Deployment: GpsApp
+-- Configuring done
+-- Generating done
+```
+Then:
+```
+~/02_Projects/fprime/GpsApp$ fprime-util build
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+Scanning dependencies of target Fw_Cfg
+[  1%] Building CXX object F-Prime/Fw/Cfg/CMakeFiles/Fw_Cfg.dir/ConfigCheck.cpp.o
+[  1%] Linking CXX static library ../../../lib/Linux/libFw_Cfg.a
+[  1%] Built target Fw_Cfg
+Scanning dependencies of target codegen
+[  4%] Built target codegen
+...
+[ 96%] Linking CXX static library ../../../lib/Linux/libDrv_Udp.a
+[ 96%] Built target Drv_Udp
+[ 96%] Generating Ports_RateGroupsEnumAi.xml, Ports_StaticMemoryEnumAi.xml, RefTopologyAppAi.xml
+fpp-to-xml
+/home/djwait/02_Projects/fprime/GpsApp/Top/instances.fpp: 158.26
+instance pingRcvr: Ref.PingReceiver base id 0x0A00 \
+                       ^
+error: undefined symbol PingReceiver
+make[3]: *** [GpsApp/Top/CMakeFiles/GpsApp_Top.dir/build.make:188: GpsApp/Top/Ports_RateGroupsEnumAi.xml] Error 1
+make[2]: *** [CMakeFiles/Makefile2:8028: GpsApp/Top/CMakeFiles/GpsApp_Top.dir/all] Error 2
+make[1]: *** [CMakeFiles/Makefile2:2105: CMakeFiles/GpsApp.dir/rule] Error 2
+make: *** [Makefile:177: GpsApp] Error 2
+[ERROR] CMake erred with return code 2
+```
+  
