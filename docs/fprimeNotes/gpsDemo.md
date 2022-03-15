@@ -103,7 +103,7 @@ make: *** No rule to make target 'GpsApp'.  Stop.
 ```
 
 Copied the Top file over per [Clone the Ref Application](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/GpsTutorial/Tutorial.md#clone-the-ref-application) in GPS tutorial. Didn't have the files to remove.
-  
+
 Copied the CMakeLists.txt file over from Ref `fprime/GpsApp$ cp ../Ref/CMakeLists.txt .` which included other components in Ref & Math demo; copied those over as well:
 ```
 ~/02_Projects/fprime/GpsApp$ cp ../Ref/CMakeLists.txt .
@@ -113,6 +113,10 @@ Copied the CMakeLists.txt file over from Ref `fprime/GpsApp$ cp ../Ref/CMakeList
 ~/02_Projects/fprime/GpsApp$ cp -r ../Ref/MathTypes/ .
 ...
 ```
+
+### Lesson Learned
+ - Don't copy over the other components; comment them out in the `CMakeLists.txt` instead
+
 Added Gps component to /GpsApp/CMakeLists.txt: `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Gps")`
   
 Removed the previous build dir `rm -r ./build-fprime-automatic-native/` and re-ran `fprime-util generate` but get error:
@@ -143,7 +147,7 @@ Noticed that the copied Ref CMakeLists.txt had a line `project(Ref VERSION 1.0.0
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
-  ```
+...
   Scanning dependencies of target GpsApp_MathReceiver
 [ 35%] Building CXX object GpsApp/MathReceiver/CMakeFiles/GpsApp_MathReceiver.dir/MathReceiver.cpp.o
 In file included from /home/djwait/02_Projects/fprime/GpsApp/MathReceiver/MathReceiver.cpp:14:
@@ -157,7 +161,7 @@ make[1]: *** [CMakeFiles/Makefile2:2289: CMakeFiles/GpsApp.dir/rule] Error 2
 make: *** [Makefile:177: GpsApp] Error 2
 [ERROR] CMake erred with return code 2
   ```
-  Looks like the copied files include references back to Ref; will need to clean that up
+Looks like the copied files include references back to Ref; will need to clean that up (this is lesson leanred above)
   
 Removed Math Ref folders, commented out the components in CMakeLists.txt and retried:
 ```
@@ -198,4 +202,88 @@ make[1]: *** [CMakeFiles/Makefile2:2105: CMakeFiles/GpsApp.dir/rule] Error 2
 make: *** [Makefile:177: GpsApp] Error 2
 [ERROR] CMake erred with return code 2
 ```
-  
+When up to `fprime/GpsApp` and ran `fprime/GpsApp/Gps$ fprime-util generate` :
+```
+~/02_Projects/fprime/GpsApp$ fprime-util generate
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+[INFO] Generating build directory at: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
+[INFO] Using toolchain file None for platform default
+-- The C compiler identification is GNU 9.3.0
+-- The CXX compiler identification is GNU 9.3.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+...
+-- Adding Library: GpsApp_Gps
+-- Adding Library: GpsApp_Top
+-- Adding Deployment: GpsApp
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
+```
+Then cd into GpsApp/Gds and run:
+```
+~/02_Projects/fprime/GpsApp/Gps$ fprime-util impl
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+Scanning dependencies of target Fw_Cfg
+[  4%] Building CXX object F-Prime/Fw/Cfg/CMakeFiles/Fw_Cfg.dir/ConfigCheck.cpp.o
+[  4%] Linking CXX static library ../../../lib/Linux/libFw_Cfg.a
+[  4%] Built target Fw_Cfg
+Scanning dependencies of target codegen
+[ 12%] Built target codegen
+...
+uilt target Fw_CompQueued
+Scanning dependencies of target GpsApp_Gps_impl
+[ 96%] Generating GpsComponentAi.xml
+fpp-to-xml
+/home/djwait/02_Projects/fprime/GpsApp/Gps/Gps.fpp: 4.5
+    active component Gps {
+    ^
+error: component with event specifiers must have time get port
+make[3]: *** [GpsApp/Gps/CMakeFiles/GpsApp_Gps_impl.dir/build.make:75: GpsApp/Gps/GpsComponentAi.xml] Error 1
+make[2]: *** [CMakeFiles/Makefile2:7848: GpsApp/Gps/CMakeFiles/GpsApp_Gps_impl.dir/all] Error 2
+make[1]: *** [CMakeFiles/Makefile2:7855: GpsApp/Gps/CMakeFiles/GpsApp_Gps_impl.dir/rule] Error 2
+make: *** [Makefile:2205: GpsApp_Gps_impl] Error 2
+[ERROR] CMake erred with return code 2
+```
+So added time get port per Math Component tutorial for Gps.fpp:
+```
+    @ Time get port
+    time get port timeGetOut
+```
+Re-run:
+```
+~/02_Projects/fprime/GpsApp/Gps$ fprime-util impl
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+-- Searching for F prime modules in: /home/djwait/02_Projects/fprime
+-- Autocoder constants file: /home/djwait/02_Projects/fprime/config/AcConstants.ini
+-- Configuration header directory: /home/djwait/02_Projects/fprime/config
+-- [fpp-tools] Searching for fpp-tools
+...
+[ 96%] Generating GpsComponentAi.xml
+[100%] Generating ../../../Gps/GpsComponentImpl.hpp-template, ../../../Gps/GpsComponentImpl.cpp-template
+Parsing Component Gps
+Parsing Interface SerialRead
+Parsing Interface BufferSend
+Parsing Interface Cmd
+Parsing Interface CmdReg
+Parsing Interface CmdResponse
+Parsing Interface Log
+Parsing Interface LogText
+Parsing Interface Time
+Parsing Interface Tlm
+Enabled generation of implementation template files...
+[100%] Built target GpsApp_Gps_impl
+```
+See the Impl files:
+```
+~/02_Projects/fprime/GpsApp/Gps$ ls -lrt
+total 16
+-rw-r--r-- 1 djwait djwait  149 Mar  8 20:31 CMakeLists.txt
+-rw-r--r-- 1 djwait djwait    0 Mar 14 20:34 Gps.cpp
+-rw-r--r-- 1 djwait djwait 1734 Mar 14 20:55 Gps.fpp
+-rw-r--r-- 1 djwait djwait 2266 Mar 14 20:56 GpsComponentImpl.hpp-template
+-rw-r--r-- 1 djwait djwait 1799 Mar 14 20:56 GpsComponentImpl.cpp-template
+```
+Noted that the Gps.cpp file I'd generated by `touch Gps.cpp` is still empty; removed it and mv the Imp files 
+
