@@ -323,3 +323,58 @@ so edited Gps.hpp to be:
 #include "GpsApp/Gps/Gps.hpp"
 ...
 ```
+## lots of debugging
+
+I made a change to the Gps.hpp file:
+```
+#ifndef Gps_HPP
+#define Gps_HPP
+
+//#include "GpsApp/Gps/Gps.hpp"
+#include "GpsApp/Gps/GpsComponentAc.hpp"
+```
+as well as the GpsApp/Gps/CMakeLists.txt file to include the .fpp in place of the .hpp file:
+```
+# Register the standard build
+set(SOURCE_FILES
+	"${CMAKE_CURRENT_LIST_DIR}/Gps.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/Gps.fpp"
+)
+register_fprime_module()
+```
+I then ran `/02_Projects/fprime/GpsApp/Gps$ fprime-util purge` and `fprime-util generate` and `fprime-util build` and see different errors:
+
+Error in Gps.cpp at ` void Gps :: preamble()` with a type mismatch on the (U64) and the buffer; commented that out to see what the next error would be:
+```
+//this->m_recvBuffers[buffer].setData((U64)this->m_uartBuffers[buffer]);
+```
+
+At `Drv::SerialReadStatus &serial_status` I had missed the &, so fixed that. 
+
+In ` void Gps ::serialRecv_handler` another error with the [renamed symbols](https://nasa.github.io/fprime/UsersGuide/dev/v3-renamed-symbols.html) ; `Drv::SER_OK` becomes `Drv::SerialReadStatus::SER_OK` 
+    
+Then another type error at `//Fw::Logger::logMsg("[WARNING] Received buffer with bad packet: %d\n", serial_status);` so commented that line out.
+
+In step 4 generate telemetry getting other errors; this code:
+```
+// Step 4: generate telemetry
+tlmWrite_Gps_Latitude(lat);
+this->tlmWrite_Gps_Longitude(lon);
+```
+generates this errors with build:
+```
+...
+[100%] Built target Drv_SerialDriverPorts
+Scanning dependencies of target GpsApp_Gps
+[100%] Building CXX object GpsApp/Gps/CMakeFiles/GpsApp_Gps.dir/Gps.cpp.o
+/home/djwait/02_Projects/fprime/GpsApp/Gps/Gps.cpp: In member function ‘virtual void GpsApp::Gps::serialRecv_handler(NATIVE_INT_TYPE, Fw::Buffer&, Drv::SerialReadStatus&)’:
+/home/djwait/02_Projects/fprime/GpsApp/Gps/Gps.cpp:169:5: error: ‘tlmWrite_Gps_Latitude’ was not declared in this scope
+  169 |     tlmWrite_Gps_Latitude(lat);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+/home/djwait/02_Projects/fprime/GpsApp/Gps/Gps.cpp:170:11: error: ‘class GpsApp::Gps’ has no member named ‘tlmWrite_Gps_Longitude’
+  170 |     this->tlmWrite_Gps_Longitude(lon);
+...
+```
+
+      
+   
