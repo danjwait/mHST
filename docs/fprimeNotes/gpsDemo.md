@@ -375,6 +375,53 @@ Scanning dependencies of target GpsApp_Gps
   170 |     this->tlmWrite_Gps_Longitude(lon);
 ...
 ```
+I needed to have `this->` preceeding the timWrite, and I'd 1) put the tememetry channels as all caps in the .fpp file (e.g. `GPS_LATITUDE`) and 2) had not defined the Gps_LockStatus in the .fpp file; I did that as:
+```
+...
+        @ current lock status
+        telemetry GPS_LOCK_STATUS: U32 id 4
+...
+```
+I had made the same errors (all caps in Gps.fpp, camel case in .cpp); fixed as:
+```
+    // Only generate lock status event on change
+    if (packet.lock == 0 && m_locked) {
+      m_locked = false;
+      log_WARNING_HI_GPS_LOCK_LOST();
+    } else if (packet.lock == 1 && !m_locked) {
+      m_locked = true;
+      log_ACTIVITY_HI_GPS_LOCK_ACQUIRED();
+```
+Note I made the events camel case in two places in the Gps.cpp file, so needed to fix to all caps in both places.
 
+With all those changes, it appears to work:
+```
+djwait@Aero-FacLPT-01:~/02_Projects/fprime/GpsApp/Gps$ fprime-util build
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+[  4%] Built target Fw_Cfg
+[ 12%] Built target codegen
+[ 25%] Built target Fw_Types
+[ 29%] Built target Utils_Hash
+[ 29%] Built target Fw_Logger
+[ 33%] Built target Fw_Obj
+[ 37%] Built target Fw_Port
+[ 41%] Built target Fw_Time
+[ 45%] Built target Fw_Com
+[ 50%] Built target Fw_Tlm
+[ 58%] Built target Fw_Log
+[ 66%] Built target Fw_Cmd
+[ 70%] Built target Fw_Prm
+[ 75%] Built target Fw_Buffer
+[ 75%] Built target Fw_Comp
+[ 91%] Built target Os
+[ 95%] Built target Fw_CompQueued
+[100%] Built target Drv_SerialDriverPorts
+Scanning dependencies of target GpsApp_Gps
+[100%] Building CXX object GpsApp/Gps/CMakeFiles/GpsApp_Gps.dir/Gps.cpp.o
+[100%] Building CXX object GpsApp/Gps/CMakeFiles/GpsApp_Gps.dir/GpsComponentAc.cpp.o
+[100%] Linking CXX static library ../../lib/Linux/libGpsApp_Gps.a
+[100%] Built target GpsApp_Gps
+djwait@Aero-FacLPT-01:~/02_Projects/fprime/GpsApp/Gps$ 
+```
       
    
