@@ -423,5 +423,9 @@ Scanning dependencies of target GpsApp_Gps
 [100%] Built target GpsApp_Gps
 djwait@Aero-FacLPT-01:~/02_Projects/fprime/GpsApp/Gps$ 
 ```
-      
-   
+
+TODO:
+ - [Define the GPS Component Instances](https://github.com/nasa/fprime/blob/master/docs/Tutorials/MathComponent/Tutorial.md#61-defining-the-component-instances)
+ - [Update the Topology](https://github.com/nasa/fprime/blob/master/docs/Tutorials/MathComponent/Tutorial.md#62-updating-the-topology)
+Noted that the existing [GPS tutorial points](https://github.com/nasa/fprime/blob/devel/docs/Tutorials/GpsTutorial/Tutorial.md#build-the-topology-sources) at a 404 refernce; it looks like the reference is [here](https://github.com/LeStarch/fprime/tree/gps-application/GpsApp). 
+ 
