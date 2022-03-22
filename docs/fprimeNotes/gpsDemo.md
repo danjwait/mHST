@@ -161,7 +161,7 @@ make[1]: *** [CMakeFiles/Makefile2:2289: CMakeFiles/GpsApp.dir/rule] Error 2
 make: *** [Makefile:177: GpsApp] Error 2
 [ERROR] CMake erred with return code 2
   ```
-Looks like the copied files include references back to Ref; will need to clean that up (this is lesson leanred above)
+Looks like the copied files include references back to Ref; will need to clean that up (this is lesson learned above)
   
 Removed Math Ref folders, commented out the components in CMakeLists.txt and retried:
 ```
@@ -424,7 +424,211 @@ Scanning dependencies of target GpsApp_Gps
 djwait@Aero-FacLPT-01:~/02_Projects/fprime/GpsApp/Gps$ 
 ```
 
-TODO:
+## Topology work
+GPS tutorial says to copy the Ref Topology, make a couple edits, and build that. However the Ref topology includes components in Ref, which leads to errors:
+```
+~/02_Projects/fprime/GpsApp$ fprime-util build
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+Scanning dependencies of target Fw_Cfg
+[  0%] Building CXX object F-Prime/Fw/Cfg/CMakeFiles/Fw_Cfg.dir/ConfigCheck.cpp.o
+[  0%] Linking CXX static library ../../../lib/Linux/libFw_Cfg.a
+...
+[ 96%] Building CXX object F-Prime/Drv/Udp/CMakeFiles/Drv_Udp.dir/RecvStatusEnumAc.cpp.o
+[ 96%] Building CXX object F-Prime/Drv/Udp/CMakeFiles/Drv_Udp.dir/SendStatusEnumAc.cpp.o
+[ 96%] Linking CXX static library ../../../lib/Linux/libDrv_Udp.a
+[ 96%] Built target Drv_Udp
+[ 96%] Generating Ports_RateGroupsEnumAi.xml, Ports_StaticMemoryEnumAi.xml, RefTopologyAppAi.xml
+fpp-to-xml
+/home/djwait/02_Projects/fprime/GpsApp/Top/instances.fpp: 158.26
+  instance pingRcvr: Ref.PingReceiver base id 0x0A00 \
+                         ^
+error: undefined symbol PingReceiver
+make[3]: *** [GpsApp/Top/CMakeFiles/GpsApp_Top.dir/build.make:188: GpsApp/Top/Ports_RateGroupsEnumAi.xml] Error 1
+make[2]: *** [CMakeFiles/Makefile2:7999: GpsApp/Top/CMakeFiles/GpsApp_Top.dir/all] Error 2
+make[1]: *** [CMakeFiles/Makefile2:2105: CMakeFiles/GpsApp.dir/rule] Error 2
+make: *** [Makefile:177: GpsApp] Error 2
+[ERROR] CMake erred with return code 2
+```
+Tried adding line to CMakeLists.txt in /GpsApp/ :
+```
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref")
+```
+but still see same error. Tried ` fprime-util purge` and `fprime-util generate` and `fprime-util build` ; didn't see anything like "Adding Library: Ref_" after generate, so wasn't sure it was going to work, and it didn't. Same issue as above.
+
+Ended up copying the component subdirectories back into /GpsApp/ and added to /GpsApp/CMakeLists.txt:
+```
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/PingReceiver/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/RecvBuffApp/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/SendBuffApp/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/SignalGen/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathTypes")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathPorts")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathSender")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/MathReceiver")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Gps")
+```
+Re-ran ` fprime-util purge` and `fprime-util generate` and this time see:
+```
+...
+-- Adding Library: Utils_Types
+-- Adding Library: GpsApp_PingReceiver
+-- Adding Library: GpsApp_RecvBuffApp
+-- Adding Library: GpsApp_SendBuffApp
+-- Adding Library: GpsApp_SignalGen
+-- Adding Library: GpsApp_MathTypes
+-- Adding Library: GpsApp_MathPorts
+-- Adding Library: GpsApp_MathSender
+-- Adding Library: GpsApp_MathReceiver
+-- Adding Library: GpsApp_Gps
+-- Adding Library: GpsApp_Top
+-- Adding Deployment: GpsApp
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
+```
+which looks better, but get errors running `fprime-util build` with files that are still in /Ref/
+
+## working version:
+Modified /GpsApp/CMakeLists.txt again:
+```
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/PingReceiver/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/RecvBuffApp/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/SendBuffApp/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/SignalGen/")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathTypes")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathPorts")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathSender")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")
+add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/Gps")
+```
+
+Added Gps in /GpsApp/instances.fpp at the end of the active group:
+```
+  instance gps: GpsApp.Gps base id 0x0F00 \
+    queue size Default.queueSize \
+    stack size Default.stackSize \
+    priority 100 \
+  {
+
+  }
+ ```
+left the ` { } ` because I wasn't sure if gps needed other configuration.
+
+In same file added  the linux serial driver at the end of  `# Passive component instances` as:
+```
+  instance gpsSerial: Drv.LinuxSerialDriver base id 0x4C00 \
+    at "../../Drv/LinuxSerialDriver/LinuxSerialDriver.hpp" \
+  {
+
+
+  }
+```
+
+In file /GpsApp/topology.fpp added:
+```
+    instance gpsSerial
+    instance gps
+```
+in same file also modified:
+```
+module GpsApp {
+....
+ topology GpsApp {
+ ...
+ ```
+
+and in `/GpsApp/Top/instances.fpp` change the first line to `module GpsApp`
+
+Ended up going into `GpsApp/Top` and deleting everything there unitl all that was left was:
+```
+djwait@TRON:~/02_Projects/fprime/GpsApp/Top$ lrt
+total 84
+-rw-r--r-- 1 djwait djwait   427 Mar  8 20:38 CMakeLists.txt
+-rw-r--r-- 1 djwait djwait    19 Mar  8 20:38 .gitignore
+-rw-r--r-- 1 djwait djwait 45705 Mar 21 19:50 GpsTopologyAppAi.xml
+-rw-r--r-- 1 djwait djwait  9952 Mar 21 21:31 instances.fpp
+-rw-r--r-- 1 djwait djwait  4948 Mar 21 21:35 topology.fpp
+drwxr-xr-x 5 djwait djwait  4096 Mar 21 21:35 ..
+drwxr-xr-x 2 djwait djwait  4096 Mar 21 21:41 .
+```
+Looked at /GpsApp/Top/CMakeLists.txt and say a reference to a `RefTopologyDefs.cpp` file; copied that back into /GpsApp/Top and replace `Ref` with `GpsApp` in the file and in the /GpsApp/Top/CMakeLists.txt file.
+
+Likewise copied RefTopologyAc.hpp and RefTopologyAc.cpp over from /Ref and replaced `Ref` with `GpsApp` within files and changed file names to match. Ended up doing that over and over until /GpsApp/Top had these files, copied from /Ref and edited & renamed to replace `Ref` with `GpsApp`:
+```
+~/02_Projects/fprime/GpsApp/Top$ ls -lrt
+total 140
+-rw-r--r-- 1 djwait djwait 45705 Mar 21 19:50 GpsTopologyAppAi.xml
+-rw-r--r-- 1 djwait djwait  9952 Mar 21 21:31 instances.fpp
+-rw-r--r-- 1 djwait djwait  4948 Mar 21 21:35 topology.fpp
+-rw-r--r-- 1 djwait djwait  5732 Mar 21 21:52 GpsAppTopologyAc.hpp
+-rw-r--r-- 1 djwait djwait 39979 Mar 21 21:56 GpsAppTopologyAc.cpp
+-rw-r--r-- 1 djwait djwait  2106 Mar 21 21:56 Main.cpp
+-rw-r--r-- 1 djwait djwait   430 Mar 21 21:58 CMakeLists.txt
+-rw-r--r-- 1 djwait djwait   196 Mar 21 22:07 GpsAppTopologyDefs.cpp
+-rw-r--r-- 1 djwait djwait   694 Mar 21 22:10 FppConstantsAc.hpp
+-rw-r--r-- 1 djwait djwait   488 Mar 21 22:10 FppConstantsAc.cpp
+-rw-r--r-- 1 djwait djwait  1647 Mar 21 22:11 GpsAppTopologyDefs.hpp
+```
+
+Re-ran `fprime-util purge` in /GpsApp and now with `fprime-util generate` see:
+```
+...
+-- Adding Library: Utils_Types
+-- Adding Library: Ref_PingReceiver
+-- Adding Library: Ref_RecvBuffApp
+-- Adding Library: Ref_SendBuffApp
+-- Adding Library: Ref_SignalGen
+-- Adding Library: Ref_MathTypes
+-- Adding Library: Ref_MathPorts
+-- Adding Library: Ref_MathSender
+-- Adding Library: Ref_MathReceiver
+-- Adding Library: GpsApp_Gps
+-- Adding Library: GpsApp_Top
+-- Adding Deployment: GpsApp
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native
+```
+
+Then build:
+```
+...
+[100%] Built target GpsApp_Top
+Scanning dependencies of target GpsApp_dict
+[100%] Built target GpsApp_dict
+Scanning dependencies of target GpsApp
+[100%] Building CXX object CMakeFiles/GpsApp.dir/Top/Main.cpp.o
+In file included from /home/djwait/02_Projects/fprime/Drv/LinuxSerialDriver/LinuxSerialDriver.hpp:9,
+                 from /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native/GpsApp/Top/GpsAppTopologyAc.hpp:16,
+                 from /home/djwait/02_Projects/fprime/GpsApp/Top/Main.cpp:6:
+/home/djwait/02_Projects/fprime/Drv/LinuxSerialDriver/LinuxSerialDriverComponentImpl.hpp:74:65: error: conversion to ‘NATIVE_INT_TYPE’ {aka ‘int’} from ‘NATIVE_UINT_TYPE’ {aka ‘unsigned int’} may change the sign of the result [-Werror=sign-conversion]
+   74 |       void startReadThread(NATIVE_INT_TYPE priority = Os::Task::TASK_DEFAULT, NATIVE_INT_TYPE stackSize = Os::Task::TASK_DEFAULT, NATIVE_INT_TYPE cpuAffinity = Os::Task::TASK_DEFAULT);
+      |                                                       ~~~~~~~~~~^~~~~~~~~~~~
+/home/djwait/02_Projects/fprime/Drv/LinuxSerialDriver/LinuxSerialDriverComponentImpl.hpp:74:117: error: conversion to ‘NATIVE_INT_TYPE’ {aka ‘int’} from ‘NATIVE_UINT_TYPE’ {aka ‘unsigned int’} may change the sign of the result [-Werror=sign-conversion]
+   74 | NATIVE_INT_TYPE priority = Os::Task::TASK_DEFAULT, NATIVE_INT_TYPE stackSize = Os::Task::TASK_DEFAULT, NATIVE_INT_TYPE cpuAffinity = Os::Task::TASK_DEFAULT);
+      |                                                                                ~~~~~~~~~~^~~~~~~~~~~~
+
+In file included from /home/djwait/02_Projects/fprime/Drv/LinuxSerialDriver/LinuxSerialDriver.hpp:9,
+                 from /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native/GpsApp/Top/GpsAppTopologyAc.hpp:16,
+                 from /home/djwait/02_Projects/fprime/GpsApp/Top/Main.cpp:6:
+/home/djwait/02_Projects/fprime/Drv/LinuxSerialDriver/LinuxSerialDriverComponentImpl.hpp:74:171: error: conversion to ‘NATIVE_INT_TYPE’ {aka ‘int’} from ‘NATIVE_UINT_TYPE’ {aka ‘unsigned int’} may change the sign of the result [-Werror=sign-conversion]
+   74 |  NATIVE_INT_TYPE stackSize = Os::Task::TASK_DEFAULT, NATIVE_INT_TYPE cpuAffinity = Os::Task::TASK_DEFAULT);
+      |                                                                                    ~~~~~~~~~~^~~~~~~~~~~~
+
+cc1plus: all warnings being treated as errors
+make[3]: *** [CMakeFiles/GpsApp.dir/build.make:63: CMakeFiles/GpsApp.dir/Top/Main.cpp.o] Error 1
+make[2]: *** [CMakeFiles/Makefile2:2285: CMakeFiles/GpsApp.dir/all] Error 2
+make[1]: *** [CMakeFiles/Makefile2:2292: CMakeFiles/GpsApp.dir/rule] Error 2
+make: *** [Makefile:177: GpsApp] Error 2
+[ERROR] CMake erred with return code 2
+```
+
+### Lessons Learned
+ - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
+ - Scrub though all the /Ref stuff, aything copied over
+
+
+TODO
  - [Define the GPS Component Instances](https://github.com/nasa/fprime/blob/master/docs/Tutorials/MathComponent/Tutorial.md#61-defining-the-component-instances)
  - [Update the Topology](https://github.com/nasa/fprime/blob/master/docs/Tutorials/MathComponent/Tutorial.md#62-updating-the-topology)
 
