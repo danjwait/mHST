@@ -384,9 +384,7 @@ Scanning dependencies of target GpsApp_Gps
 djwait@Aero-FacLPT-01:~/02_Projects/fprime/GpsApp/Gps$ 
 ```
 
-## Current Status
-
-When building /GpsApp/:
+When building /GpsApp/ ran into type conversion error:
 ```
 ...
 [100%] Built target GpsApp_Top
@@ -418,6 +416,64 @@ make[1]: *** [CMakeFiles/Makefile2:2292: CMakeFiles/GpsApp.dir/rule] Error 2
 make: *** [Makefile:177: GpsApp] Error 2
 [ERROR] CMake erred with return code 2
 ```
+Wrote F' [question on this](https://github.com/nasa/fprime/discussions/1343) and worked around by going into `rv/LinuxSerialDriver/LinuxSerialDriver.hpp` and editing that line to:
+```
+void startReadThread(NATIVE_UINT_TYPE priority = Os::Task::TASK_DEFAULT, NATIVE_UINT_TYPE stackSize = Os::Task::TASK_DEFAULT, NATIVE_UINT_TYPE cpuAffinity = Os::Task::TASK_DEFAULT);
+```
+Then the GpsApp built:
+```
+...
+-- Installing: /home/djwait/02_Projects/fprime/GpsApp/build-artifacts/Linux/lib/static/libSvc_TlmChan.a
+-- Installing: /home/djwait/02_Projects/fprime/GpsApp/build-artifacts/Linux/lib/static/libGpsApp_Top.a
+-- Installing: /home/djwait/02_Projects/fprime/GpsApp/build-artifacts/Linux/dict/GpsAppTopologyAppDictionary.xml
+[100%] Built target GpsApp
+```
+
+## Finishing Topology
+Checked for onconnected ports:
+```
+~/02_Projects/fprime/GpsApp/Top$ fprime-util fpp-check -u unconnected.txt
+[WARNING] Failed to find settings file: /home/djwait/02_Projects/fprime/GpsApp/settings.ini
+[INFO] Updating fpp locations file and build cache. This may take some time.
+djwait@TRON:~/02_Projects/fprime/GpsApp/Top$ cat unconnected.txt 
+Topology GpsApp.GpsApp:
+  GpsApp.chanTlm.TlmGet
+  GpsApp.cmdSeq.seqCancelIn
+  GpsApp.cmdSeq.seqDone
+  GpsApp.cmdSeq.seqRunIn
+  GpsApp.comm.poll
+  GpsApp.comm.ready
+  GpsApp.fileDownlink.FileComplete
+  GpsApp.fileDownlink.SendFile
+  GpsApp.gps.serialBufferOut
+  GpsApp.gps.serialRecv
+  GpsApp.gpsSerial.readBufferSend
+  GpsApp.gpsSerial.serialRecv
+  GpsApp.gpsSerial.serialSend
+  GpsApp.health.WdogStroke
+  GpsApp.uplink.framedPoll
+  GpsApp.uplink.schedIn
+```
+In /GpsApp/Top/topology.fpp:
+```
+      rateGroup1Comp.RateGroupMemberOut[6] -> uplink.schedIn
+      ...
+    connections Gps {
+      gpsSerial.serialRecv -> gps.serialRecv
+      gps.serialBufferOut -> gpsSerial.readBufferSend
+    }
+```
+Did not connect the other ports, went back and rebuilt /GpsApp (native). Also generated for raspberrypi and built for raspberrypi
+
+Both builds look successful:
+```
+/02_Projects/fprime/GpsApp/build-artifacts$ ls -lrt
+total 12
+drwxr-xr-x 5 djwait djwait 4096 Mar 22 20:25 Linux
+drwxr-xr-x 5 djwait djwait 4096 Mar 22 22:03 raspberrypi
+drwxr-xr-x 4 djwait djwait 4096 Mar 22 22:05 logs
+```
+Able to start GDS on host WSL2 machine with `~/02_Projects/fprime/GpsApp/build-artifacts$ fprime-gds -g html -r .` and see GPS command for EVR and telemetry channels
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
