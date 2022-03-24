@@ -475,6 +475,21 @@ drwxr-xr-x 4 djwait djwait 4096 Mar 22 22:05 logs
 ```
 Able to start GDS on host WSL2 machine with `~/02_Projects/fprime/GpsApp/build-artifacts$ fprime-gds -g html -r .` and see GPS command for EVR and telemetry channels
 
+## Testing on RPi 4
+Connect RPi 4 to [Adafruit Ultimate GPS Featherwing](Adafruit Ultimate GPS featherwing) and [SparkFun Pi Wedge](https://learn.sparkfun.com/tutorials/preassembled-40-pin-pi-wedge-hookup-guide/all), with separate 3.3V supply.
+
+See FIX LED change to ~15 second interval on GPS Featherwing, which implies that the GPS Featherwing has GPS lock.
+
+Setup UART serial on RPi 4 per directions [here](https://maker.pro/raspberry-pi/tutorial/how-to-use-a-gps-receiver-with-raspberry-pi-4). 
+
+Connect to RPi from host per [Cross-compile testing](https://github.com/danjwait/mHST/blob/main/docs/fprimeNotes/crossCompile.md#cross-compile-testing) and scp RPi GpsApp over. 
+Start fprime-gds on host. 
+Start GpsApp on RPi
+
+See data flow both directions from host to RPi, with Math commands from Math demo, and gps.REPORT_STATUS. EVR from each REPORT_STATUS reports "GPS lock lost" and no GPS channelized TLM shows up (including lock status). 
+
+with `cat /dev/serial0` on RPi4 see GPS messages, so know that data flow from featherwing to RPi 4 is working. 
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
