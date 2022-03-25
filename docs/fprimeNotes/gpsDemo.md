@@ -490,6 +490,45 @@ See data flow both directions from host to RPi, with Math commands from Math dem
 
 with `cat /dev/serial0` on RPi4 see GPS messages, so know that data flow from featherwing to RPi 4 is working. 
 
+Looks like the GpsApp/Top/topology may have an issue; looks like I'm not starting the gps as part of the rate group; had this:
+```
+      # Rate group 1
+      rateGroupDriverComp.CycleOut[Ports_RateGroups.rateGroup1] -> rateGroup1Comp.CycleIn
+      rateGroup1Comp.RateGroupMemberOut[0] -> SG1.schedIn
+      rateGroup1Comp.RateGroupMemberOut[1] -> SG2.schedIn
+      rateGroup1Comp.RateGroupMemberOut[2] -> chanTlm.Run
+      rateGroup1Comp.RateGroupMemberOut[3] -> fileDownlink.Run
+      rateGroup1Comp.RateGroupMemberOut[4] -> systemResources.run
+      rateGroup1Comp.RateGroupMemberOut[5] -> mathReceiver.schedIn
+      rateGroup1Comp.RateGroupMemberOut[6] -> uplink.schedIn
+```
+which never started the gps component. It also looks like I didn't have a .schedIn port in Gps.fpp, so added that per pattern in mathReciever:
+```
+        #-----
+        # general ports
+        #-----
+
+        @ the rate group scheduler input
+        sync input port schedIn: Svc.Sched
+```
+and changed `rateGroup1Comp.RateGroupMemberOut[6] -> uplink.schedIn` to `rateGroup1Comp.RateGroupMemberOut[6] -> gps.schedIn` (I'm not sure why I had `uplink.schedIn` there).
+
+Now get a new error:
+```
+...
+[ 98%] Building CXX object GpsApp/Top/CMakeFiles/GpsApp_Top.dir/GpsAppTopologyDefs.cpp.o
+[ 98%] Building CXX object GpsApp/Top/CMakeFiles/GpsApp_Top.dir/FppConstantsAc.cpp.o
+[ 98%] Building CXX object GpsApp/Top/CMakeFiles/GpsApp_Top.dir/GpsAppTopologyAc.cpp.o
+/home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native/GpsApp/Top/GpsAppTopologyAc.cpp:179:9: error: cannot declare variable ‘GpsApp::{anonymous}::gps’ to be of abstract type ‘GpsApp::Gps’
+  179 |     Gps gps(FW_OPTIONAL_NAME("gps"));
+      |         ^~~
+In file included from /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native/GpsApp/Top/GpsAppTopologyAc.hpp:18,
+                 from /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native/GpsApp/Top/GpsAppTopologyAc.cpp:12:
+/home/djwait/02_Projects/fprime/GpsApp/Gps/Gps.hpp:28:9: note:   because the following virtual functions are pure within ‘GpsApp::Gps’:
+   28 |   class Gps :
+      |         ^~~
+ ...
+ ```
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
