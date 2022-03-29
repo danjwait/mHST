@@ -529,6 +529,25 @@ In file included from /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automa
       |         ^~~
  ...
  ```
+ 
+ After trying to sole the above, still stuck. Still seeing in `/home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native/GpsApp/Top/GpsAppTopologyAc.cpp` :
+ ```
+     // fileUplinkBufferManager
+    Svc::BufferManager fileUplinkBufferManager(FW_OPTIONAL_NAME("fileUplinkBufferManager"));
+
+    // gps
+    Gps gps(FW_OPTIONAL_NAME("gps"));
+
+    // gpsSerial
+    Drv::LinuxSerialDriver gpsSerial(FW_OPTIONAL_NAME("gpsSerial"));
+
+    // health
+    Svc::Health health(FW_OPTIONAL_NAME("health"));
+```
+Can't figure out why Gps shows up that way, as opposed to what I'd expect like `GpsApp::Gps gps(gps(FW_OPTIONAL_NAME("gps"));`
+
+
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
