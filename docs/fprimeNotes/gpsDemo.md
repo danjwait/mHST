@@ -546,6 +546,76 @@ In file included from /home/djwait/02_Projects/fprime/GpsApp/build-fprime-automa
 ```
 Can't figure out why Gps shows up that way, as opposed to what I'd expect like `GpsApp::Gps gps(gps(FW_OPTIONAL_NAME("gps"));`
 
+## Present status
+Reverted back to when I had `uplink.schedIn` in the rate group; left gps as an active component, commented out the `sync input port schedIn: Svc.Sched` in Gps.fpp. Got back to where I could build GpsApp for native and raspberrypi.
+
+I noticed that the old version of the demo has this line to start the GpsApp on the RPi:
+```
+./GpsApp -a <ground system IP> -p 50000 -d <serial port, /dev/ttyACM0 for USB>
+```
+and the old [GpsApp Main.cpp](https://github.com/LeStarch/fprime/blob/gps-application/GpsApp/Top/Main.cpp) file has this code: 
+```
+int main(int argc, char* argv[]) {
+    I32 option = 0;
+    U32 port_number = 50000;
+    char* hostname = NULL;
+    char* device = (char*)"/dev/ttyUSB0";
+
+    while ((option = getopt(argc, argv, "hp:a:d:")) != -1){
+        switch(option) {
+            case 'h':
+                print_usage();
+                return 0;
+                break;
+            case 'p':
+                port_number = atoi(optarg);
+                break;
+            case 'a':
+                hostname = optarg;
+                break;
+            case 'd':
+                device = optarg;
+                break;
+            case '?':
+                return 1;
+            default:
+                print_usage();
+                return 1;
+        }
+    }
+```
+but my command to start the app did not have that; on the RPi I tied `sudo ./GpsApp -a <IP address> -p 50000 -d /dev/serial0` and get an invalid option error and a assert from Svc/BufferManager ; my Main.cpp does not have a -d option, since I copied it from /Ref: 
+```
+int main(int argc, char* argv[]) {
+    U32 port_number = 0; // Invalid port number forced
+    I32 option;
+    char *hostname;
+    option = 0;
+    hostname = nullptr;
+
+    while ((option = getopt(argc, argv, "hp:a:")) != -1){
+        switch(option) {
+            case 'h':
+                print_usage(argv[0]);
+                return 0;
+                break;
+            case 'p':
+                port_number = static_cast<U32>(atoi(optarg));
+                break;
+            case 'a':
+                hostname = optarg;
+                break;
+            case '?':
+                return 1;
+            default:
+                print_usage(argv[0]);
+                return 1;
+        }
+    }
+
+    (void) printf("Hit Ctrl-C to quit\n");
+```
+so looks like I need to re-write Main.cpp    
 
 
 ## Lessons Learned
