@@ -617,6 +617,69 @@ int main(int argc, char* argv[]) {
 ```
 so looks like I need to re-write Main.cpp    
 
+### Updates to Main.cpp
+Added `device` to /GpsApp/Top/Main.cpp:
+```
+int main(int argc, char* argv[]) {
+    U32 port_number = 0; // Invalid port number forced
+    I32 option;
+    char *hostname;
+    char *device;
+    option = 0;
+    hostname = nullptr;
+    device = nullptr;
+
+    while ((option = getopt(argc, argv, "hp:a:d:")) != -1){
+        switch(option) {
+            case 'h':
+                print_usage(argv[0]);
+                return 0;
+                break;
+            case 'p':
+                port_number = static_cast<U32>(atoi(optarg));
+                break;
+            case 'a':
+                hostname = optarg;
+                break;
+            case 'd':
+                device = optarg;
+                break;
+            case '?':
+                return 1;
+            default:
+                print_usage(argv[0]);
+                return 1;
+        }
+    }
+```
+Also needed to update GpsAppTopologyDefs.hpp to include the device, followed pattern for hostName:
+```
+  // State for topology construction
+  struct TopologyState {
+    TopologyState() :
+      hostName(""),
+      portNumber(0),
+      device("")
+    {
+
+    }
+    TopologyState(
+        const char *hostName,
+        U32 portNumber,
+        const char *device
+    ) :
+      hostName(hostName),
+      portNumber(portNumber),
+      device(device)
+    {
+
+    }
+    const char* hostName;
+    U32 portNumber;
+    const char *device;
+  };
+```
+purged, generated, and built both native and raspberrypi
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
