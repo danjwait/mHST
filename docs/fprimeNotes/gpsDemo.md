@@ -679,7 +679,29 @@ Also needed to update GpsAppTopologyDefs.hpp to include the device, followed pat
     const char *device;
   };
 ```
-purged, generated, and built both native and raspberrypi
+purged, generated, and built both native and raspberrypi. scp new GpsApp to RPi, start the GPS receiver, start the GpsApp on the RPI; don't see a seg fault this time when start GpsApp:
+```
+sudo ./GpsApp -a 192.168.86.153 -p 50000 -d /dev/serial0
+```
+but while `cat /dev/serial0` shows GPS data, and the LED on the receiver shows lock, the GPS command `gps.REPORT_STATUS` still returns lock lost, and the GPS telemetry is still not updating. So I think I've still not connected the serial driver correctly.
+
+I think I need something like this from GpsApp/Top/instances.fpp:
+```
+    phase Fpp.ToCpp.Phases.startTasks """
+    // Initialize socket server if and only if there is a valid specification
+    if (state.hostName != nullptr && state.portNumber != 0) {
+        Os::TaskString name("ReceiveTask");
+        // Uplink is configured for receive so a socket task is started
+        comm.configure(state.hostName, state.portNumber);
+        comm.startSocketTask(
+            name,
+            true,
+            ConfigConstants::comm::PRIORITY,
+            ConfigConstants::comm::STACK_SIZE
+        );
+    }
+```
+but for the serial.
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
