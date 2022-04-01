@@ -679,7 +679,7 @@ Also needed to update GpsAppTopologyDefs.hpp to include the device, followed pat
     const char *device;
   };
 ```
-purged, generated, and built both native and raspberrypi. scp new GpsApp to RPi, start the GPS receiver, start the GpsApp on the RPI; don't see a seg fault this time when start GpsApp:
+Purged, generated, and built both native and raspberrypi. scp new GpsApp to RPi, start the GPS receiver, start the GpsApp on the RPI; don't see a seg fault this time when start GpsApp:
 ```
 sudo ./GpsApp -a 192.168.86.153 -p 50000 -d /dev/serial0
 ```
@@ -702,6 +702,45 @@ I think I need something like this from GpsApp/Top/instances.fpp:
     }
 ```
 but for the serial.
+
+Yes, it looks like this is per [Init Specifiers](https://fprime-community.github.io/fpp/fpp-users-guide.html#Defining-Component-Instances_Init-Specifiers) in the FPP guide and [14.2. Implementing Deployments](https://fprime-community.github.io/fpp/fpp-users-guide.html#Writing-C-Plus-Plus-Implementations_Implementing-Deployments)
+
+Tried this:
+```
+  instance gpsSerial: Drv.LinuxSerialDriver base id 0x4C00 \
+    at "../../Drv/LinuxSerialDriver/LinuxSerialDriver.hpp" \
+  {
+    phase Fpp.ToCpp.Phases.startTasks """
+    gpsSerial.open(
+      state.device,
+      Drv::LinuxSerialDriverComponentImpl::BAUD_RATE::BAUD_9600,
+      Drv::LinuxSerialDriverComponentImpl::FLOW_CONTROL::NO_FLOW,
+      Drv::LinuxSerialDriverComponentImpl::PARITY::PARITY_NONE,
+      false
+    );
+    """
+  }
+```
+With fprime-util build get an error:
+```
+...
+sApp/Top/GpsAppTopologyAc.cpp:12:
+/home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-native/GpsApp/Gps/GpsComponentAc.hpp:265:18: note:    ‘virtual void GpsApp::GpsComponentBase::PingIn_handler(NATIVE_INT_TYPE, U32)’
+  265 |     virtual void PingIn_handler(
+      |                  ^~~~~~~~~~~~~~
+make[3]: *** [GpsApp/Top/CMakeFiles/GpsApp_Top.dir/build.make:251: GpsApp/Top/CMakeFiles/GpsApp_Top.dir/GpsAppTopologyAc.cpp.o] Error 1
+...
+```
+so commented out the health pings I'd put in Gps.fpp. Think I should have put those in before and then added them in the implimentation.
+
+Purged, generated, and built both native and raspberrypi. scp new GpsApp to RPi, start the GPS receiver, start the GpsApp on the RPI; this time I see that at least the device was opened:
+```
+...
+[WARNING] High taks priority of 100 being clamped to 99
+EVENT: (19460) (2:1648789092,437810) ACTIVITY_HI: (gpsSerial) DR_PortOpened : UART Device /dev/serial0 configured
+...
+```
+but still no GPS data (Math commands still work, gps.REPORT_STATUS still works)
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
