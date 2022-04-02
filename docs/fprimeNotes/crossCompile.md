@@ -38,9 +38,7 @@ Generated using pi-gen, https://github.com/RPi-Distro/pi-gen, dcfd74d7d1fa293065
 Using toolchains per [raspberrypi / tools](https://github.com/raspberrypi/tools):
 ```
 sudo apt-get install gcc-arm-linux-gnueabihf
-sudo apt-get install g++-arm-linux-gnueabihf
 sudo apt-get install gcc-aarch64-linux-gnu
-sudo apt-get install g++-aarch64-linux-gnu
 ```
 Installed the former pair in case using a 32-bit OS (as in this case); installed the latter pair since RPi4 is 64 bit SoC and may change OS at somepoint. Per above, presently running the 32 bit OS (armv7l). 
 
