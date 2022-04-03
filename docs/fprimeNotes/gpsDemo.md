@@ -742,6 +742,30 @@ EVENT: (19460) (2:1648789092,437810) ACTIVITY_HI: (gpsSerial) DR_PortOpened : UA
 ```
 but still no GPS data (Math commands still work, gps.REPORT_STATUS still works)
 
+Tried adding startReadThread to /GpsApp/Top/instances.fpp:
+```
+...
+  instance gpsSerial: Drv.LinuxSerialDriver base id 0x4C00 \
+    at "../../Drv/LinuxSerialDriver/LinuxSerialDriver.hpp" \
+  {
+    phase Fpp.ToCpp.Phases.startTasks """
+    gpsSerial.open(
+      state.device,
+      Drv::LinuxSerialDriverComponentImpl::BAUD_RATE::BAUD_9600,
+      Drv::LinuxSerialDriverComponentImpl::FLOW_CONTROL::NO_FLOW,
+      Drv::LinuxSerialDriverComponentImpl::PARITY::PARITY_NONE,
+      false
+    );
+    gpsSerial.startReadThread(
+      Os::Task::TASK_DEFAULT,
+      Os::Task::TASK_DEFAULT,
+      Os::Task::TASK_DEFAULT
+    );
+    """
+  }
+...
+```
+Purged, generated, and build both native and raspberrypi fine; loaded to RPi and ran, same behaivor as without the startReadThread. 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
