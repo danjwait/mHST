@@ -766,6 +766,9 @@ Tried adding startReadThread to /GpsApp/Top/instances.fpp:
 ...
 ```
 Purged, generated, and build both native and raspberrypi fine; loaded to RPi and ran, same behaivor as without the startReadThread. 
+
+Added debug Fw::Logger statements to see where the code wasn't working.
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
