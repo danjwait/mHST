@@ -767,7 +767,14 @@ Tried adding startReadThread to /GpsApp/Top/instances.fpp:
 ```
 Purged, generated, and build both native and raspberrypi fine; loaded to RPi and ran, same behaivor as without the startReadThread. 
 
-Added debug Fw::Logger statements to see where the code wasn't working.
+Added debug Fw::Logger statements to see where the code wasn't working. Keep seeing `[WARNING] Unfull message buffer: 1` message.
+
+Tried rebuilding files in GpsApp/Top per [fprime/RPI/Top/](https://github.com/nasa/fprime/tree/devel/RPI/Top) :
+ - changed the gpsSerial startup per `instance uartDrv: Drv.LinuxSerialDriver base id 2000 ` in [/RPI/Top/instances.fpp](https://github.com/nasa/fprime/blob/devel/RPI/Top/instances.fpp)
+ - changed GpsApp/Top/GpsAppTopologyDefs.hpp and GpsApp/Top/GpsAppTopologyDefs.cpp to include namespace Init with a bool status = true
+
+Ran that on RPI and didn't see a change. 
+Block commented out the "if not enough data is available..." lines in Gps.cpp and tried again; see `[STATUS] GPS parsing in work: 0` come out, but then there's a set of those messages w/ numbers  from ~40 to ~ 116, then a seg fault
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
