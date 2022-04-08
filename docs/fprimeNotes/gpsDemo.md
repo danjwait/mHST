@@ -776,6 +776,8 @@ Tried rebuilding files in GpsApp/Top per [fprime/RPI/Top/](https://github.com/na
 Ran that on RPI and didn't see a change. 
 Block commented out the "if not enough data is available..." lines in Gps.cpp and tried again; see `[STATUS] GPS parsing in work: 0` come out, but then there's a set of those messages w/ numbers  from ~40 to ~ 116, then a seg fault
 
+Moved things around a bit, still seg faulting.
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
