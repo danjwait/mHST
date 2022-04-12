@@ -783,7 +783,11 @@ April 11 2022:
  - Commands to the GpsApp work (EVR reports no lock)
  - `cat /dev/serial0` still shows chopped up looking GPS messages when the app is running, but messages are fine when app is stopped
 
-Tired hard-coding values in for GPS telemetry, but still don't see data come back. Also note that gpsSerial.DR_BytesSent and gpsSerial.DR_BytesRecv aren't ever populated.
+Tired hard-coding values in for GPS telemetry, but still don't see data come back. Also note that gpsSerial.DR_BytesSent and gpsSerial.DR_BytesRecv aren't ever populated. I'd guess from looking at the code in the Gps component that the code is never getting to "step 4: generate telemetry" but seems like the serial driver should be reporting its status. 
+
+Also noticed that no longer seeing the message `EVENT: (19460) (2:1648789092,437810) ACTIVITY_HI: (gpsSerial) DR_PortOpened : UART Device /dev/serial0 configured`
+
+Tried adding `at "../../Drv/LinuxSerialDriver/LinuxSerialDriver.hpp" \` back in instances.fpp but don't see the port opened message back. Undid the addition.
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
