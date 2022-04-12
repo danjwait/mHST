@@ -776,7 +776,14 @@ Tried rebuilding files in GpsApp/Top per [fprime/RPI/Top/](https://github.com/na
 Ran that on RPI and didn't see a change. 
 Block commented out the "if not enough data is available..." lines in Gps.cpp and tried again; see `[STATUS] GPS parsing in work: 0` come out, but then there's a set of those messages w/ numbers  from ~40 to ~ 116, then a seg fault
 
-Moved things around a bit, still seg faulting.
+Changed all task priorities to less than 100 to avoid the "clamping" message; still see the same errors
+
+April 11 2022:
+ - Line commented out the serial parsing errors, and the GpsApp doesn't seg fault any more
+ - Commands to the GpsApp work (EVR reports no lock)
+ - `cat /dev/serial0` still shows chopped up looking GPS messages when the app is running, but messages are fine when app is stopped
+
+Tired hard-coding values in for GPS telemetry, but still don't see data come back. Also note that gpsSerial.DR_BytesSent and gpsSerial.DR_BytesRecv aren't ever populated.
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
