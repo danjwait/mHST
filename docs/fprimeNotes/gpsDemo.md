@@ -789,6 +789,14 @@ Also noticed that no longer seeing the message `EVENT: (19460) (2:1648789092,437
 
 Tried adding `at "../../Drv/LinuxSerialDriver/LinuxSerialDriver.hpp" \` back in instances.fpp but don't see the port opened message back. Undid the addition.
 
+April 12 2022:
+As a guess, tried increasing the size of the buffer check:
+```
+    else if (buffsize < 42 ) {
+```
+Still see the choppy response on the `cat /dev/serial0` on the RPi, so undid the change.
+
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
