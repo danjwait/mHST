@@ -794,8 +794,12 @@ As a guess, tried increasing the size of the buffer check:
 ```
     else if (buffsize < 42 ) {
 ```
-Still see the choppy response on the `cat /dev/serial0` on the RPi, so undid the change.
+Didn't change the behavior, so changed that back. Noted that still see the choppy response on the `cat /dev/serial0` on the RPi, so undid the change.
 
+April 13 & 14 2022:
+Noticed that the gpsSerial telemetry points weren't updating either, so thought it may be something broken in the GpsApp components. The LinuxSerialDriver has the telemetry points in the .fppi file, but they aren't "brought out" to the port in the .cpp file per [discussion](https://github.com/nasa/fprime/discussions/1404). 
+
+Added to Gps.cpp a set of `this->tlmWrite_GPS_LATITUDE(lat);` debug TLM points; first at the start of serialRecv_handler(), which indicated that the handler was running. It looks like the line `U32 buffsize = static_cast<U32>(serBuffer.getSize());` is returning 1 almost all the time (as near as I could tell based on the telemetry updates). It looks like the sscanf call never returns a status other than 0, and the buffsize is always 1. So something wrong w/ the buffsize?
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
