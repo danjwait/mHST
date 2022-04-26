@@ -801,6 +801,23 @@ Noticed that the gpsSerial telemetry points weren't updating either, so thought 
 
 Added to Gps.cpp a set of `this->tlmWrite_GPS_LATITUDE(lat);` debug TLM points; first at the start of serialRecv_handler(), which indicated that the handler was running. It looks like the line `U32 buffsize = static_cast<U32>(serBuffer.getSize());` is returning 1 almost all the time (as near as I could tell based on the telemetry updates). It looks like the sscanf call never returns a status other than 0, and the buffsize is always 1. So something wrong w/ the buffsize?
 
+April 24 2022:
+Added debug messages when UART connected; it looks like UART is working on the GpsApp, but somehow serialRecv_handler is still only seeing one buffer, ever.
+
+April 25 2022:
+tried adding `linuxTimer` per RPIdemo for rate groups, in case the serial driver was running at an odd rate. On RPI get a new segfault:
+```
+EVENT: (512) (2:1650945076,810468) DIAGNOSTIC: (rateGroup1Comp) RateGroupStarted : Rate group started.
+EVENT: (768) (2:1650945076,810634) DIAGNOSTIC: (rateGroup2Comp) RateGroupStarted : Rate group started.
+Assert file "/home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-raspberrypi/F-Prime/Svc/Cycle/CyclePortAc.cp
+EVENT: (1024) (2:1650945076,810811) DIAGNOSTIC: (rateGroup3Comp) RateGroupStarted : Rate group started.
+FATAL 16896 handled.
+[ERROR] Failed to send framed data: 1
+Connected to 192.168.86.153:50000 as a tcp client
+Exiting with segfault and core dump file.
+Segmentation fault
+```
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
