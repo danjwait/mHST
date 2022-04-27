@@ -818,6 +818,10 @@ Exiting with segfault and core dump file.
 Segmentation fault
 ```
 
+April 26 2022:
+seems like segfault was beucase I was trying to use linuxTimer in place of the blockDrv timer; I thought I fixed it (and it looked like everything was running at 10Hz), but then it came back. 
+posted question to [forum](https://github.com/nasa/fprime/discussions/1420) on the buffer 
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
