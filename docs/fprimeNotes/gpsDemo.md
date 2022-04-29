@@ -822,6 +822,25 @@ April 26 2022:
 seems like segfault was beucase I was trying to use linuxTimer in place of the blockDrv timer; I thought I fixed it (and it looked like everything was running at 10Hz), but then it came back. 
 posted question to [forum](https://github.com/nasa/fprime/discussions/1420) on the buffer 
 
+April 28 2022:
+ - Seemed to have resolved the segfault. I think I misconfigured something. But I also think that I've attached a lot of things to a 10 Hz rate group.
+ - Updated per [fixing issues with small stack sizes #1427](https://github.com/nasa/fprime/pull/1427)
+ - Still can't get Gps component to parse.
+ - Running fpp-check getting weird error:
+```
+~/02_Projects/fprime/GpsApp/Top$ fpp-check instances.fpp topology.fpp -u unconnected.txt
+fpp-check
+/home/djwait/02_Projects/fprime/GpsApp/Top/instances.fpp: 19.22
+  instance blockDrv: Drv.BlockDriver base id 0x0100 \
+                     ^
+error: undefined symbol Drv
+```
+but the driver is in GpsAppTopologyDefs.hpp and GpsAppTopologyDefs.cpp
+`Drv::BlockDriver blockDrv(FW_OPTIONAL_NAME("blockDrv"));`
+
+ - I think I'm either mis-handling the buffer, or mis-pointing to it. 
+
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
