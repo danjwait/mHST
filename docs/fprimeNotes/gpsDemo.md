@@ -840,6 +840,34 @@ but the driver is in GpsAppTopologyDefs.hpp and GpsAppTopologyDefs.cpp
 
  - I think I'm either mis-handling the buffer, or mis-pointing to it. 
 
+May 2 2022:
+Tried to switch the UART. Worried that somehow I was using the "miniUART" in the [RPi4 documentation](https://www.raspberrypi.com/documentation/computers/configuration.html#configuring-uarts) ; per suggestion on [forum](https://forums.raspberrypi.com/viewtopic.php?t=244827) I went with UART5 (pins 12 and 13 per [datasheet](https://datasheets.raspberrypi.com/rpi4/raspberry-pi-4-datasheet.pdf)) by adding dtoverlay=uart5 to /boot/config.txt
+ - with `cat /dev/ttyAMA1` see GPS data on the RPi, so know that works:
+```
+pi@raspberrypi:~ $ cat /dev/ttyAMA1
+$GPGGA,050555.000,3517.1488,N,12039.4416,W,2,07,1.26,81.3,M,-30.7,M,0000,0000*67
+$GPGSA,A,3,08,32,23,27,10,22,21,,,,,,1.55,1.26,0.91*01
+$GPRMC,050555.000,A,3517.1488,N,12039.4416,W,0.29,283.89,030522,,,D*77
+$GPVTG,283.89,T,,M,0.29,N,0.54,K,D*3A
+$GPGGA,050556.000,3517.1488,N,12039.4417,W,2,07,1.26,81.3,M,-30.7,M,0000,0000*65
+$GPGSA,A,3,08,32,23,27,10,22,21,,,,,,1.56,1.26,0.91*02
+$GPGSV,3,1,12,32,85,205,25,22,62,210,26,10,55,042,20,27,38,231,14*79
+$GPGSV,3,2,12,08,35,279,20,21,31,315,20,23,28,071,12,24,13,046,*77
+$GPGSV,3,3,12,31,11,170,,18,10,132,,01,01,315,,40,,,*45
+$GPRMC,050556.000,A,3517.1488,N,12039.4417,W,0.34,258.75,030522,,,D*7C
+$GPVTG,258.75,T,,M,0.34,N,0.62,K,D*36
+$GPGGA,050557.000,3517.1488,N,12039.4418,W,2,07,1.26,81.3,M,-30.7,M,0000,0000*6B
+$GPGSA,A,3,08,32,23,27,10,22,21,,,,,,1.56,1.26,0.91*02
+$GPRMC,050557.000,A,3517.1488,N,12039.4418,W,0.21,304.92,030522,,,D*77
+$GPVTG,304.92,T,,M,0.21,N,0.39,K,D*3D
+```
+ - changed my boot command to `sudo ./GpsApp -a <IP address> -p 50000 -d /dev/ttyAMA1
+ - noticed that the buffer size reported in telemetry was now larer than 1 on most samples; as high as 16 
+ - set min buffersize for partsing to 4; 
+ - disabled my fake/debug telemetry that I was routing in place of the GPS data so that the fake data didn't over-write the GPS data
+ - eventually see lattitude at 0 and longitude at -1; not right, but at least indicative of the parser running
+ - ran `cat /dev/ttyAMA1` on the RPi while running GpsApp and don't see "choppy" telemetry any more, at least not nearly as bad
+ - so maybe it's just the parser that's off now?
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
