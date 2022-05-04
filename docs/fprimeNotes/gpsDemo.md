@@ -869,6 +869,13 @@ $GPVTG,304.92,T,,M,0.21,N,0.39,K,D*3D
  - ran `cat /dev/ttyAMA1` on the RPi while running GpsApp and don't see "choppy" telemetry any more, at least not nearly as bad
  - so maybe it's just the parser that's off now?
 
+May 3 2022:
+ - slowed the rate group for Gps component to 1 Hz in Main.cpp; consistently see 16 packets in the buffer. 
+ - also seeing the sscanf return 0 at 1 Hz; which implies that each pass through sscanf is failing. Looked at the [$GPGGA NEMA](http://aprs.gids.nl/nmea/#gga) string, and I was not parsing this correectly. Looks like there needs to be a case on the first line on the sscanf for the type of string.   
+```
+$GPGGA,043638.000,3517.1447,N,12039.4364,W,2,07,1.19,65.8,M,-30.7,M,0000,0000*61
+```
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
