@@ -876,6 +876,43 @@ May 3 2022:
 $GPGGA,043638.000,3517.1447,N,12039.4364,W,2,07,1.19,65.8,M,-30.7,M,0000,0000*61
 ```
 
+May 4 2022:
+ - think the error is with parsing now that the UART has been switched
+ - cleaned up some of the DEBUG, tried to just get the data out from within the parsing in serialRecv_handler within Gps component
+ - added a "raw" serial dump; copied from RPi UART handler, just printed out to terminal:
+```
+    // DEBUG per RPi demo
+    // convert incoming data to string. If it is not printable, set character to '*'
+    char uMsg[serBuffer.getSize()+1];
+    char* bPtr = reinterpret_cast<char*>(serBuffer.getData());
+    for (NATIVE_UINT_TYPE byte = 0; byte < serBuffer.getSize(); byte++) {
+        uMsg[byte] = isalpha(bPtr[byte])?bPtr[byte]:'*';
+    }
+    uMsg[sizeof(uMsg)-1] = 0;
+    Fw::Logger::logMsg("Raw serial:\n");
+    Fw::Logger::logMsg(uMsg);
+```
+ - Seems to work; see results:
+```
+Raw serial:
+*GPGGA**********Raw serial:
+************N***Raw serial:
+*********W******Raw serial:
+**********M*****Raw serial:
+**M*************Raw serial:
+***GPGSA*A******Raw serial:
+****************Raw serial:
+****************Raw serial:
+*********GPRMC**Raw serial:
+**********A*****Raw serial:
+******N*********Raw serial:
+***W************Raw serial:
+**********D*****Raw serial:
+*GPVTG********T*Raw serial:
+*M******N******KRaw serial:
+```
+ - 16 characters per dump; it looks like the 16 count isn't the number of buffers used, it's the number of bytes in the buffer 
+ 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
