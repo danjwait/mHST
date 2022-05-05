@@ -878,8 +878,9 @@ $GPGGA,043638.000,3517.1447,N,12039.4364,W,2,07,1.19,65.8,M,-30.7,M,0000,0000*61
 
 May 4 2022:
  - think the error is with parsing now that the UART has been switched
+ - wrote a stand-alone sscanf parser by copying the sscanf code from the Gps component in serialRecv_handler and passed the stand-alone parser the expected NEMA string from `cat /dev/ttyAMA1` on the RPi; the parser worked.
  - cleaned up some of the DEBUG, tried to just get the data out from within the parsing in serialRecv_handler within Gps component
- - added a "raw" serial dump; copied from RPi UART handler, just printed out to terminal:
+ - added a "raw" serial dump; copied copde from RPi UART handler, just printed out to terminal near top pf serialRecv_handler:
 ```
     // DEBUG per RPi demo
     // convert incoming data to string. If it is not printable, set character to '*'
@@ -892,7 +893,7 @@ May 4 2022:
     Fw::Logger::logMsg("Raw serial:\n");
     Fw::Logger::logMsg(uMsg);
 ```
- - Seems to work; see results:
+ - Seems to work; see results on RPi ssh console:
 ```
 Raw serial:
 *GPGGA**********Raw serial:
@@ -911,8 +912,13 @@ Raw serial:
 *GPVTG********T*Raw serial:
 *M******N******KRaw serial:
 ```
- - 16 characters per dump; it looks like the 16 count isn't the number of buffers used, it's the number of bytes in the buffer 
- 
+ - 16 characters per dump; it looks like the 16 count isn't the number of buffers used, it's the number of bytes in the buffer. Also looks like the whole string is there, just chopped up:
+```
+GPGGA**********************N************W****************M*******M****************
+GPGGA,050556.000,3517.1488,N,12039.4417,W,2,07,1.26,81.3,M,-30.7,M,0000,0000*65
+```
+- looks like I need to glue the buffers back together
+- 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
