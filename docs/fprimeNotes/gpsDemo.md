@@ -918,6 +918,53 @@ GPGGA**********************N************W****************M*******M**************
 GPGGA,050556.000,3517.1488,N,12039.4417,W,2,07,1.26,81.3,M,-30.7,M,0000,0000*65
 ```
 - looks like I need to glue the buffers back together
+
+May 5 2022:
+ - made an ugly mess of:
+  - converted each buffer into a string
+  - concatenated each new string into a big string
+  - when big string was long enough, looked for GPGGA start
+  - parsed after that
+  - dumped the big new string
+- seems to work:
+```
+sudo ./GpsApp -a 192.168.86.153 -p 50000 -d /dev/ttyAMA1
+Hit Ctrl-C to quit
+[INFO] Opened GPS UART driver: /dev/ttyAMA1
+EVENT: (1280) (2:1651812780,192618) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2100 registered to port 0 slot 0
+EVENT: (1280) (2:1651812780,192753) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2101 registered to port 0 slot 1
+EVENT: (1280) (2:1651812780,192865) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2102 registered to port 0 slot 2
+EVENT: (1280) (2:1651812780,192918) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2200 registered to port 1 slot 3
+EVENT: (1280) (2:1651812780,192963) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2201 registered to port 1 slot 4
+EVENT: (1280) (2:1651812780,193006) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2202 registered to port 1 slot 5
+EVENT: (1280) (2:1651812780,193107) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2300 registered to port 2 slot 6
+EVENT: (1280) (2:1651812780,193212) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2301 registered to port 2 slot 7
+EVENT: (1280) (2:1651812780,193319) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2302 registered to port 2 slot 8
+EVENT: (1280) (2:1651812780,193425) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2400 registered to port 3 slot 9
+EVENT: (1280) (2:1651812780,193529) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x2401 registered to port 3 slot 10
+...
+EVENT: (1280) (2:1651812780,196269) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4b00 registered to port 18 slot 61
+EVENT: (1280) (2:1651812780,196316) DIAGNOSTIC: (cmdDisp) OpCodeRegistered : Opcode 0x4b01 registered to port 18 slot 62
+EVENT: (3335) (2:1651812780,196432) ACTIVITY_HI: (prmDb) PrmFileLoadComplete : Parameter file load completed. Read 1 records.
+EVENT: (3328) (2:1651812780,196522) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x2700 not found
+EVENT: (3328) (2:1651812780,196581) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x4700 not found
+EVENT: (3328) (2:1651812780,196642) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x4701 not found
+EVENT: (3328) (2:1651812780,196695) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x2600 not found
+EVENT: (3328) (2:1651812780,196747) WARNING_LO: (prmDb) PrmIdNotFound : Parameter ID 0x2601 not found
+[ERROR] Failed to send framed data: 1
+[ERROR] Failed to send framed data: 1
+[ERROR] Failed to send framed data: 1
+[ERROR] Failed to send framed data: 1
+[ERROR] Failed to send framed data: 1
+[ERROR] Failed to send framed data: 1
+[INFO] Preamble size: 20
+EVENT: (512) (2:1651812780,199507) DIAGNOSTIC: (rateGroup1Comp) RateGroupStarted : Rate group started.
+EVENT: (768) (2:1651812780,199681) DIAGNOSTIC: (rateGroup2Comp) RateGroupStarted : Rate group started.
+EVENT: (1024) (2:1651812780,199857) DIAGNOSTIC: (rateGroup3Comp) RateGroupStarted : Rate group started.
+Connected to 192.168.86.153:50000 as a tcp client
+EVENT: (3840) (2:1651812782,427612) ACTIVITY_HI: (gps) GPS_LOCK_ACQUIRED : GPS lock acquired
+```
+- see data in channels
 - 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
