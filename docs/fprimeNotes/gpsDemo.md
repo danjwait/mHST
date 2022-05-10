@@ -965,7 +965,14 @@ Connected to 192.168.86.153:50000 as a tcp client
 EVENT: (3840) (2:1651812782,427612) ACTIVITY_HI: (gps) GPS_LOCK_ACQUIRED : GPS lock acquired
 ```
 - see data in channels
-- 
+
+May 9 2022:
+ - Cleanup data; tried to cleanup comments (that seems to have worked)
+ - Added parsers for the other NEMA sentences in my serialIn handler; I don't have the telemetry setup in the .fpp file yet, so don't know if that works yet
+ - Played with the number of characters to wait on to start the parsing; 512 seems to work to be sure to get one GPGGA string
+ - Haven't figured out a way to truncate the decimal places on output
+ - Need to convert time to something useful
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
