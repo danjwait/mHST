@@ -973,6 +973,11 @@ May 9 2022:
  - Haven't figured out a way to truncate the decimal places on output
  - Need to convert time to something useful
 
+May 10 2022:
+ - Added some of the new sentence data in GpsPacket to TLM; that seems to have worked. Needed to update the Gps.fpp and then the Gps.cpp
+ - Edited the name of some of the TLM; prefer the instances to have all caps so TLM and CMD are INSTANCE.TLM or INSTANCE.CMD. Also edited the instance name of the Gps (component) to GPS (instance) from gps. So rather than gps.GPS_LOCK, TLM is now GPS.LOCK (etc.). Seems to have worked
+ - Looked at the [commands to the Gps device](https://learn.adafruit.com/adafruit-ultimate-gps-featherwing/resources); looks like it's just a string on the UART
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
