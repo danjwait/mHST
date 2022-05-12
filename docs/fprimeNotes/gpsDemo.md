@@ -978,6 +978,11 @@ May 10 2022:
  - Edited the name of some of the TLM; prefer the instances to have all caps so TLM and CMD are INSTANCE.TLM or INSTANCE.CMD. Also edited the instance name of the Gps (component) to GPS (instance) from gps. So rather than gps.GPS_LOCK, TLM is now GPS.LOCK (etc.). Seems to have worked
  - Looked at the [commands to the Gps device](https://learn.adafruit.com/adafruit-ultimate-gps-featherwing/resources); looks like it's just a string on the UART
 
+May 11 2022:
+ - added command to Gps component; just one to set baud rate. updated Gps.fpp to point at cmdTypes.fdd in the same folder, with the enum for the command
+ - added (by hand) the command handler in the Gps.hpp and Gps.cpp, though the only thing the .cpp does is acknoledge the command
+ - working to add the command output
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
