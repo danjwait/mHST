@@ -981,7 +981,12 @@ May 10 2022:
 May 11 2022:
  - added command to Gps component; just one to set baud rate. updated Gps.fpp to point at cmdTypes.fdd in the same folder, with the enum for the command
  - added (by hand) the command handler in the Gps.hpp and Gps.cpp, though the only thing the .cpp does is acknoledge the command
- - working to add the command output
+ - Working to add the command output
+
+May 12 2022:
+ - Sorta added a command to Gps component; figured I could see a buad rate change, and once I got the code working found out that was true; sending the command to change from 9600 baud would cause a segfault some moments later. I could also see with `cat /dev/ttyAMA1` that the baud rate had changed. The problem appears to be that I didn't also change the baud rate on the LinuxSerialDriver component at the same time. It also isn't clear that  Ican change the baud rate on the driver after I've stared it. And as a bonus, the baud rate is sticky on the device, so I have to pull the battery out to reset it
+ - Here is [the reference](https://cdn-shop.adafruit.com/datasheets/PMTK_A11.pdf) on the commands
+ - Here is a [handy reference](https://nmeachecksum.eqth.net/) on checksum calcs
 
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
