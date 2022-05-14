@@ -988,6 +988,12 @@ May 12 2022:
  - Here is [the reference](https://cdn-shop.adafruit.com/datasheets/PMTK_A11.pdf) on the commands
  - Here is a [handy reference](https://nmeachecksum.eqth.net/) on checksum calcs
 
+May 13 2022:
+ - Commented out the baud rate command in .fpp, .hpp., and .cpp. Don't see it in the command list of the GDS any more
+ - Added a COLD_START command; I thought this would only work on reset, but once GPS lock was acquired sending the command caused GPS lock to dorp. So command works, but not as expected. Likewise, the  report lock status command doesn't work as expected, since the lock lost is predicated on having TLM working.
+ - Also noticed that with the `top` command, the GpsApp does show up as GpsApp under root. Wil `ps -elf` it's the command line w/ opptions,
+ - Takes a long time (30+ minutes) for GPS to come up from cold
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
