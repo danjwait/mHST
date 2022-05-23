@@ -994,6 +994,41 @@ May 13 2022:
  - Also noticed that with the `top` command, the GpsApp does show up as GpsApp under root. Wil `ps -elf` it's the command line w/ opptions,
  - Takes a long time (30+ minutes) for GPS to come up from cold
 
+May 22 2022:
+
+Still getting segfault with the "from scratch" version; going to try starting with working math-tutorial version and:
+ - revert to block driver only timing
+ - remove math component parts
+ - remove Ref parts
+
+Branched math-tutorial to gps_strip_down. 
+ - Confirmed that the existing math-tutorial version works.
+ - Commented out linuxTimer in files; regenerated, rebuilt, and retested. Looks like it works.
+ - Commented out/removed Math Tutorial stuff; regenerated, rebuilt, and retested. Looks like it works.
+ - Commented out/removed Signal Gen stuff; regenerated, rebuilt, and retested. Looks like it works.
+ - Commented out/removed PingReceiver stuff; regenerated, rebuilt, and retested. Looks like it works.
+ - Commented out/removed RecvBuffApp and SendBuffApp stuff; regenerated, rebuilt, and retested. Looks like it works.
+ - Cleaned out commented stuff; regenerated, rebuilt, and retested. Looks like it works.
+ - Worked through to clean up comments and style; changed case to GPS and GPS_SERIAL
+ - Copied all the modified files (basically everything in /Top) over to Test-Gps-Demo files; regenerated, rebuilt, and retested. Seg fault:
+```
+[ERROR] Failed to send framed data: 1
+EVENT: (512) (2:1653272138,641969) DIAGNOSTIC: (rateGroup1Comp) RateGroupStarted : Rate group started.
+EVENT: (768) (2:1653272138,642111) DIAGNOSTIC: (rateGroup2Comp) RateGroupStarted : Rate group started.
+EVENT: (1024) (2:1653272138,642256) DIAGNOSTIC: (rateGroup3Comp) RateGroupStarted : Rate group started.
+Assert file "/home/djwait/02_Projects/fprime/GpsApp/build-fprime-automatic-raspberrypi/F-Prime/Drv/Udp/ByteStreamPollPo
+FATAL 16896 handled.
+[ERROR] Failed to send framed data: 1
+Connected to 192.168.86.153:50000 as a tcp client
+Exiting with segfault and core dump file.
+Segmentation fault
+```
+
+Tried the opposite way; copied all the /Gps files from Gps-Demo-Test into the gps_strip_down branch, with the /Top files from above, to see if there's something w/ the F' files between the branches. Regenerated, rebuilt, and retested. So that works. Need to figure out what version of fprime/devel I am using on each branch
+
+
+
+
 ## Lessons Learned
  - Don't copy over the other components; add them to `/GpsApp/CMakeLists.txt` instead with `add_fprime_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../Ref/MathReceiver")`
  - Scrub though all the /Ref stuff, looking in anything copied over for the /Ref
