@@ -42,10 +42,38 @@
             <subvertex xmi:type="uml:State" xmi:id="_lLyXcGjwEeyCz4nASgF2iw" name="Detumble"/>
           </region>
         </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_679vUPHhEeynvI6QTXekCA" memberEnd="_68AyoPHhEeynvI6QTXekCA _68AyofHhEeynvI6QTXekCA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_68ALkPHhEeynvI6QTXekCA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_68ALkfHhEeynvI6QTXekCA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_68AyoPHhEeynvI6QTXekCA" name="test new idea" type="_CmNwIPHgEeynvI6QTXekCA" association="_679vUPHhEeynvI6QTXekCA"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_68AyofHhEeynvI6QTXekCA" name="student" type="_rJIWMCVxEeyATbkKDVZeCA" association="_679vUPHhEeynvI6QTXekCA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_9btvQPHhEeynvI6QTXekCA" memberEnd="_9bwLgPHhEeynvI6QTXekCA _9bwLgfHhEeynvI6QTXekCA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9bu9YPHhEeynvI6QTXekCA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9bvkcPHhEeynvI6QTXekCA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_9bwLgPHhEeynvI6QTXekCA" name="teach about spacecraft" type="_AJJQwPHgEeynvI6QTXekCA" association="_9btvQPHhEeynvI6QTXekCA"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_9bwLgfHhEeynvI6QTXekCA" name="instructor" type="_uwTtsCVwEeyATbkKDVZeCA" association="_9btvQPHhEeynvI6QTXekCA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_-OFAUPHhEeynvI6QTXekCA" memberEnd="_-OFnYvHhEeynvI6QTXekCA _-OFnY_HhEeynvI6QTXekCA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-OFnYPHhEeynvI6QTXekCA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-OFnYfHhEeynvI6QTXekCA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_-OFnYvHhEeynvI6QTXekCA" name="acquire image" type="_jfmA8PHgEeynvI6QTXekCA" association="_-OFAUPHhEeynvI6QTXekCA"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_-OFnY_HhEeynvI6QTXekCA" name="observer" type="_uRNhcCVxEeyATbkKDVZeCA" association="_-OFAUPHhEeynvI6QTXekCA"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="__BdlEPHhEeynvI6QTXekCA" memberEnd="__BeMIfHhEeynvI6QTXekCA __BeMIvHhEeynvI6QTXekCA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="__BdlEfHhEeynvI6QTXekCA" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__BeMIPHhEeynvI6QTXekCA" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="__BeMIfHhEeynvI6QTXekCA" name="acquire image" type="_jfmA8PHgEeynvI6QTXekCA" association="__BdlEPHhEeynvI6QTXekCA"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="__BeMIvHhEeynvI6QTXekCA" name="space awareness" type="_4McbgCVxEeyATbkKDVZeCA" association="__BdlEPHhEeynvI6QTXekCA"/>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_GzKsACS8EeyUo9sI7RyG2Q" name="L1_Requirements"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_I89DACS8EeyUo9sI7RyG2Q" name="L1_Structure">
-        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble" useCase="_FYQncCVwEeyATbkKDVZeCA _iv-oACVzEeyATbkKDVZeCA _vn4HgCVzEeyATbkKDVZeCA __WxmEFIlEey5Wbjd6xZ57Q">
+        <packagedElement xmi:type="uml:Class" xmi:id="_hfbTQCS8EeyUo9sI7RyG2Q" name="miniHubble" useCase="_FYQncCVwEeyATbkKDVZeCA _iv-oACVzEeyATbkKDVZeCA _vn4HgCVzEeyATbkKDVZeCA __WxmEFIlEey5Wbjd6xZ57Q _AJJQwPHgEeynvI6QTXekCA _CmNwIPHgEeynvI6QTXekCA _FNJWIPHgEeynvI6QTXekCA _HRB5cPHgEeynvI6QTXekCA _XniN0PHgEeynvI6QTXekCA _ZJ1HAPHgEeynvI6QTXekCA _jfmA8PHgEeynvI6QTXekCA _kxCasPHgEeynvI6QTXekCA">
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="_FYQncCVwEeyATbkKDVZeCA" name="test new idea" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
             <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_qI0d0CVzEeyATbkKDVZeCA" name="ExtensionPoint1"/>
           </ownedUseCase>
@@ -54,6 +82,29 @@
           <ownedUseCase xmi:type="uml:UseCase" xmi:id="__WxmEFIlEey5Wbjd6xZ57Q" name="test new hardware" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
             <generalization xmi:type="uml:Generalization" xmi:id="_Vnl8wFImEey5Wbjd6xZ57Q" general="_FYQncCVwEeyATbkKDVZeCA"/>
           </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_AJJQwPHgEeynvI6QTXekCA" name="Teach About Spacecraft" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_dhDJcfHhEeynvI6QTXekCA" name="ExtensionPoint1"/>
+            <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_eVLVEfHhEeynvI6QTXekCA" name="ExtensionPoint2"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_CmNwIPHgEeynvI6QTXekCA" name="Test New Idea" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_48C7cPHgEeynvI6QTXekCA" name="ExtensionPoint1"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_FNJWIPHgEeynvI6QTXekCA" name="Take to Class" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <extend xmi:type="uml:Extend" xmi:id="_eVLVEPHhEeynvI6QTXekCA" extendedCase="_AJJQwPHgEeynvI6QTXekCA" extensionLocation="_eVLVEfHhEeynvI6QTXekCA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_HRB5cPHgEeynvI6QTXekCA" name="Disassemble / Assemble " subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <extend xmi:type="uml:Extend" xmi:id="_dhDJcPHhEeynvI6QTXekCA" extendedCase="_AJJQwPHgEeynvI6QTXekCA" extensionLocation="_dhDJcfHhEeynvI6QTXekCA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_XniN0PHgEeynvI6QTXekCA" name="Test New Software" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <generalization xmi:type="uml:Generalization" xmi:id="_XU2F4PHhEeynvI6QTXekCA" general="_CmNwIPHgEeynvI6QTXekCA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_ZJ1HAPHgEeynvI6QTXekCA" name="Test New Hardware" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <generalization xmi:type="uml:Generalization" xmi:id="_YISVAPHhEeynvI6QTXekCA" general="_CmNwIPHgEeynvI6QTXekCA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_jfmA8PHgEeynvI6QTXekCA" name="Acquire Image" subject="_hfbTQCS8EeyUo9sI7RyG2Q">
+            <include xmi:type="uml:Include" xmi:id="_3QQvEPHgEeynvI6QTXekCA" addition="_kxCasPHgEeynvI6QTXekCA"/>
+          </ownedUseCase>
+          <ownedUseCase xmi:type="uml:UseCase" xmi:id="_kxCasPHgEeynvI6QTXekCA" name="Point to Target" subject="_hfbTQCS8EeyUo9sI7RyG2Q"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_AcNfEyS-EeyUo9sI7RyG2Q" name="telescope" type="_H9yPkCS9EeyUo9sI7RyG2Q" aggregation="composite" association="_AcNfECS-EeyUo9sI7RyG2Q">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AcOGICS-EeyUo9sI7RyG2Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AcOGISS-EeyUo9sI7RyG2Q" value="1"/>
