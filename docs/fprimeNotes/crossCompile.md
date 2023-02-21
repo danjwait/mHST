@@ -315,6 +315,11 @@ Need to connect the ports between WSL2 IP to the host Windows IP, per the WSL2 n
 netsh interface portproxy add v4tov4 listenport=50000 listenaddress=0.0.0.0 connectport=50000 connectaddress=<WSL2 IP Address>
 ```
 Where the `<WSL2 IP Address>` is found on the WSL2 OS via the command `~$ ip addr | grep eth0` per the WSL2 networking notes linked above.
+   
+Further, need to open port for WSL2 "out" to let WSL2 in VS code to connect through Win 11 OS to network:
+```
+netsh advfirewall firewall add rule name= "open port 50000" dir=in action=allow protocol=TCP localport=50000
+```
 ### Start the GDS
 I started the GDS w/o specifying the IP address:
 ``` /02_Projects/fprime/Ref$ fprime-gds -g html -n --dictionary build-artifacts/raspberrypi/dict/RefTopologyAppDictionary.xml```
