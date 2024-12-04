@@ -42,4 +42,19 @@ $ pinctrl
 ...
 ```
 
+Also checked in /dev:
+
 ```
+/dev $ ls
+autofs           gpiochip0  loop1         net    ram6       tty11  tty28  tty44  tty60      vcs       vcsu1        video18
+block            gpiochip1  loop2         null   ram7       tty12  tty29  tty45  tty61      vcs1      vcsu2        video19
+btrfs-control    gpiochip4  loop3         port   ram8       tty13  tty3   tty46  tty62      vcs2      vcsu3        video20
+bus              gpiomem    loop4         ppp    ram9       tty14  tty30  tty47  tty63      vcs3      vcsu4        video21
+cachefiles       hidraw0    loop5         ptmx   random     tty15  tty31  tty48  tty7       vcs4      vcsu5        video22
+cec0             hidraw1    loop6         pts    rfkill     tty16  tty32  tty49  tty8       vcs5      vcsu6        video23
+cec1             hidraw2    loop7         ram0   serial0    tty17  tty33  tty5   tty9       vcs6      vcsu7        video31
+char             hidraw3    loop-control  ram1   shm        tty18  tty34  tty50  ttyAMA5
+...
+```
+So then after confirming GPS LED is flashing, checked the UART with `cat /dev/ttyAMA5` and see GPS NEMA strings.
+
