@@ -1,4 +1,4 @@
-used the gpsDemo write up, but need to use pinct
+used the gpsDemo write up, but needed to update per latest 64bit rpi os:
 ```
 $ uname -a
 Linux raspberrypi 6.6.62+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.6.62-1+rpt1 (2024-11-25) aarch64 GNU/Linux
@@ -9,8 +9,20 @@ Description:    Debian GNU/Linux 12 (bookworm)
 Release:        12
 Codename:       bookworm
 ```
-Using UART5 per gpsDemo, added to 
+Using UART5 per gpsDemo, added to config.txt:
+```
+$ more /boot/firmware/config.txt 
+# For more options and information see
+# http://rptl.io/configtxt
+# Some settings may impact device functionality. See link above for details
 
+# Uncomment some or all of these to enable the optional hardware interfaces
+...
+[all]
+enable_uart=1
+dtoverlay=uart5
+```
+Used pinctrl to check:
 ```
 $ pinctrl 
  0: ip    pu | hi // ID_SDA/GPIO0 = input
@@ -29,14 +41,5 @@ $ pinctrl
 13: a4    pu | hi // GPIO13 = RXD5
 ...
 ```
-$ more /boot/firmware/config.txt 
-# For more options and information see
-# http://rptl.io/configtxt
-# Some settings may impact device functionality. See link above for details
 
-# Uncomment some or all of these to enable the optional hardware interfaces
-...
-[all]
-enable_uart=1
-dtoverlay=uart5
 ```
